@@ -31,6 +31,12 @@ include/DPS/dpsexcept.h
 include/DPS/dpsfriends.h
 include/DPS/dpsops.h
 include/DPS/psops.h
+include/X11/Intrinsic.h
+include/X11/Core.h
+include/X11/RectObj.h
+include/X11/Composite.h
+include/X11/Constraint.h
+include/X11/Object.h
 include/X11/PEX5/PEX.h
 include/X11/PEX5/PEXlib.h
 include/X11/PEX5/PEXlibint.h
@@ -307,6 +313,7 @@ lib/libPEX5.dylib
 lib/libPEX5.so
 lib/libPEX5.so.6
 lib/libPEX5.so.6.0
+lib/libXext.a
 lib/libXIE.6.0.dylib
 lib/libXIE.6.dylib
 lib/libXIE.a
@@ -561,3 +568,4 @@ lib/pkgconfig/xprintapputil.pc
 lib/pkgconfig/xvmc.pc
 lib/pkgconfig/xxf86misc.pc
 lib/pkgconfig/xxf86vm.pc
+lib/pkgconfig/xproto.pc

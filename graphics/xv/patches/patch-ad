@@ -1,7 +1,7 @@
 $NetBSD: patch-ad,v 1.10 2007/07/08 10:50:26 wiz Exp $
 
 diff -u Imakefile Imakefile
---- Imakefile.orig
+--- Imakefile.orig	Thu Feb 17 11:18:49 2011
 +++ Imakefile
 @@ -6,13 +6,15 @@
  /* if, for whatever reason, you're unable to get the JPEG library to compile
@@ -31,7 +31,7 @@ diff -u Imakefile Imakefile
  /*
   * if you are running on a SysV-based machine, such as HP, Silicon Graphics,
   * etc, uncomment one of the following lines to get you *most* of the way
-@@ -124,20 +129,62 @@
+@@ -124,21 +129,63 @@ MGCSFX = -DMGCSFXDIR=\"$(MGCSFXDIR)\"
  JPEG = -DDOJPEG
  JPEGDIR = jpeg
  LIBJPEG = $(JPEGDIR)/libjpeg.a
@@ -77,7 +77,7 @@ diff -u Imakefile Imakefile
 +LIBPNG = ${PNGLIB}
 +PNGINCLUDE = ${PNGINC}
 +#endif
-+
+ 
 +/*
 +###
 +### if, for whatever reason, you're unable to get the PNG library to compile
@@ -91,10 +91,11 @@ diff -u Imakefile Imakefile
 +LIBZLIB = ${ZLIB}
 +ZLIBINCLUDE = ${ZLIBINC}
 +#endif
- 
++
  #if defined(SCOArchitecture)
  SCO= -Dsco -DPOSIX -DNO_RANDOM 
-@@ -149,14 +196,14 @@
+ SYS_LIBRARIES=        -lm -lc -lx 
+@@ -149,14 +196,14 @@ SYS_LIBRARIES=        -lm
  #endif
  
  
@@ -105,8 +106,9 @@ diff -u Imakefile Imakefile
  
  DEFINES= $(SCO) $(UNIX) $(NODIRENT) $(VPRINTF) $(TIMERS) \
 -	$(HPUX7) $(JPEG) $(TIFF) $(PDS) $(DXWM) $(RAND) \
+-	$(BACKING_STORE) $(BSDTYPES) $(SGI) $(MGCSFX)
 +	$(HPUX7) $(JPEG) $(TIFF) $(PNG) $(PDS) $(DXWM) $(RAND) \
- 	$(BACKING_STORE) $(BSDTYPES) $(SGI) $(MGCSFX)
++	$(BACKING_STORE) $(BSDTYPES) $(SGI) $(MGCSFX) -DUSE_GETCWD
  
 -INCLUDES = $(JPEGINCLUDE) $(TIFFINCLUDE)
 +INCLUDES = $(JPEGINCLUDE) $(TIFFINCLUDE) $(PNGINCLUDE) $(ZLIBINCLUDE)

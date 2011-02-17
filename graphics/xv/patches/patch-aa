@@ -1,6 +1,6 @@
 $NetBSD$
 
---- xvpcd.c.orig	2007-05-14 01:02:13.000000000 +0000
+--- xvpcd.c.orig	Mon May 14 01:02:13 2007
 +++ xvpcd.c
 @@ -30,9 +30,6 @@
  #ifdef HAVE_PCD

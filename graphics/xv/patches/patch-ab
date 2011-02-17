@@ -1,6 +1,6 @@
 $NetBSD$
 
---- vdcomp.c.orig	2007-07-27 23:20:04.000000000 +0000
+--- vdcomp.c.orig	Thu Feb 17 11:18:49 2011
 +++ vdcomp.c
 @@ -96,41 +96,6 @@
  #include <stdio.h>

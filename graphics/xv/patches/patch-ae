@@ -2,7 +2,7 @@ $NetBSD$
 
 Fix build with libpng 1.5.
 
---- xvpng.c.orig	2007-05-14 00:53:28.000000000 +0000
+--- xvpng.c.orig	Mon May 14 00:53:28 2007
 +++ xvpng.c
 @@ -31,6 +31,7 @@
  
@@ -21,7 +21,7 @@ Fix build with libpng 1.5.
  
  #define DWIDE    86
  #define DHIGH    104
-@@ -435,6 +436,16 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -435,6 +436,16 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
  {
    png_struct *png_ptr;
    png_info   *info_ptr;
@@ -38,7 +38,7 @@ Fix build with libpng 1.5.
    png_color   palette[256];
    png_textp   text;
    byte        r1[256], g1[256], b1[256];  /* storage for deduped palette */
-@@ -444,6 +455,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -444,6 +455,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
    byte       *p, *png_line;
    char        software[256];
    char       *savecmnt;
@@ -46,7 +46,7 @@ Fix build with libpng 1.5.
  
    if ((png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL,
         png_xv_error, png_xv_warning)) == NULL) {
-@@ -458,7 +470,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -458,7 +470,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
      FatalError(software);
    }
  
@@ -55,7 +55,7 @@ Fix build with libpng 1.5.
      png_destroy_write_struct(&png_ptr, &info_ptr);
      return -1;
    }
-@@ -489,8 +501,8 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -489,8 +501,8 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
      png_set_filter(png_ptr, 0, filter);
    }
  
@@ -66,7 +66,7 @@ Fix build with libpng 1.5.
    if (w <= 0 || h <= 0) {
      SetISTR(ISTR_WARNING, "%s:  image dimensions out of range (%dx%d)",
        fbasename, w, h);
-@@ -498,7 +510,8 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -498,7 +510,8 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
      return -1;
    }
  
@@ -76,7 +76,7 @@ Fix build with libpng 1.5.
  
    linesize = 0;   /* quiet a compiler warning */
  
-@@ -542,40 +555,40 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -542,40 +555,40 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
          png_destroy_write_struct(&png_ptr, &info_ptr);
          return -1;
        }
@@ -129,7 +129,7 @@ Fix build with libpng 1.5.
        if (MONO(r1[0], g1[0], b1[0]) > MONO(r1[1], g1[1], b1[1])) {
          remap[0] = 1;
          remap[1] = 0;
-@@ -595,7 +608,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -595,7 +608,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
            png_destroy_write_struct(&png_ptr, &info_ptr);
            return -1;
          }
@@ -138,7 +138,7 @@ Fix build with libpng 1.5.
        }
        else /* ptype == PIC8 */ {
          int low_precision;
-@@ -617,7 +630,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -617,7 +630,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
          for (; i < 256; i++)
            remap[i]=0;  /* shouldn't be necessary, but... */
  
@@ -147,7 +147,7 @@ Fix build with libpng 1.5.
  
          /* Note that this fails most of the time because of gamma */
             /* (and that would be a bug:  GRR FIXME) */
-@@ -636,7 +649,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -636,7 +649,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
            for (i = 0; i < numuniqcols; i++) {
              remap[i] &= 0xf;
            }
@@ -156,7 +156,7 @@ Fix build with libpng 1.5.
  
            /* try to adjust to 2-bit precision grayscale */
  
-@@ -652,7 +665,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -652,7 +665,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
            for (i = 0; i < numuniqcols; i++) {
              remap[i] &= 3;
            }
@@ -165,7 +165,7 @@ Fix build with libpng 1.5.
  
            /* try to adjust to 1-bit precision grayscale */
  
-@@ -668,7 +681,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -668,7 +681,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
            for (i = 0; i < numuniqcols; i++) {
              remap[i] &= 1;
            }
@@ -174,7 +174,7 @@ Fix build with libpng 1.5.
          }
        }
      }
-@@ -677,6 +690,20 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -677,6 +690,20 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
    else
      png_error(png_ptr, "Unknown colorstyle in WritePNG");
  
@@ -195,7 +195,7 @@ Fix build with libpng 1.5.
    if ((text = (png_textp)malloc(sizeof(png_text)))) {
      sprintf(software, "XV %s", REVDATE);
  
-@@ -684,21 +711,29 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -684,21 +711,29 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
      text->key = "Software";
      text->text = software;
      text->text_length = strlen(text->text);
@@ -231,7 +231,7 @@ Fix build with libpng 1.5.
      png_set_packing(png_ptr);
  
    pass=png_set_interlace_handling(png_ptr);
-@@ -711,13 +746,13 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -711,13 +746,13 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
      int j;
      p = pic;
      for (j = 0; j < h; ++j) {
@@ -247,15 +247,15 @@ Fix build with libpng 1.5.
          int k;
          for (k = 0; k < w; ++k)
            png_line[k] = pc2nc[p[k]];
-@@ -743,24 +778,26 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -743,24 +778,26 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
        strcpy(savecmnt, picComments);
        key = savecmnt;
        tp = text;
 -      info_ptr->num_text = 0;
-+
+ 
 +      png_free_data(png_ptr, info_ptr, PNG_FREE_TEXT, -1);
 +      num_text = 0;
- 
++
        comment = strchr(key, ':');
  
        do  {
@@ -279,7 +279,7 @@ Fix build with libpng 1.5.
            }
          }
  
-@@ -810,7 +847,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -810,7 +847,7 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
              }
  
              tp->compression = tp->text_length > 640 ? 0 : -1;
@@ -288,7 +288,7 @@ Fix build with libpng 1.5.
              tp++;
            }
          }
-@@ -834,27 +871,29 @@ int WritePNG(fp, pic, ptype, w, h, rmap,
+@@ -834,27 +871,29 @@ int WritePNG(fp, pic, ptype, w, h, rmap, gmap, bmap, n
            tp->text = key;
            tp->text_length = q - key;
            tp->compression = tp->text_length > 750 ? 0 : -1;
@@ -310,11 +310,11 @@ Fix build with libpng 1.5.
 -  info_ptr->valid |= PNG_INFO_tIME;
 +  {
 +     png_time mod_time;
-+
+ 
 +     png_convert_from_time_t(&mod_time, time(NULL));
 +     png_set_tIME(png_ptr, info_ptr, &mod_time);
 +  }
- 
++
    png_write_end(png_ptr, info_ptr);
    fflush(fp);   /* just in case we core-dump before finishing... */
  
