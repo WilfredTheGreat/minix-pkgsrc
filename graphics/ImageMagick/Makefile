@@ -58,7 +58,7 @@ SUBST_VARS.fix-cfg=	CONFIGURE_ARGS
 .include "../../fonts/fontconfig/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/lcms/buildlink3.mk"
-.include "../../graphics/openexr/buildlink3.mk"
+#.include "../../graphics/openexr/buildlink3.mk" # Works without this.
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../math/fftw/buildlink3.mk"
