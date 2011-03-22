@@ -1,44 +1,60 @@
-# $NetBSD: Makefile,v 1.7 2010/10/25 12:47:09 adam Exp $
+# $NetBSD$
+#
 
-DISTNAME=	clang-2.8
-CATEGORIES=	lang
-MASTER_SITES=	http://llvm.org/releases/${PKGVERSION_NOREV}/
-# XXX remove on next update
-DIST_SUBDIR=	${PKGNAME_NOREV}
-DISTFILES=	llvm-${PKGVERSION_NOREV}.tgz clang-${PKGVERSION_NOREV}.tgz
+PKGNAME=	clang-2.9
+CATEGORIES=	minix
+MASTER_SITES=	http://www.minix3.org/distfiles-minix/
+SVNREV=		125950
+DISTNAME=	llvm-clang-r${SVNREV}
 
 MAINTAINER=	ben@minix3.org
 HOMEPAGE=	http://llvm.org/
 COMMENT=	Low Level Virtual Machine compiler infrastructure
+DEPENDS+=       binutils>=2.17nb3:../../devel/binutils
+DEPENDS+=       compiler-rt-r123836nb2:../../minix/compiler-rt
+
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-WRKSRC=			${WRKDIR}/llvm-${PKGVERSION_NOREV}
+GNU_CONFIGURE=	yes
+USE_TOOLS+=	gmake perl:build chown groff
+#USE_LANGUAGES+=	c c++
+MAKE_DIRS+=	etc/llvm
+USE_LIBTOOL=	yes
 
-USE_LANGUAGES=		c c++
-USE_TOOLS+=		chown perl:build gmake
-GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--disable-bindings	# disable OCaml
-
-MAKE_DIRS+=		etc/llvm
+CONFIGURE_ARGS=	--enable-bindings=none	# no OCaml, please!
 
 INSTALLATION_DIRS=	bin lib libexec
 
-CHECK_PORTABILITY_SKIP=	utils/buildit/build_llvm
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "Minix"
+CXXFLAGS+= -D_POSIX_SOURCE
+CONFIGURE_ARGS+= --disable-jit 
+CONFIGURE_ARGS+= --enable-targets=x86
+CONFIGURE_ARGS+= --disable-shared
+CONFIGURE_ARGS+= --disable-llvm-dynamic-plugins
+CONFIGURE_ARGS+= --disable-threads
+CONFIGURE_ARGS+= --disable-pic
+CONFIGURE_ARGS+= --disable-llvmc-dynamic 
+CONFIGURE_ARGS+= --disable-llvmc-dynamic-plugins
+CONFIGURE_ARGS+= --disable-libtool-lock
+CONFIGURE_ARGS+= --enable-optimized
+CONFIGURE_ARGS+= --disable-assertions
+CONFIGURE_ENV+= AR=ar AS=as LD=ld NM=nm
+.else
+# This should be changed!
+CONFIGURE_ARGS+= --enable-targets=host-only
+CONFIGURE_ARGS+= --disable-optimized
+.endif
+
+#.include "../../lang/ocaml/buildlink3.mk"
 
 TEST_TARGET=	check unittests
 
-SUBST_CLASSES+=		perl
-SUBST_MESSAGE.perl=	Fixing llvm-configure PERL path
-SUBST_STAGE.perl=	post-patch
-SUBST_FILES.perl=	tools/llvm-config/llvm-config.in.in
-SUBST_SED.perl=		-e 's,@PERL@,${PERL5},'
-
 post-extract:
-	mv ${WRKDIR}/clang-${PKGVERSION_NOREV} ${WRKSRC}/tools/clang
+	${MV} ${WRKDIR}/clang ${WRKDIR}/llvm/tools/clang
 
-# XXX Darwin only?
-pre-install:
-	find ${WRKSRC}/tools/clang/include/clang -name '*.inc.tmp' -exec rm {} \;
+WRKSRC=			${WRKDIR}/llvm
 
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
