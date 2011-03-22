@@ -1,7 +1,7 @@
 # $NetBSD: Makefile,v 1.37 2009/07/22 09:25:02 wiz Exp $
 
 DISTNAME=	binutils-2.17
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=binutils/}
 
@@ -39,7 +39,7 @@ INFO_FILES=	# PLIST
 #
 PLIST_VARS+=	gprof
 .include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} != "IRIX"
+.if ${OPSYS} != "IRIX" &&  ${OPSYS} != "Minix"
 PLIST.gprof=	yes
 .endif
 

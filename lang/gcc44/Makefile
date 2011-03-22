@@ -2,7 +2,7 @@
 
 DISTNAME=		gcc-${GCC_VERSION}
 PKGNAME=		gcc44-${GCC_VERSION}
-PKGREVISION=		2
+PKGREVISION=		3
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_GNU:=gcc/gcc-${GCC_VERSION}/}
 EXTRACT_SUFX=		.tar.bz2
@@ -39,7 +39,7 @@ UNLIMIT_RESOURCES+=	datasize
 
 # Determine whether to use binutils
 .if ${OPSYS} == "Minix"
-DEPENDS+=	binutils>=2.16:../../devel/binutils
+DEPENDS+=	binutils>=2.17nb3:../../devel/binutils
 
 BINUTILS_PREFIX_CMD= ${PKG_INFO} -Q BINUTILS_PROGRAM_PREFIX binutils 2>/dev/null \
 		|| { cd ${.CURDIR}/../../devel/binutils \
@@ -47,6 +47,8 @@ BINUTILS_PREFIX_CMD= ${PKG_INFO} -Q BINUTILS_PROGRAM_PREFIX binutils 2>/dev/null
 BINUTILS_PREFIX= ${:!${BINUTILS_PREFIX_CMD}!}
 CONFIGURE_ARGS+=	--with-as=${LOCALBASE}/bin/${BINUTILS_PREFIX}as
 CONFIGURE_ARGS+=	--with-ld=${LOCALBASE}/bin/${BINUTILS_PREFIX}ld
+CONFIGURE_ARGS+=	--host=i386-pc-minix --target=i386-pc-minix --build=i386-pc-minix 
+CONFIGURE_ARGS+=	--disable-visibility 
 .endif
 
 # REPLACE_AWK+=	gcc/testsuite/gcc.test-framework/test-framework.awk	\
@@ -163,7 +165,9 @@ pre-configure:
 	${CP} ${FILESDIR}/i386-dragonfly.h ${WRKSRC}/gcc/config/i386/dragonfly.h
 	${CP} ${FILESDIR}/i386-dragonfly64.h ${WRKSRC}/gcc/config/i386/dragonfly64.h
 .elif ${OPSYS} == "Minix"
-	${CP} ${FILESDIR}/minix.h ${WRKSRC}/gcc/config/i386/
+	${CP} ${FILESDIR}/minix.h ${WRKSRC}/gcc/config/
+	${CP} ${FILESDIR}/minix-spec.h ${WRKSRC}/gcc/config/
+	${CP} ${FILESDIR}/i386-minix.h ${WRKSRC}/gcc/config/i386/minix.h
 	${CP} ${FILESDIR}/gcov-minix-fs-wrapper.h ${WRKSRC}/gcc/
 .endif
 
