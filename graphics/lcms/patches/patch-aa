@@ -1,0 +1,20 @@
+$NetBSD$
+
+--- include/icc34.h.in.orig	Fri May 25 14:04:02 2007
++++ include/icc34.h.in
+@@ -210,11 +210,11 @@ typedef __int32_t       icInt64Number[2];
+ 
+ #include <sys/types.h>
+ 
+-#if defined(__sun) || defined(__hpux) || defined (__MINGW) || defined(__MINGW32__)
++#if defined(__sun) || defined(__hpux) || defined (__MINGW) || defined(__MINGW32__) || defined(__minix)
+ 
+-#if defined (__MINGW) || defined(__MINGW32__)
+-#include <stdint.h>
+-#endif
++#if defined (__MINGW) || defined(__MINGW32__) || defined(__minix)
++#include <stdint.h>
++#endif
+ 
+ 
+ typedef uint8_t   icUInt8Number;
