@@ -8,7 +8,7 @@ MASTER_SITES=	${MASTER_SITE_MINIX}
 MAINTAINER=	ben@minix3.org
 COMMENT=	libgcc replacement
 
-BUILD_DEPENDS+=	cmake:../../devel/cmake
+BUILD_DEPENDS+=	cmake-[0-9]*:../../devel/cmake
 
 #WRKSRC=                 ${WRKDIR}/$(SVN_REPOSITORIES)
 
@@ -19,6 +19,8 @@ BUILD_DIRS=		${WRKDIR}/build
 INSTALL_DIRS=		${WRKDIR}/build
 
 CMAKE_SOURCE_PATH=	${WRKSRC}
+
+.include "../../mk/bsd.prefs.mk"
 
 USE_CMAKE=	yes
 USE_GCC=	4.2+

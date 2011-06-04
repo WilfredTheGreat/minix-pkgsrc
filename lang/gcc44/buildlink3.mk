@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.2 2009/09/18 13:35:41 dmcmahill Exp $
+# $NetBSD: buildlink3.mk,v 1.4 2011/04/14 19:38:13 hans Exp $
 
 BUILDLINK_TREE+=	gcc44
 
@@ -11,8 +11,11 @@ FIND_PREFIX:=	BUILDLINK_PREFIX.gcc44=gcc44
 _GCC44_SUBDIR=	gcc44
 _GCC44_PREFIX=	${BUILDLINK_PREFIX.gcc44}/${_GCC44_SUBDIR}
 
+# Minix gcc dependency override
+.if !defined(MINIX_GCC_NODEP)
 BUILDLINK_API_DEPENDS.gcc44+=	gcc44>=${_GCC_REQD}
 BUILDLINK_ABI_DEPENDS.gcc44?=	gcc44>=4.4.0
+.endif
 BUILDLINK_PKGSRCDIR.gcc44?=	../../lang/gcc44
 
 .if exists(${_GCC44_PREFIX}/bin/gcc)
@@ -60,7 +63,12 @@ BUILDLINK_DEPMETHOD.gcc44?=	build
 .if ${OPSYS} != "Minix"
 .include "../../mk/pthread.buildlink3.mk"
 .endif
+
+pkgbase := gcc44
+.include "../../mk/pkg-build-options.mk"
+.if !empty(PKG_BUILD_OPTIONS.gcc44:Mnls)
 .include "../../devel/gettext-lib/buildlink3.mk"
+.endif
 .endif # GCC44_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-gcc44

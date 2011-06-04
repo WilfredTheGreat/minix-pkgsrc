@@ -1,62 +1,172 @@
 #!/bin/sh
+
+#####
+##
+## Minix pBulk Bootstrap Script
+##
+#####
+
+# Stop execution when an error occurs
 set -e
 
-# pkgsrc source tree, bootstrap subtree
-PKGSRC=/usr/pkgsrc
-BOOTSTRAP=$PKGSRC/bootstrap
+# Set output verbosity (0=quiet, 1=normal, 2=debug)
+PKG_DEBUG_LEVEL=2
 
-# New system prefix to install all results in
-PREFIX=/usr/pbulk
+pbulksh_help() {
+	echo "Usage: "
+	echo "  $0 --bootstrap   Do the initial bootstrap"
+	echo "  $0 --backup      Backup /usr/pkg to a safe place"
+	echo "  $0 --bin-kit     Create a binary kit"
+	echo "  $0 --build       Execute bulkbuild"
+	echo "  $0 --restore     Restore /usr/pkg"
+	echo "  $0 --all         Do all steps mentioned above"
+	echo "  $0 --help        Display this message"
+}
 
-VARBASE=/usr/pbulk/var
+# Preparation -- bootstraps a pkgsrc installation into /usr/pbulk
+pbulksh_bootstrap() {
 
-# Compiling during bootstrap
-WORKDIR=/usr/tmp/pbulk-bootstrap
+	dirs="/usr/pbulk /usr/pbulk-packages /usr/tmp/pbulk-bootstrap /usr/tmp/pbulk-outer /usr/pbulk-logs"
+	for d in $dirs
+	do      if [ -d $d ]
+	        then    echo "$d exists."
+	                echo "please remove all of $dirs."
+	                echo "Then re-run me."
+	                exit 1
+	        fi
+	done
 
-# mk.conf pkgsrc read by these pkgsrc binaries
-MKCONF=$PREFIX/etc/mk.conf
+	cd /usr/pkgsrc
 
-# Compiling packages
-WRKOBJDIR=/usr/tmp/pbulk-outer
+	sh ./bootstrap/bootstrap --prefix=/usr/pbulk \
+			--varbase=/usr/pbulk/var \
+			--workdir=/usr/tmp/pbulk-bootstrap \
+			--pkgdbdir=/usr/pbulk/.pkgdb \
+			--mk-fragment=/usr/pkgsrc/minix/mk.conf.minix.pbulk
 
-# Extra minix mk.conf
-MINIXMKCONF=$PKGSRC/minix/mk.conf.minix
+	rm -rf /usr/tmp/pbulk-bootstrap
 
-if [ ! -f $MINIXMKCONF ]
-then	echo "$MINIXMKCONF not found."
-	exit 1
-fi
+	# Install pbulk into /usr/pbulk
+	cd /usr/pkgsrc/pkgtools/pbulk
+	env PATH=/usr/pbulk/bin:/usr/pbulk/sbin:${PATH} bmake install package
+	cp /usr/pkgsrc/minix/pbulk.conf /usr/pbulk/etc/pbulk.conf
+}
 
-dirs="$PREFIX $VARBASE $WORKDIR $WRKOBJDIR"
-for d in $dirs
-do	if [ -d $d ]
-	then	echo "$d exists."
-		echo "please remove all of $dirs."
-		echo "Then re-run me."
+# In order to build proper packages, we need to work in /usr/pkg.
+# Here, we back up /usr/pkg as well as VARBASE.
+pbulksh_backup() {
+
+	dirs="/usr/pkg.sav /usr/var.sav"
+	for d in $dirs
+	do      if [ -d $d ]
+	        then    echo "$d exists."
+	                echo "Did you already run --backup?"
+	                exit 1
+	        fi
+	done
+
+	mv /usr/pkg /usr/pkg.sav
+	mkdir /usr/pkg
+	mv /usr/var /usr/var.sav
+	mkdir /usr/var
+}
+
+# Create a bootstrap a binary kit. pbulk needs this.
+pbulksh_bin_kit() {
+
+	dirs="/usr/pkg.sav /usr/var.sav"
+	for d in $dirs
+	do      if [ ! -d $d ]
+	        then    echo "$d doesn't exist."
+	                echo "Re-run with --backup to back it up"
+	                exit 1
+	        fi
+	done
+
+	cd /usr/pkgsrc
+	rm -f /usr/pkgsrc/bootstrap/bootstrap.tar.gz
+	sh ./bootstrap/cleanup
+
+	# Trim the .ifdef BSD_PKG_MK and .endif lines to make a "fragment"
+	sed -e '1d;$d' /usr/pkgsrc/minix/mk.conf.minix > /usr/pkgsrc/minix/mk.conf.minix.frag
+
+	env PATH=/usr/pbulk/bin:/usr/pbulk/sbin:/usr/pkg.sav/bin:/usr/pkg.sav/sbin:${PATH} sh ./bootstrap/bootstrap \
+		--mk-fragment=/usr/pkgsrc/minix/mk.conf.minix.frag \
+		--gzip-binary-kit=/usr/pkgsrc/bootstrap/bootstrap.tar.gz \
+		--varbase=/usr/var \
+		--pkgdbdir=/usr/var/db/pkg
+	rm -f /usr/pkgsrc/minix/mk.conf.minix.frag
+
+	rm -rf /usr/pbulk-packages
+
+	# Use the same mk.conf that our users instead of the hybrid auto-generated mk.conf from bootstrap
+	cd /usr/pkgsrc/bootstrap
+	mkdir temp
+	mv bootstrap.tar.gz temp
+	cd temp
+	tar xf bootstrap.tar.gz
+	cp /usr/pkgsrc/minix/mk.conf.minix usr/pkg/etc/mk.conf
+	tar hzcf ../bootstrap.tar.gz usr
+	cd ..
+	rm -rf temp
+	cd /usr/pkgsrc
+}
+
+# Perform the bulk build. Most configuration is in pbulk.conf
+pbulksh_build() {
+
+
+	if [ ! -f /usr/pkgsrc/bootstrap/bootstrap.tar.gz ]
+	then
+		echo "/usr/pkgsrc/bootstrap/bootstrap.tar.gz doesn't exist"
+		echo "Re-run with --bin-kit to create it"
 		exit 1
 	fi
-done
 
-cd $BOOTSTRAP
-sh bootstrap --prefix=$PREFIX --varbase=$VARBASE --workdir=$WORKDIR
+	if [ ! -d /usr/pbulk ]
+	then
+		echo "/usr/pbulk doesn't exist"
+		echo "Re-run with --bootstrap to create it"
+		exit 1
+	fi
 
-if [ ! -f $MKCONF ]
-then	echo "$MKCONF not found. bootstrap should have generated this."
-	exit 1
-fi
+	env PATH=/usr/pbulk/bin:/usr/pbulk/sbin:/usr/pkg.sav/bin:/usr/pkg.sav/sbin:${PATH} /usr/pbulk/bin/bulkbuild
+}
 
-echo Adding to $MKCONF
+# Restore the backed up /usr/pkg and /usr/var
+pbulksh_restore() {
 
-echo "# These settings added by Minix pbulk.sh" >>$MKCONF
-echo >>$MKCONF .ifdef BSD_PKG_MK
-echo "WRKOBJDIR=$WRKOBJDIR" >>$MKCONF
-cat $MINIXMKCONF >>$MKCONF
-echo >>$MKCONF .endif
+	dirs="/usr/pkg.sav /usr/var.sav"
+	for d in $dirs
+	do      if [ ! -d $d ]
+	        then    echo "$d doesn't exist."
+	                echo "Can't restore without it."
+	                exit 1
+	        fi
+	done
 
-echo "Ok. Now install the pbulk build tools in the new hierarchy. Type:"
-echo "# cd $PKGSRC/pkgtools/pbulk"
-echo "# $PREFIX/bin/bmake package"
+	rm -rf /usr/pkg
+	mv /usr/pkg.sav /usr/pkg
+	rm -rf /usr/var
+	mv /usr/var.sav /usr/var
+}
 
-echo "When that is done, to make a binary kit, do:"
-echo "# cd $BOOTSTRAP"
-echo "# sh bootstrap --gzip-binary-kit $BOOTSTRAP/bootstrap.tgz"
+pbulksh_all() {
+
+	pbulksh_bootstrap
+	pbulksh_backup
+	pbulksh_bin_kit
+	pbulksh_build
+	pbulksh_restore
+}
+
+case $1 in
+	"--bootstrap") pbulksh_bootstrap; break;;
+	"--backup") pbulksh_backup; break;;
+	"--bin-kit") pbulksh_bin_kit; break;;
+	"--build") pbulksh_build; break;;
+	"--restore") pbulksh_restore; break;;
+	"--all") pbulksh_all; break;;
+	"--help") pbulksh_help; break;;
+	*) pbulksh_help; break;;
+esac

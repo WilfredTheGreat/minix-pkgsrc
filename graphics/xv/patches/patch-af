@@ -1,4 +1,4 @@
-$NetBSD$
+$NetBSD: patch-af,v 1.8 2011/01/23 23:58:01 dholland Exp $
 
 Config fixups.
   - don't declare errno and sys_errlist
