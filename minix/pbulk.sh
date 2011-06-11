@@ -26,11 +26,11 @@ pbulksh_help() {
 # Preparation -- bootstraps a pkgsrc installation into /usr/pbulk
 pbulksh_bootstrap() {
 
-	dirs="/usr/pbulk /usr/pbulk-packages /usr/tmp/pbulk-bootstrap /usr/tmp/pbulk-outer /usr/pbulk-logs"
+	dirs="/usr/pbulk /usr/pbulk-packages /usr/tmp/pbulk-bootstrap /usr/tmp/pbulk-outer /usr/pbulk-logs /usr/pkgsrc/packages/$(uname -r)/"
 	for d in $dirs
 	do      if [ -d $d ]
 	        then    echo "$d exists."
-	                echo "please remove all of $dirs."
+	                echo "please remove all of $dirs"
 	                echo "Then re-run me."
 	                exit 1
 	        fi
@@ -45,11 +45,12 @@ pbulksh_bootstrap() {
 			--mk-fragment=/usr/pkgsrc/minix/mk.conf.minix.pbulk
 
 	rm -rf /usr/tmp/pbulk-bootstrap
+	rm -rf /usr/pkgsrc/packages/$(uname -r)/
 
 	# Install pbulk into /usr/pbulk
 	cd /usr/pkgsrc/pkgtools/pbulk
 	env PATH=/usr/pbulk/bin:/usr/pbulk/sbin:${PATH} bmake install package
-	cp /usr/pkgsrc/minix/pbulk.conf /usr/pbulk/etc/pbulk.conf
+	sed -e 's/OP_SYS_VER/'$(uname -r)'/g' /usr/pkgsrc/minix/pbulk.conf > /usr/pbulk/etc/pbulk.conf
 }
 
 # In order to build proper packages, we need to work in /usr/pkg.
@@ -98,6 +99,7 @@ pbulksh_bin_kit() {
 	rm -f /usr/pkgsrc/minix/mk.conf.minix.frag
 
 	rm -rf /usr/pbulk-packages
+	rm -rf /usr/pkgsrc/packages/$(uname -r)/
 
 	# Use the same mk.conf that our users instead of the hybrid auto-generated mk.conf from bootstrap
 	cd /usr/pkgsrc/bootstrap
