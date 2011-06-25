@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.5 2010/09/23 15:36:01 obache Exp $
+# $NetBSD: Makefile,v 1.9 2011/04/22 13:44:18 obache Exp $
 #
 
 PKGNAME=		${RUBY_PKGPREFIX}-gnome2-gstreamer-${VERSION}

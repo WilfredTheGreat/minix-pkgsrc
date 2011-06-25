@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.211 2010/09/09 05:39:25 sno Exp $
+# $NetBSD: Makefile,v 1.218 2011/06/09 04:39:26 jnemeth Exp $
 
 COMMENT=	Mathematics
 
@@ -11,8 +11,10 @@ SUBDIR+=	R-PHYLOGR
 SUBDIR+=	R-R2HTML
 SUBDIR+=	R-RArcInfo
 SUBDIR+=	R-Rcmdr
+SUBDIR+=	R-XML
 SUBDIR+=	R-abind
 SUBDIR+=	R-akima
+SUBDIR+=	R-bitops
 SUBDIR+=	R-chron
 SUBDIR+=	R-circular
 SUBDIR+=	R-classInt
@@ -52,6 +54,7 @@ SUBDIR+=	blitz++
 SUBDIR+=	calc
 SUBDIR+=	calcoo
 SUBDIR+=	capc-calc
+SUBDIR+=	clisp-pari
 SUBDIR+=	cln
 SUBDIR+=	dcdflib.c
 SUBDIR+=	dcdflib.f
@@ -90,6 +93,8 @@ SUBDIR+=	graphopt
 SUBDIR+=	grpn
 SUBDIR+=	gsl
 SUBDIR+=	gtklife
+SUBDIR+=	heirloom-factor
+SUBDIR+=	heirloom-units
 SUBDIR+=	itpp
 SUBDIR+=	kseg
 SUBDIR+=	lapack
@@ -182,6 +187,7 @@ SUBDIR+=	qhull
 SUBDIR+=	quadpack
 SUBDIR+=	randlib
 SUBDIR+=	ruby-rb-gsl
+SUBDIR+=	ruby-spreadsheet
 SUBDIR+=	sc
 SUBDIR+=	scilab
 SUBDIR+=	slatec
@@ -191,6 +197,10 @@ SUBDIR+=	statist
 SUBDIR+=	superlu
 SUBDIR+=	tasp-vsipl
 SUBDIR+=	teapot
+SUBDIR+=	tex-fp
+SUBDIR+=	tex-fp-doc
+SUBDIR+=	tex-kastrup
+SUBDIR+=	tex-kastrup-doc
 SUBDIR+=	texdrive
 SUBDIR+=	tochnog
 SUBDIR+=	udunits

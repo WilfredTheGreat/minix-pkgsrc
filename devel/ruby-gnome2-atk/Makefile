@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2010/09/23 15:35:58 obache Exp $
+# $NetBSD: Makefile,v 1.10 2011/04/22 13:43:23 obache Exp $
 #
 
 PKGNAME=		${RUBY_PKGPREFIX}-gnome2-atk-${VERSION}

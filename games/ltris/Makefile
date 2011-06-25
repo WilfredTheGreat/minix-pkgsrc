@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.21 2008/07/14 12:56:04 joerg Exp $
+# $NetBSD: Makefile,v 1.23 2011/04/22 13:43:38 obache Exp $
 
-DISTNAME=	ltris-1.0.15
+DISTNAME=	ltris-1.0.16
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=lgames/}
 

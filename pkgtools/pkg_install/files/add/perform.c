@@ -52,7 +52,6 @@ __RCSID("$NetBSD: perform.c,v 1.98 2010/09/14 22:26:18 gdt Exp $");
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <assert.h>
 
 #include <archive.h>
 #include <archive_entry.h>
@@ -60,6 +59,8 @@ __RCSID("$NetBSD: perform.c,v 1.98 2010/09/14 22:26:18 gdt Exp $");
 #include "lib.h"
 #include "add.h"
 #include "version.h"
+
+#define MAX_PKG_DO_RECURSION_DEPTH (1024)
 
 struct pkg_meta {
 	char *meta_contents;
@@ -127,12 +128,7 @@ static const struct pkg_meta_desc {
 	{ 0, NULL, 0, 0 },
 };
 
-struct dependency_stack {
-	struct dependency_stack *prev;
-	const char *pkgpath;
-};
-
-static int pkg_do(const char *, int, int, struct dependency_stack *);
+static int pkg_do(const char *, int, int, int);
 
 static int
 end_of_version(const char *opsys, const char *version_end)
@@ -864,46 +860,63 @@ pkg_register_depends(struct pkg_task *pkg)
 	free(text);
 }
 
-static void
+#ifdef __minix
+static int
 normalise_version(char *release, char *version)
 {
 	char actual_version[50];
 	int l1, l2;
 
-	assert(release && version);
+	if (release == NULL || version == NULL) {
+		warnx("release or version information not present");
+		return -1;
+	}
 
 	l1 = strlen(release);
 	l2 = strlen(version);
 
-	assert(l1 + l2 + 2 < sizeof(actual_version));
+	if (l1 + l2 + 2 >= sizeof(actual_version)) {
+		warnx("not enough space to normalise version");
+		return -1;
+	}
 
-	if(l1 > 0 && l2 > 0)
+	if (l1 > 0 && l2 > 0) {
 		snprintf(actual_version, sizeof(actual_version),
 			"%s.%s", release, version);
-        else if(strlen(release) > 0)
+	} else if (strlen(release) > 0) {
 		strncpy(actual_version, release, sizeof(actual_version)-1);
-	else if(strlen(version) > 0)
+	} else if (strlen(version) > 0) {
 		strncpy(actual_version, version, sizeof(actual_version)-1);
-	else
-		errx(EXIT_FAILURE, "no version info");
+	} else {
+		warnx("cannot determine version information");
+		return -1;
+	}
 
 	strcpy(release, actual_version);
 	version[0] = '\0';
+
+	return 0;
 }
+#endif
 
 /*
  * Reduce the result from uname(3) to a canonical form.
  */
-static void
+static int
 normalise_platform(struct utsname *host_name)
 {
+	int rc = 0;
+
 #ifdef NUMERIC_VERSION_ONLY
 	size_t span;
 
 	span = strspn(host_name->release, "0123456789.");
 	host_name->release[span] = '\0';
 #endif
-	normalise_version(host_name->release, host_name->version);
+#ifdef __minix
+	rc = normalise_version(host_name->release, host_name->version);
+#endif
+	return rc;
 }
 
 /*
@@ -914,7 +927,7 @@ check_platform(struct pkg_task *pkg)
 {
 	struct utsname host_uname;
 	const char *effective_arch;
-	int fatal = 0;
+	int fatal;
 
 	if (uname(&host_uname) < 0) {
 		if (Force) {
@@ -926,7 +939,9 @@ check_platform(struct pkg_task *pkg)
 		}
 	}
 
-	normalise_platform(&host_uname);
+	if (normalise_platform(&host_uname)) {
+		return -1;
+	}
 
 	if (OverrideMachine != NULL)
 		effective_arch = OverrideMachine;
@@ -939,8 +954,6 @@ check_platform(struct pkg_task *pkg)
 		fatal = 1;
 	else
 		fatal = 0;
-
-	normalise_version(host_uname.release, host_uname.version);
 
 	if (fatal ||
 	    compatible_platform(OPSYS_NAME, host_uname.release,
@@ -1129,7 +1142,7 @@ check_implicit_conflict(struct pkg_task *pkg)
 }
 
 static int
-check_dependencies(struct pkg_task *pkg, struct dependency_stack *dependency_stack)
+check_dependencies(struct pkg_task *pkg, int depth)
 {
 	plist_t *p;
 	char *best_installed;
@@ -1160,7 +1173,7 @@ check_dependencies(struct pkg_task *pkg, struct dependency_stack *dependency_sta
 				    p->name);
 				continue;
 			}
-			if (pkg_do(p->name, 1, 0, dependency_stack)) {
+			if (pkg_do(p->name, 1, 0, depth)) {
 				if (ForceDepends) {
 					warnx("Can't install dependency %s, "
 					    "continuing", p->name);
@@ -1409,33 +1422,17 @@ check_license(struct pkg_task *pkg)
  * Install a single package.
  */
 static int
-pkg_do(const char *pkgpath, int mark_automatic, int top_level, 
-	struct dependency_stack *dependency_stack)
+pkg_do(const char *pkgpath, int mark_automatic, int top_level, int depth)
 {
 	char *archive_name;
 	int status, invalid_sig;
 	struct pkg_task *pkg;
 
-	/* workaround 2010-12-10: prevent endless recursion for circular dependencies */
-	struct dependency_stack dependency_stack_top;
-
-	dependency_stack_top.prev = dependency_stack;
-	dependency_stack_top.pkgpath = pkgpath;
-
-	while (dependency_stack) {
-		if (strcmp(dependency_stack->pkgpath, pkgpath) == 0) {
-			fprintf(stderr, "warning: ignoring circular dependency:\n");
-			dependency_stack = &dependency_stack_top;
-			while (dependency_stack) {
-				fprintf(stderr, "- %s\n", dependency_stack->pkgpath);
-				dependency_stack = dependency_stack->prev;
-			}
-			return 0;
-		}
-		dependency_stack = dependency_stack->prev;
+	if (++depth > MAX_PKG_DO_RECURSION_DEPTH) {
+		warnx("circular dependency detected");
+		return -1;
 	}
-	/* end workaround */
-	
+
 	pkg = xcalloc(1, sizeof(*pkg));
 
 	status = -1;
@@ -1547,7 +1544,7 @@ pkg_do(const char *pkgpath, int mark_automatic, int top_level,
 			pkg->install_logdir_real = NULL;
 		}
 
-		if (check_dependencies(pkg, &dependency_stack_top))
+		if (check_dependencies(pkg, depth))
 			goto nuke_pkgdb;
 	} else {
 		/*
@@ -1555,7 +1552,7 @@ pkg_do(const char *pkgpath, int mark_automatic, int top_level,
 		 * Install/update dependencies first and
 		 * write the current package to disk afterwards.
 		 */ 
-		if (check_dependencies(pkg, &dependency_stack_top))
+		if (check_dependencies(pkg, depth))
 			goto clean_memory;
 
 		if (write_meta_data(pkg))
@@ -1639,7 +1636,7 @@ pkg_perform(lpkg_head_t *pkgs)
 	lpkg_t *lpp;
 
 	while ((lpp = TAILQ_FIRST(pkgs)) != NULL) {
-		if (pkg_do(lpp->lp_name, Automatic, 1, NULL))
+		if (pkg_do(lpp->lp_name, Automatic, 1, 0))
 			++errors;
 		TAILQ_REMOVE(pkgs, lpp, lp_link);
 		free_lpkg(lpp);

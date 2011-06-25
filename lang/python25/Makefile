@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.27 2010/09/02 11:27:55 drochner Exp $
+# $NetBSD: Makefile,v 1.34 2011/05/15 10:07:20 hans Exp $
 
 .include "dist.mk"
 
 PKGNAME=	python25-${PY_DISTVERSION}
-PKGREVISION=	1
 CATEGORIES=	lang python
 
-MAINTAINER=	recht@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.python.org/
 COMMENT=	Interpreted, interactive, object-oriented programming language
 LICENSE=	python-software-foundation
@@ -56,6 +55,7 @@ USE_TOOLS+=	gmake
 PY_PLATNAME=	${LOWER_OPSYS:C/\..*//}
 .elif ${OPSYS} == "SunOS"
 PY_PLATNAME=	sunos${OS_VERSION:C/\..*//}
+CONFIGURE_ENV+=	ac_cv_header_netpacket_packet_h=no
 .elif ${OPSYS} == "HPUX"
 PY_PLATNAME=	hp-ux11
 .else
@@ -147,9 +147,7 @@ INSTALL_TARGET=	altinstall
 REPLACE_INTERPRETER+=	py25
 REPLACE.py25.old=	.*python[^ ]*
 REPLACE.py25.new=	${PREFIX}/bin/python${PY_VER_SUFFIX}
-REPLACE_FILES.py25=	Lib/cgi.py	# explicitly demanded to be patched
-REPLACE_FILES.py25+=	Lib/bsddb/dbshelve.py Lib/test/test_bz2.py
-REPLACE_FILES.py25+=	Lib/test/test_largefile.py Lib/test/test_optparse.py
+REPLACE_FILES.py25=	Lib/*.py Lib/*/*.py Lib/*/*/*.py
 
 post-extract:
 	${MV} ${WRKSRC}/Lib/smtpd.py ${WRKSRC}/Lib/smtpd${PY_VER_SUFFIX}.py

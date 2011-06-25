@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.36 2010/11/15 22:56:44 abs Exp $
+# $NetBSD: Makefile,v 1.39 2011/04/22 13:42:31 obache Exp $
 
-DISTNAME=	monodevelop-2.4
+DISTNAME=	monodevelop-2.4.2
 PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	http://ftp.novell.com/pub/mono/sources/monodevelop/

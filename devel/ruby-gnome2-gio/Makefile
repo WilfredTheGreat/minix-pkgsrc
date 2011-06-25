@@ -1,4 +1,4 @@
-# $NetBSD$
+# $NetBSD: Makefile,v 1.5 2011/04/22 13:43:23 obache Exp $
 #
 
 PKGNAME=		${RUBY_PKGPREFIX}-gnome2-gio-${VERSION}
@@ -12,6 +12,9 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 RUBY_EXTCONF_SUBDIRS=	gio2
 
 DEPENDS+=		${RUBY_PKGPREFIX}-gnome2-glib>=${VERSION}:../../devel/ruby-gnome2-glib
+
+do-test:
+	${RUN} cd ${WRKSRC}/gio2/test && ${SETENV} ${TEST_ENV} ${RUBY} load-test.rb
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/ruby-pkg-config/tool.mk"

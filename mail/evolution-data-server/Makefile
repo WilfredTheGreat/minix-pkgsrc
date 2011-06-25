@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.106 2010/11/24 20:19:43 drochner Exp $
+# $NetBSD: Makefile,v 1.110 2011/05/13 17:18:35 drochner Exp $
 
-DISTNAME=	evolution-data-server-2.32.1
+DISTNAME=	evolution-data-server-2.32.3
 PKGREVISION=	1
 CATEGORIES=	mail gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/evolution-data-server/2.32/}

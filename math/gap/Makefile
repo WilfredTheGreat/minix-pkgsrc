@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.23 2009/05/19 08:59:23 wiz Exp $
+# $NetBSD: Makefile,v 1.25 2011/03/17 20:55:27 zafer Exp $
 #
 
 DISTNAME=	gap4r3
@@ -7,7 +7,6 @@ PKGREVISION=	1
 CATEGORIES=	math
 MASTER_SITES=	ftp://ftp-gap.dcs.st-and.ac.uk/pub/gap/gap4/ \
 		ftp://ftp.math.rwth-aachen.de/pub/gap/gap4/ \
-		ftp://pell.anu.edu.au/pub/algebra/gap4/ \
 		ftp://ftp.ccs.neu.edu/pub/mirrors/ftp-gap.dcs.st-and.ac.uk/pub/gap/gap4/
 DISTFILES=		${DISTNAME}${EXTRACT_SUFX}	\
 			fix4r3n5.tar.gz
@@ -32,6 +31,9 @@ GAP_DIRECTORY=	${PREFIX}/lib/gap4.3
 GAP_PLATFORM=	${MACHINE_GNU_PLATFORM}-${CC}
 
 PLIST_SUBST+=	GAP_PLATFORM=${GAP_PLATFORM:Q}
+
+CHECK_INTERPRETER_SKIP+=	lib/gap4.3/pkg/example/make_zoo
+
 
 INSTALLATION_DIRS=	bin
 

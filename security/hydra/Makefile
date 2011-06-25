@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.27 2010/11/15 22:58:26 abs Exp $
+# $NetBSD: Makefile,v 1.29 2011/04/22 14:40:45 obache Exp $
 #
 
 DISTNAME=	${PKGNAME_NOREV}-src
 PKGNAME=	hydra-5.4
-PKGREVISION=	7
+PKGREVISION=	9
 CATEGORIES=	security
 MASTER_SITES=	http://freeworld.thc.org/releases/
 

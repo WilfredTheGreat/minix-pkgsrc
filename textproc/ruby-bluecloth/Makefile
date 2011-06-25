@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2010/11/13 21:09:04 shattered Exp $
+# $NetBSD: Makefile,v 1.5 2011/02/21 16:01:20 taca Exp $
 
-DISTNAME=	bluecloth-2.0.9
+DISTNAME=	bluecloth-2.1.0
 CATEGORIES=	textproc
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -8,7 +8,7 @@ HOMEPAGE=	http://deveiate.org/projects/BlueCloth
 COMMENT=	Markdown library for Ruby
 LICENSE=	original-bsd
 
-CONFLICTS+=	ruby[1-9][0-9]-bluecloth-*
+CONFLICTS+=	ruby[1-9][0-9]-bluecloth-[0-9]*
 
 .include "../../lang/ruby/gem.mk"
 .include "../../mk/bsd.pkg.mk"

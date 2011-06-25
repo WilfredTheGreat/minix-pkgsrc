@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.32 2010/12/17 07:36:09 obache Exp $
+# $NetBSD: Makefile,v 1.35 2011/04/22 13:44:13 obache Exp $
 #
 
 DISTNAME=	tellico-2.3.2
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	misc
 MASTER_SITES=	http://tellico-project.org/files/
 EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=	wiz@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://tellico-project.org/
 COMMENT=	Collection manager for KDE
 LICENSE=	gnu-gpl-v2

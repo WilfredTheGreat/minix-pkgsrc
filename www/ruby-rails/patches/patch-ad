@@ -1,12 +1,14 @@
 $NetBSD$
 
---- ../rails-2.3.10.gemspec.orig	2010-10-15 02:35:21.000000000 +0000
-+++ ../rails-2.3.10.gemspec
-@@ -126,7 +126,6 @@ files: 
- - CHANGELOG
- - fresh_rakefile
+Remove a junk file.
+
+--- ../rails-2.3.12.gemspec.orig	2011-06-08 12:39:40.000000000 +0000
++++ ../rails-2.3.12.gemspec
+@@ -128,7 +128,6 @@ files: 
  - MIT-LICENSE
--- railties-3.0.0.beta3.gem
  - Rakefile
  - README
+-- tags
  - bin/about
+ - bin/console
+ - bin/dbconsole

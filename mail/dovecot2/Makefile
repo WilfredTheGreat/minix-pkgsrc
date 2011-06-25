@@ -1,19 +1,20 @@
-# $NetBSD: Makefile,v 1.5 2010/12/03 21:21:10 ghen Exp $
+# $NetBSD: Makefile,v 1.12 2011/06/10 21:57:08 obache Exp $
 
-DISTNAME=		dovecot-2.0.9
-CATEGORIES=		mail
-MASTER_SITES=		http://www.dovecot.org/releases/2.0/
+DISTNAME=	dovecot-2.0.13
+PKGREVISION=	2
+CATEGORIES=	mail
+MASTER_SITES=	http://www.dovecot.org/releases/2.0/
 
-MAINTAINER=		ghen@NetBSD.org
-HOMEPAGE=		http://www.dovecot.org/
-COMMENT=		Secure IMAP and POP3 server
-LICENSE=		mit AND gnu-lgpl-v2.1 AND modified-bsd
+MAINTAINER=	ghen@NetBSD.org
+HOMEPAGE=	http://www.dovecot.org/
+COMMENT=	Secure IMAP and POP3 server
+LICENSE=	mit AND gnu-lgpl-v2.1 AND modified-bsd
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-USE_TOOLS+=		pkg-config rpcgen
 USE_LIBTOOL=		yes
+USE_TOOLS+=		pkg-config rpcgen
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}

@@ -1,4 +1,4 @@
-# $NetBSD: bsd.prefs.mk,v 1.311 2010/08/24 19:08:28 bad Exp $
+# $NetBSD: bsd.prefs.mk,v 1.313 2011/01/31 08:18:44 sbd Exp $
 #
 # This file includes the mk.conf file, which contains the user settings.
 #
@@ -31,6 +31,7 @@
 #
 
 .if !defined(BSD_PKG_MK)
+
 # Let mk.conf know that this is pkgsrc.
 BSD_PKG_MK=1
 __PREFIX_SET__:=${PREFIX}
@@ -95,6 +96,7 @@ GNU_ARCH.sh3eb?=	sh
 GNU_ARCH.sh3el?=	shle
 NATIVE_MACHINE_GNU_ARCH?=	${GNU_ARCH.${NATIVE_MACHINE_ARCH}:U${NATIVE_MACHINE_ARCH}}
 MACHINE_GNU_ARCH?=		${GNU_ARCH.${MACHINE_ARCH}:U${MACHINE_ARCH}}
+
 ## If changes are made to how OS_VERSION is set below please keep
 ## "pkgsrc/pkgtools/osabi/INSTALL" in-sync.
 .if ${OPSYS} == "NetBSD"
@@ -113,7 +115,7 @@ _OS_VERSION!=		/usr/bin/oslevel
 .  else
 _OS_VERSION!=		echo `${UNAME} -v`.`${UNAME} -r`
 .  endif
-OS_VERSION=		${_OS_VERSION:C/\([0-9]*\.[0-9]*\).*/\1/}
+OS_VERSION=		${_OS_VERSION:C/([0-9]*\.[0-9]*).*/\1/}
 LOWER_OPSYS_VERSUFFIX=	${_OS_VERSION}
 LOWER_OPSYS?=		aix
 LOWER_VENDOR?=		ibm
@@ -433,12 +435,9 @@ do-install:
 	@${DO_NADA}
 .endif
 
-# PKG_DESTDIR_SUPPORT can only be one of "destdir" or "user-destdir".
-.if defined(PKG_DEVELOPER) && ${PKG_DEVELOPER} != "no"
+# After 2011Q1, the default is to use DESTDIR.
 USE_DESTDIR?=		yes
-.else
-USE_DESTDIR?=		no
-.endif
+# PKG_DESTDIR_SUPPORT can only be one of "destdir" or "user-destdir".
 PKG_DESTDIR_SUPPORT?=	# empty
 
 .if empty(PKG_DESTDIR_SUPPORT) || empty(USE_DESTDIR:M[Yy][Ee][Ss])
@@ -454,7 +453,9 @@ _USE_DESTDIR=		destdir
 PKG_FAIL_REASON+=	"PKG_DESTDIR_SUPPORT must be \`\`destdir'' or \`\`user-destdir''."
 .endif
 
-.if defined(PKG_DEVELOPER) && ${PKG_DEVELOPER} != "no" && empty(PKG_DESTDIR_SUPPORT)
+# This stanza serves to warn the user; deciding to not build
+# non-DESTDIR-capable packages when not in DESTDIR mode is above.
+.if empty(PKG_DESTDIR_SUPPORT)
 WARNINGS+=	"[bsd.prefs.mk] The package ${PKGNAME} is missing DESTDIR support."
 .endif
 

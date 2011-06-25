@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2010/07/14 18:50:14 adam Exp $
+# $NetBSD: Makefile,v 1.4 2011/02/15 10:53:55 adam Exp $
 #
 # NOTE:
 # When updating this package, a change in the minor (5.n -> 5.(n+1))
@@ -6,7 +6,7 @@
 # ABI depends in buildlink3.mk and bump PKGREVISIONs for all dependencies.
 # In particular, take care to include BDB_ACCEPTED=db5 packages.
 
-DISTNAME=	db-5.1.19
+DISTNAME=	db-5.2.28
 PKGNAME=	${DISTNAME:S/db/db5/}
 CATEGORIES=	databases
 MASTER_SITES=	http://download.oracle.com/berkeley-db/ \
@@ -15,6 +15,7 @@ MASTER_SITES=	http://download.oracle.com/berkeley-db/ \
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.oracle.com/database/berkeley-db/db/index.html
 COMMENT=	Berkeley DB version 5 from Oracle
+LICENSE=	modified-bsd
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 PKG_DESTDIR_SUPPORT=	user-destdir
@@ -33,6 +34,8 @@ CONFIGURE_ARGS+=	--program-transform-name=s,db_,db5_,
 OPSYSVARS+=		LIBSO_LIBS
 LIBSO_LIBS.SunOS+=	-lnsl -lrt
 CONFIGURE_ENV+=		LIBSO_LIBS=${LIBSO_LIBS:Q}
+
+CHECK_PORTABILITY_SKIP=	test/xa/*/*.sh
 
 # DB5 only want pthreads because it's really after POSIX 1003.1
 # inter-process mutexes.  In this case, we only care to use the native

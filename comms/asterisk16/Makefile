@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.28 2011/01/16 06:30:56 jnemeth Exp $
+# $NetBSD: Makefile,v 1.30 2011/04/22 13:43:09 obache Exp $
 #
 # NOTE: when updating this package, there are two places that sound
 #       tarballs need to be checked
 
-DISTNAME=	asterisk-1.6.2.16.1
+DISTNAME=	asterisk-1.6.2.18
 DIST_SUBDIR=	${PKGNAME_NOREV}
 DISTFILES=	${DEFAULT_DISTFILES}
 EXTRACT_ONLY=	${DISTNAME}.tar.gz
@@ -43,7 +43,6 @@ INSTALLATION_DIRS+=	${ASTDATADIR}/sounds/en ${ASTDATADIR}/moh
 
 BUILD_DEFS+=		VARBASE
 
-# Running as non-root will come later
 ASTERISK_USER?=		asterisk
 ASTERISK_GROUP?=	asterisk
 PKG_GROUPS=		${ASTERISK_GROUP}

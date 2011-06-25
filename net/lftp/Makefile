@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.92 2010/07/19 13:11:59 pettai Exp $
+# $NetBSD: Makefile,v 1.96 2011/04/22 13:44:24 obache Exp $
 
-DISTNAME=		lftp-4.0.9
+DISTNAME=		lftp-4.2.3
 CATEGORIES=		net
 MASTER_SITES=		http://ftp.yars.free.net/pub/source/lftp/ \
 			ftp://ftp.st.ryukoku.ac.jp/pub/network/ftp/lftp/ \
@@ -8,7 +8,7 @@ MASTER_SITES=		http://ftp.yars.free.net/pub/source/lftp/ \
 
 EXTRACT_SUFX=		.tar.bz2
 
-MAINTAINER=		salo@NetBSD.org
+MAINTAINER=		pettai@NetBSD.org
 HOMEPAGE=		http://lftp.yar.ru/
 COMMENT=		Powerful command line file transfer client
 LICENSE=		gnu-gpl-v3

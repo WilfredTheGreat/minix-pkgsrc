@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.27 2010/11/16 13:19:03 drochner Exp $
+# $NetBSD: Makefile,v 1.30 2011/04/22 13:42:16 obache Exp $
 
-DISTNAME=	libsoup-2.32.2
+DISTNAME=	libsoup-2.34.2
 PKGNAME=	${DISTNAME:S/libsoup/libsoup24/}
 CATEGORIES=	net gnome
-MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libsoup/2.32/}
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libsoup/2.34/}
 EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=	recht@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gnome.org/
 COMMENT=	HTTP library implementation in C
 LICENSE=	gnu-lgpl-v2
@@ -16,6 +16,8 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 USE_TOOLS+=		pkg-config gmake
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
+
+DEPENDS+=	glib-networking-[0-9]*:../../net/glib-networking
 
 PKGCONFIG_OVERRIDE+=	libsoup-2.4.pc.in
 

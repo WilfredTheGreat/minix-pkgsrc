@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2010/11/27 06:14:50 obache Exp $
+# $NetBSD: Makefile,v 1.14 2011/04/22 13:45:14 obache Exp $
 #
 
 PKGNAME=		${RUBY_PKGPREFIX}-gnome2-gtksourceview2-${VERSION}
 COMMENT=		Ruby binding of gtksourceview2
-PKGREVISION=		1
 CATEGORIES=		x11
 
 CONFLICTS+=		ruby[0-9][0-9]-gnome2-gtksourceview2-[0-9]*
@@ -15,7 +14,7 @@ RUBY_EXTCONF_SUBDIRS=	gtksourceview2
 DEPENDS+=		${RUBY_PKGPREFIX}-gnome2-gtk>=${VERSION}:../../x11/ruby-gnome2-gtk
 
 do-test:
-	${RUN} cd ${WRKSRC}/gtk/test; ${SETENV} ${TEST_ENV} ${RUBY} run-test.rb
+	${RUN} cd ${WRKSRC}/gtksourceview2/test; ${SETENV} ${TEST_ENV} ${RUBY} run-test.rb
 
 .include "../../x11/gtksourceview2/buildlink3.mk"
 .include "../../devel/ruby-pkg-config/tool.mk"

@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.16 2011/01/13 13:38:48 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2011/06/10 09:39:57 obache Exp $
 
 #DISTNAME=	kdepim-${_KDE_VERSION}
 DISTNAME=	kdepim-4.4.9
 MASTER_SITES=	${MASTER_SITE_KDE:=kdepim-4.4.9/src/}
+PKGREVISION=	5
 CATEGORIES=	misc
 COMMENT=	Personal Information Management tools for the KDE desktop
 
@@ -20,6 +21,9 @@ CHECK_PORTABILITY_SKIP+=ktimetracker/test/booktime-baddate.sh \
 		ktimetracker/test/delete.sh \
 		ktimetracker/test/refresh_on_change.sh \
 		ktimetracker/test/version.sh
+
+REPLACE_BASH+=	kmail/kconf_update/kmail-*.sh
+USE_TOOLS+=	bash:run
 
 REPLACE_PERL+= \
 	kalarm/kalarm-1.2.1-general.pl \
