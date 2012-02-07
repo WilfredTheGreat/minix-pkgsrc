@@ -1,6 +1,6 @@
 $NetBSD$
 
---- configure.orig	Sat Jun 11 15:46:04 2011
+--- configure.orig	Sat Jun 11 15:46:28 2011
 +++ configure
 @@ -3026,7 +3026,7 @@ case $ac_sys_system/$ac_sys_release in
    # Reconfirmed for OpenBSD 3.3 by Zachary Hamm, for 3.4 by Jason Ish.
@@ -11,7 +11,17 @@ $NetBSD$
      define_xopen_source=no
      # OpenBSD undoes our definition of __BSD_VISIBLE if _XOPEN_SOURCE is
      # also defined. This can be overridden by defining _BSD_SOURCE
-@@ -4927,15 +4927,10 @@ $as_echo "#define Py_ENABLE_SHARED 1" >>
+@@ -3053,6 +3053,9 @@ $as_echo "#define _BSD_SOURCE 1" >>confdefs.h
+   # to disable features not supported by the standard.  The best way
+   # for Python to use Solaris is simply to leave _XOPEN_SOURCE out
+   # entirely and define __EXTENSIONS__ instead.
++  Minix/3.2.*)
++    define_xopen_source=no;;
++  # Minix 3.2.0 and later follow NetBSD.
+   SunOS/*)
+     define_xopen_source=no;;
+   # On UnixWare 7, u_long is never defined with _XOPEN_SOURCE,
+@@ -4927,15 +4930,10 @@ $as_echo "#define Py_ENABLE_SHARED 1" >>confdefs.h
  	  RUNSHARED=LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}
  	  INSTSONAME="$LDLIBRARY".$SOVERSION
            ;;
@@ -28,7 +38,18 @@ $NetBSD$
  	  INSTSONAME="$LDLIBRARY".$SOVERSION
  	  ;;
      hp*|HP*)
-@@ -7648,9 +7643,9 @@ then
+@@ -4977,6 +4975,10 @@ else # shared is disabled
+           BLDLIBRARY='$(LIBRARY)'
+           LDLIBRARY='libpython$(VERSION).dll.a'
+           ;;
++    Minix*)
++          BLDLIBRARY='$(LIBRARY)'
++          LDLIBRARY='libpython$(VERSION).a'
++          ;;
+   esac
+ fi
+ 
+@@ -7648,9 +7650,9 @@ then
  			LDCXXSHARED="$LDCXXSHARED "'$(PYTHONFRAMEWORKPREFIX)/$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
  		else
  			# No framework, use the Python app as bundle-loader
@@ -41,7 +62,7 @@ $NetBSD$
  		fi ;;
  	Darwin/*)
  		# Use -undefined dynamic_lookup whenever possible (10.3 and later).
-@@ -7674,15 +7669,15 @@ then
+@@ -7674,15 +7676,15 @@ then
  				LDCXXSHARED="$LDCXXSHARED "'$(PYTHONFRAMEWORKPREFIX)/$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
  			else
  				# No framework, use the Python app as bundle-loader
@@ -61,7 +82,7 @@ $NetBSD$
  	BSD/OS*/4*)
  		LDSHARED="gcc -shared"
  		LDCXXSHARED="g++ -shared";;
-@@ -7710,9 +7705,15 @@ then
+@@ -7710,9 +7712,18 @@ then
  				   ;;
  				esac
  		fi;;
@@ -71,23 +92,26 @@ $NetBSD$
  	NetBSD*|DragonFly*)
  		LDSHARED='$(CC) -shared'
  		LDCXXSHARED='$(CXX) -shared';;
++	Minix*)
++		LDSHARED='$(CC)'
++		LDCXXSHARED='$(CXX)';;
 +	Interix*)
 +		LDSHARED='$(CC) -shared'" ${LDFLAGS}"
 +		LDCXXSHARED='$(CXX) -shared'" ${LDFLAGS}";; # XXX tv needs image-base hack
  	OpenUNIX*|UnixWare*)
  		if test "$GCC" = "yes" ; then
  			LDSHARED='$(CC) -shared'
-@@ -7756,7 +7757,8 @@ then
+@@ -7756,7 +7767,8 @@ then
  		 fi;;
  	Linux*|GNU*) CCSHARED="-fPIC";;
  	BSD/OS*/4*) CCSHARED="-fpic";;
 -	FreeBSD*|NetBSD*|OpenBSD*|DragonFly*) CCSHARED="-fPIC";;
-+	FreeBSD*|NetBSD*|OpenBSD*|MirBSD*|DragonFly*) CCSHARED="-fPIC";;
++	FreeBSD*|NetBSD*|OpenBSD*|MirBSD*|DragonFly*|Minix*) CCSHARED="-fPIC";;
 +	Interix*) CCSHARED="";;
  	OpenUNIX*|UnixWare*)
  		if test "$GCC" = "yes"
  		then CCSHARED="-fPIC"
-@@ -7808,11 +7810,12 @@ then
+@@ -7808,11 +7820,13 @@ then
  	OpenUNIX*|UnixWare*) LINKFORSHARED="-Wl,-Bexport";;
  	SCO_SV*) LINKFORSHARED="-Wl,-Bexport";;
  	ReliantUNIX*) LINKFORSHARED="-W1 -Blargedynsym";;
@@ -97,7 +121,17 @@ $NetBSD$
  		then
  			LINKFORSHARED="-Wl,--export-dynamic"
  		fi;;
++	Minix*) LINKFORSHARED="-Wl,-static";;
 +	Interix*) LINKFORSHARED="-Wl,-E";;
  	SunOS/5*) case $CC in
  		  *gcc*)
  		    if $CC -Xlinker --help 2>&1 | grep export-dynamic >/dev/null
+@@ -7848,6 +7862,8 @@ then
+ 		# Cygwin needs CCSHARED when building extension DLLs
+ 		# but not when building the interpreter DLL.
+ 		CFLAGSFORSHARED='';;
++	Minix*)
++		CFLAGSFORSHARED='-fPIC';;
+ 	*)
+ 		CFLAGSFORSHARED='$(CCSHARED)'
+ 	esac
