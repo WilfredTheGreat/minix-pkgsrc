@@ -22,7 +22,20 @@ CONFIGURE_ENV+=		LIB_MAN_SUFFIX=3
 
 PKGCONFIG_OVERRIDE+=	xau.pc.in
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "Minix"
+
+PTHREAD_OPTS+=	require
+.include "../../mk/pthread.buildlink3.mk"
+
+.if ${PTHREAD_TYPE} == "pth"
+CONFIGURE_ARGS+=	--with-pth
+.endif
+
+.else
 CPPFLAGS.OSF1+=		-pthread # Required by compiler if including pthread.h
+.endif
 
 .include "../../x11/xproto/buildlink3.mk"
 
