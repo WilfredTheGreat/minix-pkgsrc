@@ -156,7 +156,7 @@ CPPFLAGS+=	-I${WRKDIR}/libfetch
 LDFLAGS+=	-L${WRKDIR}/libfetch
 
 .  if ${OPSYS} == "Minix"
-LIBS+=		-larchive -lbz2 -lz
+LIBS+=		-larchive -lbz2 -lz -llzma
 .  endif
 
 CONFIGURE_ENV+=	LIBS=${LIBS:Q}
