@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2009/07/22 09:01:27 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2012/06/18 03:59:09 dholland Exp $
 #
 
 DISTNAME=		exult-1.2
-PKGREVISION=		6
+PKGREVISION=		8
 CATEGORIES=		games
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=exult/}
 
@@ -16,10 +16,12 @@ MAKE_JOBS_SAFE=		no
 
 USE_PKGLOCALEDIR=	yes
 USE_LANGUAGES=		c c++
+USE_TOOLS+=		yacc
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 
 .include "../../devel/SDL/buildlink3.mk"
 .include "../../audio/SDL_mixer/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

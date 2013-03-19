@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.71 2010/12/16 03:38:32 taca Exp $
+# $NetBSD: Makefile,v 1.73 2012/02/23 10:34:07 obache Exp $
 
-DISTNAME=	horde-3.3.11
-PKGREVISION=	1
+DISTNAME=	horde-3.3.13
 CATEGORIES=	www
 MASTER_SITES=	http://ftp.horde.org/pub/horde/ \
 		ftp://ftp.horde.org/pub/horde/
@@ -9,6 +8,7 @@ MASTER_SITES=	http://ftp.horde.org/pub/horde/ \
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.horde.org/
 COMMENT=	PHP application framework
+LICENSE=	gnu-lgpl-v2
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
@@ -86,23 +86,6 @@ CONF_FILES_PERMS+=	${EGDIR}/config/hooks.php \
 			${HORDEDIR}/config/hooks.php \
 			${APACHE_USER} ${ROOT_GROUP} 0440
 
-# Empty directories installed by install target
-# that we need to create in the install script
-# to get the same layout from a binary package installation
-REQD_DIRS+=	share/horde/lib/data
-REQD_DIRS+=	share/horde/lib/XML/tests
-REQD_DIRS+=	share/horde/lib/XML/docs/examples
-REQD_DIRS+=	share/horde/lib/XML/docs
-REQD_DIRS+=	share/horde/lib/VFS/tests
-REQD_DIRS+=	share/horde/lib/Text/tests
-REQD_DIRS+=	share/horde/lib/Text/docs/examples
-REQD_DIRS+=	share/horde/lib/Text/docs
-REQD_DIRS+=	share/horde/lib/Horde/tests
-REQD_DIRS+=	share/horde/lib/Horde/docs/examples
-REQD_DIRS+=	share/horde/lib/Horde/docs
-REQD_DIRS+=	share/horde/lib/Horde/Text/tests
-REQD_DIRS+=	share/horde/lib/File/tests
-
 SUBST_CLASSES+=		files
 SUBST_STAGE.files=	post-build
 SUBST_FILES.files=	horde.conf.dist config/conf.xml config/conf.xml.dist \
@@ -143,5 +126,5 @@ do-install:
 	${FIND} ${DESTDIR}${HORDEDIR} -type d -print | ${XARGS} ${CHMOD} ${PKGDIRMODE}
 	${FIND} ${DESTDIR}${HORDEDIR} -type f -print | ${XARGS} ${CHMOD} ${SHAREMODE}
 
-.include "../../mk/apachever.mk"
+.include "../../mk/apache.mk"
 .include "../../mk/bsd.pkg.mk"

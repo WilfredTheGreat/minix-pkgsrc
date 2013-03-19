@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.22 2009/07/14 17:26:35 tnn Exp $
+# $NetBSD: Makefile,v 1.24 2011/12/02 20:44:32 marino Exp $
 
 DISTNAME=		bcc
 PKGREVISION=		1
 PKGNAME=		bcc-95.3.12
 CATEGORIES=		devel lang
 
-MAINTAINER=		tsarna@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 COMMENT=		Bruce Evans' C compiler (with as and ld); can do 16-bit code
 
 PKG_DESTDIR_SUPPORT=	user-destdir
@@ -15,6 +15,7 @@ CONFLICTS+=		dev86-[0-9]*
 
 NOT_FOR_PLATFORM=	*-*-alpha
 NOT_FOR_PLATFORM+=	Interix-*-*		# no <a.out.h>
+NOT_FOR_PLATFORM+=	DragonFly-*-x86_64	# Cannot build 32-bit binary
 
 USE_BSD_MAKEFILE=	yes
 USE_TOOLS+=		groff nroff

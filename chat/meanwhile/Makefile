@@ -1,14 +1,16 @@
-# $NetBSD: Makefile,v 1.3 2008/07/14 12:55:59 joerg Exp $
+# $NetBSD: Makefile,v 1.8 2012/05/06 17:53:22 dholland Exp $
 #
 
 DISTNAME=	meanwhile-1.0.2
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	chat
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=meanwhile/}
 
-MAINTAINER=	dan@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://meanwhile.sourceforge.net/
 COMMENT=	Lotus SameTime compatible chat protocol
+
+LICENSE=	gnu-gpl-v2
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 

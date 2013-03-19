@@ -1,8 +1,8 @@
-# $NetBSD: options.mk,v 1.6 2008/04/12 22:43:15 jlam Exp $
+# $NetBSD: options.mk,v 1.9 2012/02/29 18:49:40 morr Exp $
 
-PKG_OPTIONS_VAR=        PKG_OPTIONS.rxvt-unicode
-PKG_SUPPORTED_OPTIONS=  perl unicode3 xft2 rxvt-term
-PKG_SUGGESTED_OPTIONS=  perl unicode3 xft2
+PKG_OPTIONS_VAR=	PKG_OPTIONS.rxvt-unicode
+PKG_SUPPORTED_OPTIONS=	perl unicode3 xft2 rxvt-term
+PKG_SUGGESTED_OPTIONS=	perl unicode3 xft2
 
 .include "../../mk/bsd.options.mk"
 
@@ -12,11 +12,12 @@ CONFIGURE_ARGS+=	--with-term=rxvt
 
 PLIST_VARS+=		perl
 .if !empty(PKG_OPTIONS:Mperl)
-USE_TOOLS+=     	perl:run
+USE_TOOLS+=		perl:run
 CONFIGURE_ARGS+=	--enable-perl
 PLIST.perl=		yes
 .include "../../lang/perl5/buildlink3.mk"
 USE_TOOLS+=		perl
+REPLACE_PERL+=		src/perl/*
 .else
 CONFIGURE_ARGS+=	--disable-perl
 .endif

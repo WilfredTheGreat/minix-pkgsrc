@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2011/08/25 10:11:08 ryoon Exp $
+# $NetBSD: Makefile,v 1.6 2012/04/08 19:08:55 wiz Exp $
 #
 
-DISTNAME=	zim-0.53
+DISTNAME=	zim-0.56
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	editors
 MASTER_SITES=	http://zim-wiki.org/downloads/
@@ -15,7 +15,6 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 USE_LANGUAGES=	# none
 
-PYTHON_VERSIONS_ACCEPTED=	27 26 25
 REPLACE_PYTHON=	${WRKSRC}/zim.py
 PYDISTUTILSPKG=	YES
 
@@ -36,6 +35,7 @@ SUBST_STAGE.fix-python=		pre-configure
 SUBST_MESSAGE.fix-python=	Fixing dynamic python
 SUBST_FILES.fix-python+=	zim/_lib/xdot.py
 SUBST_FILES.fix-python+=	zim/_version.py
+SUBST_FILES.fix-python+=	zim/inc/xdot.py
 SUBST_SED.fix-python+=		-e 's,/usr/bin/env python,${PYTHONBIN},'
 
 SUBST_CLASSES+=			man-path

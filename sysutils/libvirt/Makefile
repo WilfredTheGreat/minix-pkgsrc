@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/07/26 06:05:00 agc Exp $
+# $NetBSD: Makefile,v 1.7 2012/08/14 13:32:18 asau Exp $
 
 DISTNAME=	libvirt-0.9.3
+PKGREVISION=	6
 CATEGORIES=	sysutils
 MASTER_SITES=	http://libvirt.org/sources/
 
@@ -12,7 +13,8 @@ LICENSE=	gnu-lgpl-v2
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--with-vbox=no --sysconfdir=${EGDIR}
+CONFIGURE_ARGS+=	--with-vbox=no --sysconfdir=${EGDIR} --localstatedir=${VARBASE}
+CONFIGURE_ARGS+=	--without-macvtap
 USE_TOOLS+=		gmake pkg-config
 USE_LIBTOOL=		yes
 

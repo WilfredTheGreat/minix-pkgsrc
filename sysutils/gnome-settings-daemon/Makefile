@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.26 2011/08/28 07:44:29 obache Exp $
+# $NetBSD: Makefile,v 1.32 2012/06/14 07:44:37 sbd Exp $
 #
 
 DISTNAME=	gnome-settings-daemon-2.32.1
-PKGREVISION=	5
+PKGREVISION=	11
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gnome-settings-daemon/2.32/}
 EXTRACT_SUFX=	.tar.bz2

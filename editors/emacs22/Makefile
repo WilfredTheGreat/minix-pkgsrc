@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.17 2011/07/21 01:35:44 tron Exp $
+# $NetBSD: Makefile,v 1.22 2012/06/14 07:44:36 sbd Exp $
 
 PKGNAME?=	${DISTNAME}
 COMMENT?=	GNU editing macros (editor)
 
 DISTNAME=	emacs-22.3
-PKGREVISION=	14
+PKGREVISION=	18
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_GNU:=emacs/}
 
@@ -73,6 +73,14 @@ post-extract:
 	cp ${FILESDIR}/site-init.el ${WRKSRC}/lisp
 	cp ${FILESDIR}/dragonfly.h ${WRKSRC}/src/s
 	${CHMOD} -R go-w ${WRKSRC}
+
+# These dirs are installed by tar-copy and can sometimes come out mode
+# 754, which if PKG_DEVELOPER is set causes the build to fail.
+post-install:
+.for file in leim leim/ja-dic leim/quail
+	${CHMOD} 755 ${DESTDIR}${PREFIX}/share/emacs/${PKGVERSION_NOREV}/${file}
+.endfor
+
 
 .include "../../mk/oss.buildlink3.mk"
 .include "../../mk/termcap.buildlink3.mk"

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.25 2011/04/22 13:42:58 obache Exp $
+# $NetBSD: Makefile,v 1.31 2012/06/14 07:44:03 sbd Exp $
 #
 
 DISTNAME=	pymusique-0.5
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/py//}
-PKGREVISION=	11
+PKGREVISION=	16
 CATEGORIES=	audio
 MASTER_SITES=	http://www.pyronecrophilia.com/content/pymusique/
 
@@ -25,11 +25,10 @@ DEPENDS+=	${PYPKGPREFIX}-mcrypt-[0-9]*:../../security/py-mcrypt
 DEPENDS+=	${PYPKGPREFIX}-libxml2-[0-9]*:../../textproc/py-libxml2
 DEPENDS+=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 
-PYTHON_VERSIONS_ACCEPTED=	27 26 25
-
 PYDISTUTILSPKG= yes
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"
 .include "../../x11/py-gtk2/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

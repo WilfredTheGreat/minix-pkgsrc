@@ -1,8 +1,8 @@
-$NetBSD: patch-aa,v 1.6 2011/08/18 18:31:10 tnn Exp $
+$NetBSD: patch-aa,v 1.8 2012/03/19 10:35:57 ryoon Exp $
 
---- mozilla/configure.in.orig	2011-08-11 21:40:51.000000000 +0000
+--- mozilla/configure.in.orig	2012-04-23 06:27:25.000000000 +0000
 +++ mozilla/configure.in
-@@ -2063,7 +2063,7 @@ case "$target" in
+@@ -2413,7 +2413,7 @@ case "$target" in
      MOZ_FIX_LINK_PATHS='-Wl,-executable_path,$(LIBXUL_DIST)/bin'
      ;;
  
@@ -11,17 +11,17 @@ $NetBSD: patch-aa,v 1.6 2011/08/18 18:31:10 tnn Exp $
      if test `test -x /usr/bin/objformat && /usr/bin/objformat || echo elf` != "elf"; then
  	DLL_SUFFIX=".so.1.0"
  	DSO_LDOPTS="-shared"
-@@ -2071,6 +2071,9 @@ case "$target" in
+@@ -2421,6 +2421,9 @@ case "$target" in
      if test ! "$GNU_CC"; then
  	DSO_LDOPTS="-Bshareable $DSO_LDOPTS"
      fi
 +    if test "$LIBRUNPATH"; then
-+       DSO_LDOPTS="-Wl,-R$LIBRUNPATH $DSO_LDOPTS"
++	DSO_LDOPTS="-Wl,-R$LIBRUNPATH $DSO_LDOPTS"
 +    fi
-     ;; 
+     ;;
  
  ia64*-hpux*)
-@@ -3277,6 +3280,9 @@ dnl ====================================
+@@ -3412,6 +3415,9 @@ dnl ====================================
  case $target in
  *-hpux11.*)
  	;;
@@ -31,7 +31,7 @@ $NetBSD: patch-aa,v 1.6 2011/08/18 18:31:10 tnn Exp $
  *)
  	AC_CHECK_LIB(c_r, gethostbyname_r)
  	;;
-@@ -4593,6 +4599,14 @@ if test -n "$YASM"; then
+@@ -4358,6 +4364,14 @@ if test -n "$YASM"; then
    _YASM_BUILD=`        echo ${YASM_VERSION} | $AWK -F\. '{ print $4 }'`
  fi
  
@@ -46,17 +46,21 @@ $NetBSD: patch-aa,v 1.6 2011/08/18 18:31:10 tnn Exp $
  if test -z "$SKIP_LIBRARY_CHECKS"; then
  dnl system JPEG support
  dnl ========================================================
-@@ -9200,7 +9214,8 @@ rm -f confdefs.h.save
- mv confdefs.h confdefs.h.save
- egrep -v "$_EGREP_PATTERN" confdefs.h.save > confdefs.h
- AC_OUTPUT_MAKE_DEFS()
--MOZ_DEFINES=$DEFS
-+# nbsed broken. PR bin/42261
-+MOZ_DEFINES="$DEFS`awk 'BEGIN {while(x<1000){printf " ";x++}}'`"
- AC_SUBST(MOZ_DEFINES)
- rm -f confdefs.h
- mv confdefs.h.save confdefs.h
-@@ -9307,6 +9322,8 @@ if test -z "$MOZ_NATIVE_NSPR"; then
+@@ -5732,11 +5746,11 @@ if test -n "$MOZ_WEBM" -a -z "$MOZ_NATIV
+ 
+     dnl See if we have assembly on this platform.
+     case "$OS_ARCH:$CPU_ARCH" in
+-    Linux:x86)
++    Linux:x86|DragonFly:x86|*BSD:i386)
+       VPX_ASFLAGS="-f elf32 -rnasm -pnasm"
+       VPX_X86_ASM=1
+     ;;
+-    Linux:x86_64)
++    Linux:x86_64|DragonFly:x86_64|*BSD:x86_64)
+       VPX_ASFLAGS="-f elf64 -rnasm -pnasm -DPIC"
+       VPX_X86_ASM=1
+     ;;
+@@ -9102,6 +9116,8 @@ if test -z "$MOZ_NATIVE_NSPR"; then
      AC_MSG_WARN([Recreating autoconf.mk with updated nspr-config output])
      if test "$OS_ARCH" != "WINNT"; then
         NSPR_LIBS=`./nsprpub/config/nspr-config --prefix=$LIBXUL_DIST --exec-prefix=$MOZ_BUILD_ROOT/dist --libdir=$LIBXUL_DIST/lib --libs`

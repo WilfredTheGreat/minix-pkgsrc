@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.8 2011/04/22 13:43:54 obache Exp $
+# $NetBSD: Makefile,v 1.15 2012/04/27 12:31:50 obache Exp $
 #
 
 DISTNAME=	ibus-qt-1.3.1-Source
 PKGNAME=	${DISTNAME:S/-Source//}
-PKGREVISION=	6
+PKGREVISION=	12
 CATEGORIES=	inputmethod
 MASTER_SITES=	http://ibus.googlecode.com/files/
 
@@ -22,6 +22,9 @@ USE_TOOLS+=		pkg-config
 # optionally, but required by configure.
 #BUILD_DEPENDS+=		doxygen>=1.6:../../devel/doxygen
 TOOLS_NOOP=		doxygen
+
+# avoid lib64
+CMAKE_ARGS+=		-DLIBDIR=lib
 
 BUILDLINK_API_DEPENDS.ibus+=	ibus>=1.3.7
 .include "../../inputmethod/ibus/buildlink3.mk"

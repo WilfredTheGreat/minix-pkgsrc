@@ -1,7 +1,8 @@
-# $NetBSD$
+# $NetBSD: Makefile,v 1.7 2012/05/24 23:41:14 marino Exp $
 #
 
 DISTNAME=	wbar-2.2.2
+PKGREVISION=	4
 CATEGORIES=	wm
 MASTER_SITES=	http://wbar.googlecode.com/files/
 
@@ -14,7 +15,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c c++
-USE_TOOLS+=	gmake gsed:build intltool pkg-config
+USE_TOOLS+=	gmake gsed:build intltool pkg-config msgfmt
 
 BUILDLINK_TRANSFORM+=	rm:-Werror
 PKG_SYSCONFSUBDIR=	wbar
@@ -25,9 +26,6 @@ SUBST_FILES.sed+=	configure
 SUBST_SED.sed=		-e "s/sed -i/gsed -i/"
 SUBST_STAGE.sed=	post-extract
 SUBST_MESSAGE.sed=	Needs GNU sed.
-
-# trick pkgsrc into real gsed, needed for "sed -i"
-TOOLS_PLATFORM.gsed=	#empty
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/libglade/buildlink3.mk"

@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.3 2011/04/22 13:45:18 obache Exp $
+# $NetBSD: Makefile,v 1.14 2012/06/01 20:00:41 wiz Exp $
 #
 
-DISTNAME=		mess0143s
+DISTNAME=		mess0146s
 PKGNAME=		${DISTNAME:S/0/-0./:S/s$//}
-MASTER_SITES=		http://www.mess.org/_media/downloads:
-DISTFILES=		${DISTNAME:S/mess/mame/}${EXTRACT_SUFX} ${DISTNAME}${EXTRACT_SUFX}
+PKGREVISION=		1
+# original master site on cookie/javascript/whatever site
+MASTER_SITES=		# http://www.mess.org/_media/downloads:
 
 COMMENT=		Multi Emulator Super System
 
@@ -12,20 +13,20 @@ CONFLICTS=		xmess-[0-9]* sdlmess-[0-9]*
 
 DOCDIR=			share/doc/mess
 SHAREDIR=		share/mess
-INSTALLATION_DIRS=	bin ${DOCDIR}/sysinfo ${SHAREDIR}/artwork \
-			${SHAREDIR}/hash
+INSTALLATION_DIRS=	bin ${DOCDIR} ${SHAREDIR}/artwork ${SHAREDIR}/hash
+
+INTERACTIVE_STAGE=	fetch
+FETCH_MESSAGE=		"Distfile is on sendspace.com, please download manually." \
+			"Follow the link for \"MESS "${DISTNAME:S/mess//:S/s//:S/0/0./}" Source\" on http://www.mess.org/downloads"
 
 # to build mess, not mame
 MAKE_FLAGS=		TARGET=mess
-
-post-build:
-	cd ${WRKSRC} && ${MKDIR} sysinfo && ./dat2html
 
 do-install:
 # ignored: messtest
 # remaining tools are installed with mame
 	set -e; \
-	for prg in castool imgtool mess; \
+	for prg in castool floptool imgtool mess; \
 	do \
 		${INSTALL_PROGRAM} ${WRKSRC}/"$$prg" ${DESTDIR}${PREFIX}/bin; \
 	done
@@ -37,8 +38,5 @@ do-install:
 		${DESTDIR}${PREFIX}/${SHAREDIR}/artwork
 	${INSTALL_DATA} ${WRKSRC}/hash/* \
 		${DESTDIR}${PREFIX}/${SHAREDIR}/hash
-	${INSTALL_DATA} ${WRKSRC}/sysinfo.htm ${DESTDIR}${PREFIX}/${DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/sysinfo/* \
-		${DESTDIR}${PREFIX}/${DOCDIR}/sysinfo
 
 .include "../../emulators/mame/Makefile.common"

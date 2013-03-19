@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.27 2009/12/15 23:41:45 joerg Exp $
+# $NetBSD: Makefile,v 1.30 2012/06/28 05:41:11 dholland Exp $
 
 DISTNAME=		gforth-0.7.0
-PKGREVISION=		2
+PKGREVISION=		3
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_GNU:=gforth/}
 MASTER_SITES+=		http://www.complang.tuwien.ac.at/forth/gforth/
@@ -12,6 +12,7 @@ COMMENT=		Fast interpreter for the Forth language
 LICENSE=		gnu-gpl-v3
 
 ONLY_FOR_PLATFORM=	*-*-alpha *-*-i386 *-*-m68k *-*-powerpc *-*-sparc
+ONLY_FOR_PLATFORM+=	*-*-x86_64
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 INFO_FILES=		yes
@@ -19,7 +20,7 @@ INFO_FILES=		yes
 GNU_CONFIGURE=		YES
 
 USE_LIBTOOL=		yes
-USE_TOOLS+=		autoconf automake aclocal
+USE_TOOLS+=		autoconf automake aclocal m4
 USE_TOOLS+=		makeinfo gzip
 USE_TOOLS+=		perl:build
 
@@ -30,6 +31,7 @@ TEST_TARGET=		check
 # Make sure elisp will be installed even if no emacs installed.
 CONFIGURE_ENV+=		EMACS=${PREFIX}/bin/emacs
 CFLAGS+=		-Dunix
+BUILDLINK_TRANSFORM+=	rm:-m486 # let it build with contemporary GCC
 INSTALL_MAKE_FLAGS=	${MAKE_FLAGS}					\
 			infodir=${PREFIX:Q}/${PKGINFODIR:Q}		\
 			mandir=${PREFIX:Q}/${PKGMANDIR:Q}

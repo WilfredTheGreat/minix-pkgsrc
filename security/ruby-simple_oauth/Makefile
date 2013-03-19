@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/04/12 11:58:45 obache Exp $
+# $NetBSD: Makefile,v 1.4 2012/05/10 12:12:29 obache Exp $
 
-DISTNAME=	simple_oauth-0.1.5
+DISTNAME=	simple_oauth-0.1.9
 CATEGORIES=	security
 
 MAINTAINER=	obache@NetBSD.org

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.6 2010/08/05 13:13:32 obache Exp $
+# $NetBSD: Makefile,v 1.2 2011/10/20 11:32:11 wiz Exp $
 #
 
-DISTNAME=	tamsyn-font-1.6
+DISTNAME=	tamsyn-font-1.9
 CATEGORIES=	fonts x11
 MASTER_SITES=	http://www.fial.com/~scott/tamsyn-font/download/
 
@@ -15,7 +15,6 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 FONTDIR=		${PREFIX}/lib/X11/fonts/tamsyn-font
 FONTS_DIRS.x11+=	${FONTDIR}
-OWN_DIRS=		${FONTDIR}
 
 INSTALLATION_DIRS=	${FONTDIR} share/doc/tamsyn-font
 

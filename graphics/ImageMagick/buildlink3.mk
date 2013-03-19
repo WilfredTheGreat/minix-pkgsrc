@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.34 2011/02/26 13:18:24 hans Exp $
+# $NetBSD: buildlink3.mk,v 1.41 2012/06/14 07:43:11 sbd Exp $
 
 BUILDLINK_TREE+=	ImageMagick
 
@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	ImageMagick
 IMAGEMAGICK_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.ImageMagick+=	ImageMagick>=5.5.7.11nb1
-BUILDLINK_ABI_DEPENDS.ImageMagick+=	ImageMagick>=6.6.6.5nb1
+BUILDLINK_ABI_DEPENDS.ImageMagick+=	ImageMagick>=6.7.6.6nb3
 BUILDLINK_PKGSRCDIR.ImageMagick?=	../../graphics/ImageMagick
 
 pkgbase := ImageMagick
@@ -27,13 +27,16 @@ pkgbase := ImageMagick
 .if !empty(PKG_BUILD_OPTIONS.ImageMagick:Mx11)
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"
+.include "../../x11/libXt/buildlink3.mk"
 .endif
 
 .include "../../archivers/bzip2/buildlink3.mk"
+.include "../../archivers/xz/buildlink3.mk"
 .include "../../devel/libltdl/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/lcms/buildlink3.mk"
+.include "../../graphics/libwebp/buildlink3.mk"
 .include "../../graphics/openexr/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"

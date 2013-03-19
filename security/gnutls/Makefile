@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.104 2011/09/12 17:31:40 drochner Exp $
+# $NetBSD: Makefile,v 1.115 2012/07/24 18:34:06 drochner Exp $
 
-DISTNAME=	gnutls-2.12.11
+DISTNAME=	gnutls-3.0.22
 CATEGORIES=	security devel
 MASTER_SITES=	ftp://ftp.gnutls.org/pub/gnutls/ \
 		ftp://ftp.gnupg.org/gcrypt/gnutls/ \
 		${MASTER_SITE_GNU:=gnutls/}
-EXTRACT_SUFX=	.tar.bz2
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gnutls.org/
@@ -43,12 +43,11 @@ EGDIR=		${PREFIX}/share/examples/gnutls
 INSTALLATION_DIRS=	${DOCDIR} ${EGDIR} include/gnutls
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/doc/TODO ${DESTDIR}${DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/doc/gnutls.ps ${DESTDIR}${DOCDIR}
 	cd ${WRKSRC}/doc/examples && ${INSTALL_DATA} *.c ${DESTDIR}${EGDIR}
 
 .include "../../archivers/lzo/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
+.include "../../devel/readline/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/libcfg+/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"

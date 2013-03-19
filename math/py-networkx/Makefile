@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2010/03/03 12:00:59 obache Exp $
+# $NetBSD: Makefile,v 1.6 2012/06/02 13:19:17 obache Exp $
 #
 
-DISTNAME=	networkx-1.2
+DISTNAME=	networkx-1.7
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	math python
 MASTER_SITES=	http://pypi.python.org/packages/source/n/networkx/ \
@@ -13,7 +13,8 @@ COMMENT=	Python package for creating and manipulating graphs and networks
 LICENSE=	modified-bsd
 
 PKG_DESTDIR_SUPPORT=	user-destdir
-PYDISTUTILSPKG=	yes
 
-.include "../../lang/python/extension.mk"
+PYTHON_VERSIONS_INCOMPATIBLE=	25
+
+.include "../../lang/python/distutils.mk"
 .include "../../mk/bsd.pkg.mk"

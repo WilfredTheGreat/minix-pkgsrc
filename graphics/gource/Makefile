@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/08/06 22:03:53 ryoon Exp $
+# $NetBSD: Makefile,v 1.6 2012/05/06 08:29:38 ryoon Exp $
 #
 
-DISTNAME=	gource-0.37
+DISTNAME=	gource-0.38
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://gource.googlecode.com/files/
 
@@ -15,9 +16,14 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c c++
 
+CONFIGURE_ARGS=	--with-boost=${BUILDLINK_PREFIX.boost-libs}
+
 .include "../../devel/SDL/buildlink3.mk"
-.include "../../graphics/freetype2/buildlink3.mk"
-.include "../../graphics/SDL_image/buildlink3.mk"
+.include "../../devel/boost-libs/buildlink3.mk"
 .include "../../devel/pcre/buildlink3.mk"
+.include "../../graphics/SDL_image/buildlink3.mk"
+.include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/glew/buildlink3.mk"
+.include "../../graphics/glm/buildlink3.mk"
+.include "../../graphics/glu/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

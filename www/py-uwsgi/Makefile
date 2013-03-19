@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.9 2011/07/25 10:15:00 joerg Exp $
+# $NetBSD: Makefile,v 1.15 2012/06/14 07:45:19 sbd Exp $
 
-DISTNAME=	uwsgi-0.9.8.6
+DISTNAME=	uwsgi-1.2.4
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www python
 MASTER_SITES=	http://projects.unbit.it/downloads/
@@ -13,8 +13,6 @@ LICENSE=	gnu-gpl-v2
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 DEPENDS+=	${PYPKGPREFIX}-setuptools>=0.6c9:../../devel/py-setuptools
-
-PYTHON_VERSIONS_ACCEPTED=	27 26 25
 
 USE_LANGUAGES=		c
 PYDISTUTILSPKG=		yes

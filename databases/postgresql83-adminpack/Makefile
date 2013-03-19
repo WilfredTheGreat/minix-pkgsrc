@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.7 2011/04/22 13:43:14 obache Exp $
+# $NetBSD: Makefile,v 1.9 2012/06/14 07:45:38 sbd Exp $
 
 PKGNAME=	${DISTNAME:C/-/83-adminpack-/}
 COMMENT=	Admin pack module for pgAdmin management

@@ -1,15 +1,17 @@
-# $NetBSD: Makefile,v 1.14 2009/03/05 18:51:32 joerg Exp $
+# $NetBSD: Makefile,v 1.17 2012/04/15 22:01:04 wiz Exp $
 #
 
 PKGNAME=	${PYPKGPREFIX}-expat-0
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	textproc python
 
-MAINTAINER=	tsarna@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.python.org/
 COMMENT=	Python interface to expat
 
 PKG_DESTDIR_SUPPORT=	user-destdir
+
+PYTHON_VERSIONS_INCLUDE_3X=	yes
 
 EXTRACT_ELEMENTS=	${PYSUBDIR}/Modules/pyexpat.c
 

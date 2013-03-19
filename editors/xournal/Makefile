@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2011/01/31 17:09:13 drochner Exp $
+# $NetBSD: Makefile,v 1.13 2012/07/07 20:33:09 wiz Exp $
 
-DISTNAME=	xournal-0.4.5
-PKGREVISION=	3
+DISTNAME=	xournal-0.4.7
+PKGREVISION=	1
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=xournal/}
 
@@ -16,6 +16,9 @@ USE_LANGUAGES=	c
 USE_TOOLS+=	pkg-config msgfmt
 
 PKG_DESTDIR_SUPPORT=	user-destdir
+
+LDFLAGS.DragonFly=	-lX11 -lz -lm
+LDFLAGS.SunOS=		-lX11 -lz -lm
 
 .include "../../graphics/libgnomecanvas/buildlink3.mk"
 .include "../../print/poppler-glib/buildlink3.mk"

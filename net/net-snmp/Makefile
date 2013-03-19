@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.86 2011/05/30 10:21:43 tron Exp $
+# $NetBSD: Makefile,v 1.89 2012/05/17 12:56:17 spz Exp $
 
 DISTNAME=	net-snmp-5.6.1.1
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=net-snmp/}
 
@@ -68,7 +68,7 @@ CONFIGURE_ARGS+=	--with-persistent-directory=${NET_SNMP_PERSISTENTDIR}
 .if !empty(NET_SNMP_MIBDIRS)
 CONFIGURE_ARGS+=	--with-mibdirs=${NET_SNMP_MIBDIRS:Q}
 .endif
-.if ${OPSYS} == "NetBSD"
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "SunOS"
 CONFIGURE_ARGS+=	--with-mib-modules="smux host ucd-snmp/diskio"
 .else
 CONFIGURE_ARGS+=	--with-mib-modules="smux host"

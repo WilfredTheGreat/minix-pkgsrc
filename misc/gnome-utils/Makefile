@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.106 2011/06/10 09:39:56 obache Exp $
+# $NetBSD: Makefile,v 1.116 2012/06/14 07:43:47 sbd Exp $
 #
 
 DISTNAME=		gnome-utils-2.32.0
-PKGREVISION=		4
+PKGREVISION=		13
 CATEGORIES=		misc gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/gnome-utils/2.32/}
 EXTRACT_SUFX=		.tar.bz2
@@ -25,6 +25,8 @@ CONFIGURE_ARGS+=	--enable-gtk-doc=no
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.gnome-utils
 PKG_SUPPORTED_OPTIONS+=	inet6
+PKG_SUGGESTED_OPTIONS=	inet6
+
 .include "../../mk/bsd.options.mk"
 .if !empty(PKG_OPTIONS:Minet6)
 CONFIGURE_ARGS+=	--enable-ipv6

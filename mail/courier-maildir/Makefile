@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.22 2010/03/21 16:29:40 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2012/03/03 00:14:26 wiz Exp $
 
 DISTNAME=	courier-${COURIER_VERSION}
 PKGNAME=	${DISTNAME:S/-/-maildir-/}
@@ -22,7 +22,6 @@ USE_LANGUAGES=		c c++
 # This package doesn't need to depend on courier-authlib -- just fake
 # out the top-level configure script that thinks it needs
 # courierauthconfig.
-#
 CONFIGURE_ENV+=		ac_cv_path_COURIERAUTHCONFIG=${TRUE:Q}
 
 # These are files required by the Courier configure scripts.
@@ -30,10 +29,10 @@ WRKSRC_FILES=		courier/courier.c config.guess config.sub	\
 			configure depcomp install-sh ltmain.sh missing	\
 			sysconftool
 WRKSRC_FILES+=		Makefile.in courier.spec.in courier.lpspec.in	\
-			dbobj.h.in dbobj.config.in courier.sysvinit.in
+			dbobj.h.in dbobj.config.in courier.service.in	\
+			courier.sysvinit.in
 
 # These are subdirectories containing libraries used by courier-maildir.
-#
 WRKSRC_SUBDIRS=		bdbobj numlib liblock unicode rfc822 maildir
 
 EXTRACT_ELEMENTS=	${WRKSRC_FILES:S/^/${DISTNAME}\//}

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2010/09/16 08:06:13 adam Exp $
+# $NetBSD: Makefile,v 1.6 2012/01/18 13:49:23 adam Exp $
 
-DISTNAME=	BDB-1.89
-PKGNAME=	p5-${DISTNAME}
+DISTNAME=	BDB-1.9
+PKGNAME=	p5-BDB-1.90
 SVR4_PKGNAME=	p5bdb
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/M/ML/MLEHMANN/}

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2010/02/10 19:17:47 joerg Exp $
+# $NetBSD: Makefile,v 1.8 2012/03/15 11:53:42 obache Exp $
 #
 
 PKGNAME=	${APACHE_PKG_PREFIX}-${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	2
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
@@ -11,6 +11,10 @@ COMMENT=	Simple Common Gateway Interface for Apache
 DEPENDS+=	${PYPKGPREFIX}-scgi-[0-9]*:../../www/py-scgi
 
 APACHE_MODULE= yes
+
+# does not compile with apache24
+PKG_APACHE_ACCEPTED=	apache13 apache2 apache22
+
 .include "../../mk/apache.mk"
 .include "../../www/apache/module.mk"
 

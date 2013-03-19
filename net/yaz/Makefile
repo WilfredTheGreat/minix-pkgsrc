@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.42 2011/04/22 13:42:48 obache Exp $
+# $NetBSD: Makefile,v 1.45 2012/04/27 12:32:01 obache Exp $
 #
 
 DISTNAME=	yaz-4.1.6
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	net
 MASTER_SITES=	http://ftp.indexdata.dk/pub/yaz/
 
@@ -30,6 +30,7 @@ REPLACE.tclsh.new=	${TCLSH}
 REPLACE_FILES.tclsh=	util/yaz-asncomp
 
 .include "../../converters/libiconv/buildlink3.mk"
+.include "../../devel/readline/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"

@@ -1,15 +1,15 @@
-$NetBSD$
+$NetBSD: patch-za,v 1.6 2012/04/28 22:48:07 ryoon Exp $
 
---- suite/app/Makefile.in.orig	2011-08-14 01:09:42.000000000 +0000
+--- suite/app/Makefile.in.orig	2012-06-05 05:50:28.000000000 +0000
 +++ suite/app/Makefile.in
-@@ -103,6 +103,10 @@ TK_LIBS := -framework SystemConfiguratio
- endif
+@@ -236,6 +236,10 @@ libs::
+ 
  endif
  
 +ifeq ($(OS_ARCH),NetBSD)
-+LIBS += -lossaudio
++OS_LIBS += $(call EXPAND_LIBNAME,kvm)
 +endif
 +
- APP_XPCOM_LIBS = $(XPCOM_GLUE_LDOPTS)
- 
- LIBS += \
+ ifeq (cocoa,$(MOZ_WIDGET_TOOLKIT))
+ # Anything below the above ifdef won't be included in mac builds. So be very
+ # careful what you add here.

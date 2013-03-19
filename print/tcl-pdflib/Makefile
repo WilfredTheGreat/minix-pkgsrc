@@ -1,12 +1,14 @@
-# $NetBSD: Makefile,v 1.20 2010/06/13 22:45:17 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2012/06/21 10:36:01 joerg Exp $
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 .include "../../print/pdflib/Makefile.common"
 
 PKGNAME=		tcl-pdflib-${PDFLIB_BASE_VERS}
-PKGREVISION=		11
+PKGREVISION=		13
 COMMENT=		Tcl interface to PDFlib for generating PDF files
+
+MAKE_JOBS_SAFE=		no
 
 BUILDLINK_API_DEPENDS.pdflib+=	pdflib>=${PDFLIB_BASE_VERS}
 

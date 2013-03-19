@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.8 2011/06/19 03:23:13 taca Exp $
+# $NetBSD: Makefile,v 1.15 2012/06/14 15:16:07 taca Exp $
 
-DISTNAME=	facter-1.6.0
+DISTNAME=	facter-1.6.10
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	sysutils
-MASTER_SITES=	http://reductivelabs.com/downloads/gems/
 
 MAINTAINER=	tonnerre@NetBSD.org
 HOMEPAGE=	http://www.puppetlabs.com/puppet/related-projects/facter/

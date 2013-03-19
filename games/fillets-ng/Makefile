@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.21 2011/01/13 13:37:42 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2012/01/28 11:00:54 wiz Exp $
 #
 
 DISTNAME=	fillets-ng-0.7.3
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=fillets/}
 
@@ -16,6 +16,8 @@ DEPENDS+=	fillets-ng-data-0.7.1{,nb*}:../../games/fillets-ng-data
 
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c c++
+
+LDFLAGS.DragonFly=	-lX11
 
 SUBST_CLASSES+=		man
 SUBST_STAGE.man=	post-patch

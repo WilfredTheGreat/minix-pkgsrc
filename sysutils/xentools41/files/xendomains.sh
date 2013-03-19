@@ -50,8 +50,10 @@ xendomains_start()
 			cmdline=`printf "${xendomains_prehook}" $domain`
 			cmd="${cmdline%% *}"
 			if [ -x "$cmd" ]; then
-				$cmdline || echo "Pre-hook \`\`$cmdline'' failed... skipping $domain."
-				continue
+				if ! $cmdline; then
+					echo "Pre-hook \`\`$cmdline'' failed... skipping $domain."
+					continue
+				fi
 			fi
 		fi
 
@@ -88,7 +90,7 @@ xendomains_stop()
 	#
 	echo "Stopping xen domains."
 	for domain in $(xendomains_list); do
-		${ctl_command} shutdown --halt $domain
+		${ctl_command} shutdown $domain
 	done
 	while [ $timeout -gt 0 ]; do
 		livedomains=$(xendomains_list)

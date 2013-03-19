@@ -1,17 +1,17 @@
-# $NetBSD: Makefile,v 1.46 2008/04/25 20:39:10 joerg Exp $
+# $NetBSD: Makefile,v 1.48 2011/10/25 08:53:50 obache Exp $
 
 DISTNAME=	Numeric-24.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	math python
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=numpy/}
 
-MAINTAINER=	tsarna@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://numeric.scipy.org/
 COMMENT=	Adds multidimensional numeric arrays to Python
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-PYDISTUTILSPKG=	yes
 PYSETUP=	setup.py
 
 PLIST_VARS+=	blas
@@ -20,5 +20,5 @@ BUILDLINK_PASSTHRU_DIRS+=	/System/Library/Frameworks/vecLib.framework/Headers
 PLIST.blas=	yes
 .endif
 
-.include "../../lang/python/extension.mk"
+.include "../../lang/python/distutils.mk"
 .include "../../mk/bsd.pkg.mk"

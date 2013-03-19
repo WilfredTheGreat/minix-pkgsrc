@@ -1,8 +1,10 @@
-# $NetBSD: Makefile,v 1.41 2011/05/17 11:44:28 obache Exp $
+# $NetBSD: Makefile,v 1.48 2012/06/24 02:03:45 obache Exp $
 #
 
 .include "Makefile.common"
-PKGREVISION=	6
+
+PKGREVISION=	1
+
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.graphicsmagick.org/
 COMMENT=	X application for displaying and manipulating images
@@ -37,14 +39,12 @@ CONFIGURE_ARGS+=	--without-perl
 CONFIGURE_ARGS+=	--with-ltdl-include=${BUILDLINK_PREFIX.libltdl}/include
 CONFIGURE_ARGS+=	--with-ltdl-lib=${BUILDLINK_PREFIX.libltdl}/lib
 
-.include "../../archivers/bzip2/buildlink3.mk"
 .include "../../devel/libltdl/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/jbigkit/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/lcms/buildlink3.mk"
-.include "../../graphics/libexif/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"

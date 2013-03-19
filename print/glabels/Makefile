@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.46 2011/06/10 09:40:00 obache Exp $
+# $NetBSD: Makefile,v 1.55 2012/05/08 02:41:26 dholland Exp $
 #
 
 DISTNAME=		glabels-2.2.8
-PKGREVISION=		9
+PKGREVISION=		17
 CATEGORIES=		print
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=glabels/}
 
@@ -16,6 +16,9 @@ USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake intltool msgfmt pkg-config
+
+# This (a SUBST) is hefty enough to be in its own file.
+.include "glib2-fixes.mk"
 
 PKG_OPTIONS_VAR=        PKG_OPTIONS.glabels
 PKG_SUPPORTED_OPTIONS=  evolution

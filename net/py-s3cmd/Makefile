@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.4 2010/07/20 05:01:13 obache Exp $
+# $NetBSD: Makefile,v 1.7 2012/04/08 19:09:10 wiz Exp $
 
-DISTNAME=	s3cmd-0.9.9.91
+DISTNAME=	s3cmd-1.0.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	python net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=s3tools/}
 
-MAINTAINER=	ver@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://s3tools.org/s3cmd
 COMMENT=	Command-line interface to Amazon's Simple Storage Service (S3)
 LICENSE=	gnu-gpl-v2
@@ -17,9 +17,6 @@ MAKE_ENV+=		S3CMD_INSTPATH_MAN=${PKGMANDIR}
 .include "../../lang/python/pyversion.mk"
 
 DEPENDS+=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
-.if ${PYPKGPREFIX} == "py24"
-DEPENDS+=	${PYPKGPREFIX}-elementtree-[0-9]*:../../textproc/py-elementtree
-.endif
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"

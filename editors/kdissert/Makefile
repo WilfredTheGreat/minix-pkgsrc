@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2011/01/13 13:37:30 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2012/06/14 07:45:06 sbd Exp $
 #
 
 DISTNAME=		kdissert-1.0.7
-PKGREVISION=		8
+PKGREVISION=		15
 CATEGORIES=		editors
 MASTER_SITES=		http://freehackers.org/~tnagy/kdissert/
 EXTRACT_SUFX=		.tar.bz2
@@ -37,4 +37,5 @@ do-install:
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../x11/kdelibs3/buildlink3.mk"
 .include "../../x11/qt3-tools/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

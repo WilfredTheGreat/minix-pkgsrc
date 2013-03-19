@@ -1,8 +1,6 @@
-# $NetBSD: Makefile,v 1.2 2010/03/21 12:42:08 jdolecek Exp $
+# $NetBSD: Makefile,v 1.7 2012/06/16 03:02:09 taca Exp $
 
 MODNAME=		enchant
-PECL_VERSION=		1.1.0
-PKGREVISION=		1
 CATEGORIES+=		textproc
 COMMENT=		PHP extension for ENCHANT (spelling) support
 

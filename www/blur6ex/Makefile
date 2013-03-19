@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.12 2008/06/20 01:09:41 joerg Exp $
+# $NetBSD: Makefile,v 1.14 2011/12/29 14:35:10 joerg Exp $
 #
 
 DISTNAME=	blur6ex-0.1.198
@@ -14,7 +14,6 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 DEPENDS+=	${APACHE_PKG_PREFIX}-${PHP_PKG_PREFIX}>=4.0.0:../../www/ap-php
 DEPENDS+=	${PHP_PKG_PREFIX}-mysql-[0-9]*:../../databases/php-mysql
-DEPENDS+=	mysql-server>=4.1:../../databases/mysql51-server
 
 USE_TOOLS+=	pax
 
@@ -55,6 +54,6 @@ do-install:
 		'-s|./engine/core/db.php$$||' .			\
 		${DESTDIR}${PREFIX}/${HTTPD_ROOT}/blog
 
-.include "../../mk/apachever.mk"
+.include "../../mk/apache.mk"
 .include "../../lang/php/phpversion.mk"
 .include "../../mk/bsd.pkg.mk"

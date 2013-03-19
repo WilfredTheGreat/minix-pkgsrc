@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.24 2011/04/08 22:56:12 morr Exp $
+# $NetBSD: Makefile,v 1.27 2012/05/24 15:20:25 marino Exp $
 #
 
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	net sysutils
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -27,9 +27,11 @@ CONFIGURE_ARGS+= --without-pgsql --without-mysql \
 SPECIAL_PERMS+=	${PREFIX}/libexec/nagios/check_icmp ${SETUID_ROOT_PERMS}
 SPECIAL_PERMS+=	${PREFIX}/libexec/nagios/check_dhcp ${SETUID_ROOT_PERMS}
 
-PLIST_VARS+=	linux
+PLIST_VARS+=	linux sunos
 .if ${OPSYS} == "Linux"
 PLIST.linux=	yes
+.elif ${OPSYS} == "SunOS"
+PLIST.sunos=	yes
 .endif
 
 .if ${OPSYS} == "NetBSD"
@@ -43,11 +45,14 @@ MAKE_ENV+=		CPPFLAGS_LFS=${CPPFLAGS_LFS:Q}
 .endif
 LIBS.SunOS+=	-lm
 
+DEPENDS+=	nagios-base-*:../../net/nagios-base
+
 .if !exists(/usr/bin/ssh)
 DEPENDS+=	{ssh{,6}-[0-9]*,openssh-[0-9]*}:../../security/openssh
 .endif
 
-.if ${OPSYS} == "DragonFly" && (!exists(/usr/bin/dig) || !exists(/usr/bin/nslookup))
+.if (!exists(/usr/bin/dig) && !exists(/usr/sbin/dig)) || \
+    (!exists(/usr/bin/nslookup) && !exists(/usr/sbin/nslookup))
 DEPENDS+=	bind-[0-9]*:../../net/bind96
 .endif
 

@@ -1,15 +1,15 @@
-# $NetBSD: Makefile,v 1.5 2011/07/08 09:59:19 hauke Exp $
+# $NetBSD: Makefile,v 1.10 2012/04/08 19:09:15 wiz Exp $
 #
 
-PYBLOXSOMVERS=	1.5
-DISTNAME=	pyblosxom-${PYBLOXSOMVERS}rc3
+PYBLOXSOMVERS=	1.5.2
+DISTNAME=	pyblosxom-${PYBLOXSOMVERS}
 PKGNAME=	${PYPKGPREFIX}-blosxom-${PYBLOXSOMVERS}
-PKGREVISION=	2
+PKGREVISION=	1
 CATEGORIES=	www
-MASTER_SITES=	http://pyblosxom.bluesock.org/download/
+MASTER_SITES=	http://pyblosxom.github.com/download/
 
 MAINTAINER=	hauke@NetBSD.org
-HOMEPAGE=	http://pyblosxom.bluesock.org/
+HOMEPAGE=	http://pyblosxom.github.com/
 COMMENT=	PyBlosxom is a lightweight file-based weblog system
 
 LICENSE=	mit
@@ -17,9 +17,12 @@ LICENSE=	mit
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 DIST_SUBDIR=	${DISTNAME}	# upstream reissued tarball with no changes
+
+USE_LANGUAGES=	#none
+
 DOC_SUBDIR=     share/doc/pyblosxom
 DOCDIR=         ${PREFIX}/${DOC_SUBDIR}
-DOCFILES=       INSTALL LICENSE README THANKS UPGRADE WHATSNEW
+DOCFILES=       AUTHORS INSTALL LICENSE README.rst UPGRADE WHATSNEW
 
 INSTALLATION_DIRS=	${DOC_SUBDIR}
 

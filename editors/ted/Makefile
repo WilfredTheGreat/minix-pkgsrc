@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.44 2011/02/12 11:40:11 wiz Exp $
+# $NetBSD: Makefile,v 1.49 2012/03/03 00:13:01 wiz Exp $
 
 DISTNAME=	ted-2.21.src
 PKGNAME=	${DISTNAME:S/.src//}
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	editors
 MASTER_SITES=	ftp://ftp.nluug.nl/pub/editors/ted/
 
@@ -36,6 +36,9 @@ CONFIGURE_ENV+=	ac_xpm_includes="${BUILDLINK_PREFIX.libXpm}/include"
 CONFIGURE_ENV+=	ac_xpm_libraries="${BUILDLINK_PREFIX.libXpm}/lib"
 CONFIGURE_ENV+=	ac_zlib_includes="${BUILDLINK_PREFIX.zlib}/include"
 CONFIGURE_ENV+=	ac_zlib_libraries="${BUILDLINK_PREFIX.zlib}/lib"
+
+LDFLAGS.SunOS+=	-liconv
+LDFLAGS.DragonFly+=	-lXft -lfontconfig
 
 MAKE_FLAGS+=	CONFIGURE_OPTIONS=--x-libraries=${X11BASE}/lib\ --with-MOTIF
 

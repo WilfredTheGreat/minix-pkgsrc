@@ -1,12 +1,15 @@
 $NetBSD$
 
---- glib/gatomic-gcc.c.orig	2010-09-13 15:57:51.000000000 +0000
-+++ glib/gatomic-gcc.c
-@@ -21,6 +21,7 @@
+Fix inconsistency of .hidden attributes, leading to link error on amd64,
+reported by Tobias Nygren.
+
+--- glib/gatomic.c.orig	2012-03-12 00:42:41.000000000 +0000
++++ glib/gatomic.c
+@@ -22,6 +22,7 @@
  #include "config.h"
  
  #include "gatomic.h"
 +#include "gthreadprivate.h"
  
- gint
- g_atomic_int_exchange_and_add (volatile gint G_GNUC_MAY_ALIAS *atomic,
+ /**
+  * SECTION:atomic_operations

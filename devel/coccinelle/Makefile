@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.9 2010/08/07 14:23:23 jym Exp $
+# $NetBSD: Makefile,v 1.13 2012/03/15 11:53:23 obache Exp $
 
 DISTNAME=	coccinelle-0.2.5
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	http://coccinelle.lip6.fr/distrib/
 EXTRACT_SUFX=	.tgz
@@ -21,11 +22,8 @@ USE_TOOLS+=	gmake perl
 REPLACE_PERL=	configure
 BUILD_TARGET=	all all.opt
 
-.include "../../lang/python/tool.mk"
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
 CONFIG_SHELL=	${PERL5}
-
-PYTHON_VERSIONS_ACCEPTED=	27 26 25 24
 
 SUBST_CLASSES+=		man
 SUBST_FILES.man+=	configure

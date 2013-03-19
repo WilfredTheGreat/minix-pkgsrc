@@ -1,4 +1,4 @@
-$NetBSD: patch-ag,v 1.7 2009/10/21 14:55:32 drochner Exp $
+$NetBSD: patch-ag,v 1.9 2011/11/01 19:21:06 spz Exp $
 
 --- encoding.c.orig	2009-09-24 17:31:59.000000000 +0200
 +++ encoding.c

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.55 2010/12/23 11:44:35 dsainty Exp $
+# $NetBSD: Makefile,v 1.64 2012/06/14 07:45:10 sbd Exp $
 
 DISTNAME=	dx-4.4.4
-PKGREVISION=	9
+PKGREVISION=	18
 CATEGORIES=	graphics
 MASTER_SITES=	http://opendx.npaci.edu/source/
 

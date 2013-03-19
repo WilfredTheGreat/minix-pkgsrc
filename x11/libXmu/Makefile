@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2008/05/24 21:45:15 tnn Exp $
+# $NetBSD: Makefile,v 1.6 2012/06/03 17:34:50 wiz Exp $
 #
 
-DISTNAME=		libXmu-1.0.5
+DISTNAME=		libXmu-1.1.1
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=		.tar.bz2
@@ -18,6 +18,8 @@ PKGCONFIG_OVERRIDE+=	xmu.pc.in
 PKGCONFIG_OVERRIDE+=	xmuu.pc.in
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		pkg-config
+
+.include "../../meta-pkgs/modular-xorg/hacks.mk"
 
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"

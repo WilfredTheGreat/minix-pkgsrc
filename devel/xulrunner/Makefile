@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.54 2011/08/23 13:06:49 obache Exp $
+# $NetBSD: Makefile,v 1.72 2012/06/14 07:43:27 sbd Exp $
 
 .include "dist.mk"
 PKGNAME=	xulrunner-${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
@@ -27,6 +27,9 @@ ALL_ENV+=		MOZILLA_PKG_NAME=xulrunner
 
 MAKE_ENV+=		FREEBL_NO_DEPEND=0
 
+# workround for link of xulrunner-bin etc.
+LDFLAGS+=		-Wl,-rpath,${PREFIX}/lib/xulrunner -Wl,-rpath,${PREFIX}/lib
+
 .include "mozilla-common.mk"
 .include "options.mk"
 
@@ -50,5 +53,9 @@ post-install:
 	${INSTALL_PROGRAM_DIR} ${DESTDIR}${PREFIX}/lib/xulrunner-sdk/sdk/bin
 	${INSTALL_SCRIPT} ${WRKSRC}/dist/sdk/bin/xpt.py			\
 	  ${DESTDIR}${PREFIX}/lib/xulrunner-sdk/sdk/bin
+	${INSTALL_LIB} ${WRKSRC}/mozglue/build/libmozglue.a		\
+		${DESTDIR}${PREFIX}/lib/xulrunner
+	${INSTALL_LIB} ${WRKSRC}/mozglue/build/libmozglue.a		\
+		${DESTDIR}${PREFIX}/lib/xulrunner-sdk/sdk/lib
 
 .include "../../mk/bsd.pkg.mk"

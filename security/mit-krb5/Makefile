@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.53 2011/04/14 19:37:26 tez Exp $
+# $NetBSD: Makefile,v 1.59 2012/08/09 20:15:20 marino Exp $
 
-DISTNAME=	krb5-1.8.4
+DISTNAME=	krb5-1.10.3
 PKGNAME=	mit-${DISTNAME}
 CATEGORIES=	security
-MASTER_SITES=	http://web.mit.edu/kerberos/dist/krb5/1.8/
+MASTER_SITES=	http://web.mit.edu/kerberos/dist/krb5/${PKGVERSION_NOREV:R}/
 EXTRACT_SUFX=	.tar
 DISTFILES=	${DISTNAME}-signed${EXTRACT_SUFX}
 
 #PATCH_SITES=	http://web.mit.edu/kerberos/advisories/
-#PATCHFILES=	2010-006-patch.txt 2010-007-patch.txt 2011-001-patch.txt 2011-002-patch-r18.txt 2011-003-patch.txt 2011-004-patch-r18.txt
+#PATCHFILES=	2011-006-patch-r18.txt
 
 MAINTAINER=	tez@NetBSD.org
 HOMEPAGE=	http://web.mit.edu/kerberos/
@@ -26,8 +26,9 @@ BUILD_TARGET=	generate-files-mac all
 CONFLICTS+=	heimdal-[0-9]*
 CONFLICTS+=	kth-krb4-[0-9]*
 
+USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_TOOLS+=		autoconf gmake m4 perl yacc
+USE_TOOLS+=		autoconf gmake m4 perl yacc msgfmt
 MAKE_PROGRAM=		gmake
 GNU_CONFIGURE=		yes
 

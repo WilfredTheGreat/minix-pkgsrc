@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2011/07/08 09:28:06 adam Exp $
+# $NetBSD: Makefile,v 1.7 2012/01/26 06:34:19 sbd Exp $
 
-DISTNAME=	clamav-0.97.2
+DISTNAME=	clamav-0.97.5
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=clamav/}
 
@@ -14,6 +14,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
+SET_LIBDIR=		yes
 CONFIGURE_ARGS+=	--disable-clamav
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--with-dbdir=${CLAMAV_DBDIR}
@@ -23,10 +24,8 @@ CONFIGURE_ARGS+=	--with-ltdl-include=${BUILDLINK_PREFIX.libltdl}/include
 CONFIGURE_ARGS+=	--with-ltdl-lib=${BUILDLINK_PREFIX.libltdl}/lib
 CONFIGURE_ARGS+=	--with-zlib=${BUILDLINK_PREFIX.zlib}
 # pkgsrc enforces a "secure" version of zlib, so don't let this check
-# bomb the build.
+# bomb the build
 CONFIGURE_ARGS+=	--disable-zlib-vcheck
-# avoid multiarch libdir on Darwin
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/lib
 
 CHECK_PORTABILITY_SKIP=	contrib/* unit_tests/*
 
@@ -59,10 +58,6 @@ CONF_FILES=		# empty
 CONF_FILES_PERMS=	# empty
 .for i in clamd.conf freshclam.conf
 CONF_FILES+=		${EGDIR}/${i} ${PKG_SYSCONFDIR}/${i}
-.endfor
-.for i in daily.cvd main.cvd
-CONF_FILES_PERMS+=	${EGDIR}/${i} ${CLAMAV_DBDIR}/${i}	\
-			${CLAMAV_USER} ${CLAMAV_GROUP} 0664
 .endfor
 
 INSTALL_MAKE_FLAGS=	${MAKE_FLAGS} CFGINST=${EGDIR} DBINST=${EGDIR}

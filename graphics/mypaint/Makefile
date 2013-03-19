@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2011/04/22 13:43:49 obache Exp $
+# $NetBSD: Makefile,v 1.11 2012/03/09 12:34:10 wiz Exp $
 #
 
-DISTNAME=	mypaint-0.9.1
-PKGREVISION=	2
+DISTNAME=	mypaint-1.0.0
+PKGREVISION=	3
 CATEGORIES=	graphics
 MASTER_SITES=	http://download.gna.org/mypaint/
 EXTRACT_SUFX=	.tar.bz2
@@ -14,7 +14,6 @@ LICENSE=	gnu-gpl-v2
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-PYTHON_VERSIONS_ACCEPTED=	27 26 25
 USE_LANGUAGES=	c++
 
 USE_TOOLS+=	bash:run msgfmt pkg-config

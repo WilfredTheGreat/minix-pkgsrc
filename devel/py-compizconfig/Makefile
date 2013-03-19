@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.11 2011/02/25 09:47:21 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2012/06/14 07:43:31 sbd Exp $
 #
 
 PKGVER=			0.8.4
 DISTNAME=		compizconfig-python-${PKGVER}
 PKGNAME=		${PYPKGPREFIX}-compizconfig-${PKGVER}
-PKGREVISION=		5
+PKGREVISION=		10
 CATEGORIES=		devel gnome
 MASTER_SITES=		http://releases.compiz.org/${PKGVER}/
 
@@ -18,8 +18,6 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config gmake
-
-PYTHON_VERSIONS_ACCEPTED=	27 26 25
 
 PY_PATCHPLIST=		yes
 

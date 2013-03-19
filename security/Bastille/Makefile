@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.3 2008/03/04 11:02:25 rillig Exp $
+# $NetBSD: Makefile,v 1.5 2012/02/06 07:06:11 sbd Exp $
 #
 
 DISTNAME=	Bastille-3.0.9
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=bastille-linux/}
 EXTRACT_SUFX=	.tar.bz2
@@ -19,6 +20,8 @@ USE_PKGLOCALEDIR=	yes
 USE_LANGUAGES=		# none
 USE_TOOLS+=		bash:run perl:run
 NO_BUILD=		yes
+
+CHECK_INTERPRETER_SKIP+=share/Bastille/bastille-tmpdir.csh
 
 BUILD_DEPENDS+=		checkperms>=1.4:../../sysutils/checkperms
 DEPENDS+=		p5-Tk-[0-9]*:../../x11/p5-Tk

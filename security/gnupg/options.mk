@@ -1,7 +1,7 @@
-# $NetBSD: options.mk,v 1.12 2007/10/31 12:29:33 rillig Exp $
+# $NetBSD: options.mk,v 1.14 2012/01/20 17:07:38 drochner Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.gnupg
-PKG_SUPPORTED_OPTIONS=	curl idea ldap
+PKG_SUPPORTED_OPTIONS=	curl idea ldap readline
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -29,11 +29,6 @@ CONFIGURE_ARGS+=	--without-libcurl
 
 .if !empty(PKG_OPTIONS:Midea)
 # use of IDEA as crypto function
-LICENSE=	idea-license
-RESTRICTED=	Commercial distribution is claimed to require a license.
-NO_SRC_ON_CDROM=	${RESTRICTED}
-NO_BIN_ON_CDROM=	${RESTRICTED}
-
 DISTFILES+=	idea.c.gz
 SITES.idea.c.gz=ftp://ftp.gnupg.dk/pub/contrib-dk/ \
 		http://www.gnupg.dk/contrib-dk/
@@ -55,4 +50,12 @@ CONFIGURE_ARGS+=	--disable-ldap
 # be more efficient on M68060 machines
 CONFIGURE_ENV+=		M68060=${M68060:Q}
 CFLAGS+=		-m68060
+.endif
+
+.if !empty(PKG_OPTIONS:Mreadline)
+USE_GNU_READLINE=	yes
+.include "../../devel/readline/buildlink3.mk"
+CONFIGURE_ARGS+=  --with-readline=${BUILDLINK_PREFIX.readline}
+.else
+CONFIGURE_ARGS+=	--without-readline
 .endif

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.1.1.1 2010/02/15 17:16:13 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2012/03/03 00:12:42 wiz Exp $
 #
 
 DISTNAME=	moodbar-0.1.2
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	audio
 MASTER_SITES=	http://pwsp.net/~qbob/
 

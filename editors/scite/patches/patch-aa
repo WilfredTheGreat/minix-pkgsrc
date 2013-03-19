@@ -1,8 +1,17 @@
 $NetBSD$
 
---- gtk/makefile.orig	2010-10-27 21:16:07.000000000 +0000
+--- gtk/makefile.orig	2011-09-16 09:14:07.000000000 +0000
 +++ gtk/makefile
-@@ -84,13 +84,13 @@ deps:
+@@ -22,7 +22,7 @@ endif
+ 
+ # For the Gnome desktop stuff to work, prefix must point to where Gnome thinks it is.
+ CONFIGFLAGS:=$(shell pkg-config --cflags $(GTKVERSION))
+-CONFIGLIB:=$(shell pkg-config --libs $(GTKVERSION) gthread-2.0)
++CONFIGLIB:=$(shell pkg-config --libs $(GTKVERSION) gthread-2.0 gmodule-2.0)
+ CONFIGTHREADS:=
+ gnomeprefix:=$(shell pkg-config --variable=prefix $(GTKVERSION) 2>/dev/null)
+ ifndef prefix
+@@ -99,7 +99,7 @@ deps:
  	$(CC) -MM $(CONFIGFLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx | sed -e 's/\/usr.* //' | grep [a-zA-Z] >deps.mak
  
  # make should be run in ../../scintilla/gtk to compile all the lexers.
@@ -10,22 +19,4 @@ $NetBSD$
 +COMPLIB=$(prefix)/lib/scintilla.a
  
  $(PROG): SciTEGTK.o GUIGTK.o Widget.o \
- FilePath.o SciTEBase.o SciTEBuffers.o SciTEIO.o StringList.o Exporters.o StringHelpers.o \
- PropSetFile.o MultiplexExtension.o DirectorExtension.o SciTEProps.o StyleWriter.o Utf8_16.o \
- 	JobQueue.o GTKMutex.o IFaceTable.o $(COMPLIB) $(LUA_OBJS)
--	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--as-needed -Wl,--version-script lua.vers -DGTK $^ -o $@ $(CONFIGLIB) -ldl -lstdc++
-+	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--as-needed -Wl,--version-script lua.vers -DGTK $^ -o $@ $(CONFIGLIB) -lstdc++
- 
- # Automatically generate header dependencies with "make deps"
- include deps.mak
-@@ -109,8 +109,8 @@ install:
- 	done
- 
- ifdef gnomeprefix
--	$(INSTALL) -m 755 -D SciTE.desktop $(DESTDIR)$(datadir)/applications/SciTE.desktop
--	$(INSTALL) -m 644 -D Sci48M.png $(DESTDIR)$(pixmapdir)/Sci48M.png
-+	$(INSTALL) -m 755 SciTE.desktop $(DESTDIR)$(datadir)/applications/SciTE.desktop
-+	$(INSTALL) -m 644 Sci48M.png $(DESTDIR)$(pixmapdir)/Sci48M.png
- endif
- 
- uninstall:
+ FilePath.o SciTEBase.o Credits.o SciTEBuffers.o SciTEIO.o StringList.o Exporters.o StringHelpers.o \

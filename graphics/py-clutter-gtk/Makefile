@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2011/02/25 09:47:23 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2012/04/08 19:08:58 wiz Exp $
 #
 
 DISTNAME=	pyclutter-gtk-0.10.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/^py//}
-PKGREVISION=	6
+PKGREVISION=	10
 CATEGORIES=	graphics
 MASTER_SITES=	http://source.clutter-project.org/sources/pyclutter-gtk/0.10/
 
@@ -13,7 +13,6 @@ COMMENT=	Python modules for Clutter-Gtk
 LICENSE=	gnu-lgpl-v2.1
 
 PKG_DESTDIR_SUPPORT=	user-destdir
-PYTHON_VERSIONS_ACCEPTED=	27 26 25
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes

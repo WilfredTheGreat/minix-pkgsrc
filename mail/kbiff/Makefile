@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.41 2011/01/13 13:38:38 wiz Exp $
+# $NetBSD: Makefile,v 1.47 2012/03/03 00:13:30 wiz Exp $
 
 DISTNAME=	kbiff-3.9
-PKGREVISION=	7
+PKGREVISION=	12
 CATEGORIES=	devel kde
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=kbiff/}
 EXTRACT_SUFX=	.tar.bz2
@@ -16,6 +16,7 @@ USE_TOOLS+=		gmake perl
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
+SET_LIBDIR=		yes
 SHLIBTOOL_OVERRIDE=	# empty
 
 .include "../../meta-pkgs/kde3/kde3.mk"

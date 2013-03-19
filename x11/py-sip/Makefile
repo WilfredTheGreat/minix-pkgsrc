@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.24 2011/09/12 18:17:30 drochner Exp $
+# $NetBSD: Makefile,v 1.32 2012/05/29 10:57:16 jdc Exp $
 
-DISTNAME=	sip-4.12.4
+DISTNAME=	sip-4.13.3
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	x11 devel python
 MASTER_SITES=	http://www.riverbankcomputing.com/static/Downloads/sip4/
@@ -10,6 +10,8 @@ HOMEPAGE=	http://www.riverbankcomputing.com/software/sip/intro
 COMMENT=	Tool to create Python bindings for C++ libraries
 
 PKG_DESTDIR_SUPPORT=	user-destdir
+
+PYTHON_VERSIONS_INCLUDE_3X=	yes
 
 CONFLICTS+=	${PYPKGPREFIX}-qt2-sip-* ${PYPKGPREFIX}-qt3-sip-*
 
@@ -48,6 +50,12 @@ CONFIGURE_ARGS+=	LFLAGS_SHLIB="-shared -mimpure-text"
 CONFIGURE_ARGS+=	LFLAGS_SHLIB="-shared"
 .  endif
 .endif
+
+# Hack: gcc on sparc64 miscompiles sipgen/parser.c at -O2
+.if ${MACHINE_ARCH} == "sparc64" && !empty(CC_VERSION:Mgcc*)
+BUILDLINK_TRANSFORM+=	rm:-O2
+.endif
+
 
 SUBST_CLASSES+=		pyversfx
 SUBST_STAGE.pyversfx=	pre-configure

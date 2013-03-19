@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.78 2011/03/10 10:20:18 obache Exp $
+# $NetBSD: Makefile,v 1.83 2012/03/03 07:21:41 sbd Exp $
 
 PKGNAME=	mplayer-${MPLAYER_VERSION}
-PKGREVISION=	7
 
 COMMENT=	Fast, cross-platform movie player
 
@@ -44,5 +43,6 @@ do-install:
 
 .include "../../multimedia/mplayer-share/Makefile.depends"
 
+.include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
 .include "../../multimedia/mplayer-share/Makefile.cflags"

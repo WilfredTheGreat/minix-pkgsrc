@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.47 2011/04/22 13:43:39 obache Exp $
+# $NetBSD: Makefile,v 1.54 2012/06/14 07:43:47 sbd Exp $
 #
 
 DISTNAME=	sirius-0.8.0
-PKGREVISION=	22
+PKGREVISION=	29
 CATEGORIES=	games gnome
 MASTER_SITES=	http://sirius.bitvis.nu/files/
 
@@ -22,4 +22,5 @@ USE_PKGLOCALEDIR=	YES
 .include "../../devel/libgnomeui/buildlink3.mk"
 .include "../../graphics/libgnomecanvas/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

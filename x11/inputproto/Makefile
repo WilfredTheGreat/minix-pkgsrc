@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.11 2009/07/22 12:34:33 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2012/06/03 19:45:42 wiz Exp $
 #
 
-DISTNAME=		inputproto-2.0
+DISTNAME=		inputproto-2.2
 CATEGORIES=		x11
 MASTER_SITES=		${MASTER_SITE_XORG:=proto/}
 EXTRACT_SUFX=		.tar.bz2
@@ -16,5 +16,6 @@ CONFLICTS+=		xextensions-[0-9]*
 
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE+=	inputproto.pc.in
+CONFIGURE_ARGS+=	--with-asciidoc=no
 
 .include "../../mk/bsd.pkg.mk"

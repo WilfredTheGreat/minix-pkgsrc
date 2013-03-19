@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.23 2011/04/22 13:43:13 obache Exp $
+# $NetBSD: Makefile,v 1.31 2012/04/27 12:31:39 obache Exp $
 #
 
 DISTNAME=		krecipes-1.0-beta1
 PKGNAME=		krecipes-1.0beta1
-PKGREVISION=		11
+PKGREVISION=		17
 CATEGORIES=		databases kde
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=krecipes/}
 
@@ -14,9 +14,10 @@ COMMENT=		Recipe manager
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 GNU_CONFIGURE=		yes
+SET_LIBDIR=		yes
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_TOOLS+=		msgfmt
+USE_TOOLS+=		msgfmt perl
 
 CONFIGURE_ARGS+=	--without-mysql --without-postgresql
 

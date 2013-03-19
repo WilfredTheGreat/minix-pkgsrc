@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.59 2011/01/15 21:14:21 adam Exp $
+# $NetBSD: Makefile,v 1.65 2012/03/10 08:03:56 sbd Exp $
 
-DISTNAME=	pcre-8.13
+DISTNAME=	pcre-8.31
 CATEGORIES=	devel
 MASTER_SITES=	ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/ \
 		${MASTER_SITE_SOURCEFORGE:=pcre/}
@@ -18,6 +18,7 @@ USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-utf8 --enable-unicode-properties
+CONFIGURE_ARGS+=	--enable-pcre16
 
 SUBST_CLASSES+=		rpath
 SUBST_STAGE.rpath=	pre-configure
@@ -26,6 +27,7 @@ SUBST_FILES.rpath=	pcre-config.in
 SUBST_VARS.rpath=	COMPILER_RPATH_FLAG
 
 PKGCONFIG_OVERRIDE=	libpcre.pc.in libpcrecpp.pc.in libpcreposix.pc.in
+PKGCONFIG_OVERRIDE+=	libpcre16.pc.in
 
 # needs a stacksize of 5.5mb, default is 2mb
 TEST_TARGET=		test

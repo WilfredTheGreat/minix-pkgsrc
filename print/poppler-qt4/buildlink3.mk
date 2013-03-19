@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.7 2011/01/31 16:58:42 drochner Exp $
+# $NetBSD: buildlink3.mk,v 1.11 2012/07/04 20:26:58 drochner Exp $
 
 BUILDLINK_TREE+=	poppler-qt4
 
@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	poppler-qt4
 POPPLER_QT4_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.poppler-qt4+=	poppler-qt4>=0.6.1
-BUILDLINK_ABI_DEPENDS.poppler-qt4?=	poppler-qt4>=0.16.3
+BUILDLINK_ABI_DEPENDS.poppler-qt4+=	poppler-qt4>=0.20.3
 BUILDLINK_PKGSRCDIR.poppler-qt4?=	../../print/poppler-qt4
 
 .include "../../print/poppler/buildlink3.mk"

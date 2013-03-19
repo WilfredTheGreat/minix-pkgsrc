@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.36 2011/06/27 19:46:50 gls Exp $
+# $NetBSD: Makefile,v 1.44 2012/07/02 19:07:50 drochner Exp $
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 INSTALLATION_DIRS+=	${EGDIR}
@@ -7,6 +7,7 @@ INSTALLATION_DIRS+=	share/claws-mail
 .include "Makefile.common"
 
 PKGNAME=	claws-mail-${CLAWS_VERSION}
+PKGREVISION=	1
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	X based e-mail and netnews client
@@ -33,7 +34,7 @@ CONF_FILES=	${EGDIR}/mime.types ${PKG_SYSCONFDIR}/mime.types
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.claws-mail
 PKG_SUPPORTED_OPTIONS=	claws-mail-jpilot ldap inet6
-PKG_SUGGESTED_OPTIONS=
+PKG_SUGGESTED_OPTIONS=	inet6
 
 .include "../../mk/bsd.options.mk"
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.22 2011/06/06 13:45:37 fhajny Exp $
+# $NetBSD: Makefile,v 1.25 2012/01/07 23:02:03 fhajny Exp $
 
-DISTNAME=	ejabberd-2.1.8
+DISTNAME=	ejabberd-2.1.10
 CATEGORIES=	chat
 MASTER_SITES=	http://www.process-one.net/downloads/ejabberd/${PKGVERSION}/
 
@@ -52,11 +52,11 @@ PKG_SYSCONFSUBDIR=	ejabberd
 
 .include "../../mk/bsd.prefs.mk"
 
-EJABBERD_USER=		ejabberd
-EJABBERD_GROUP=		ejabberd
-EJABBERD_PIDDIR=	${VARBASE}/run/ejabberd
-EJABBERD_LOGDIR=	${VARBASE}/log/ejabberd
-EJABBERD_DB=		${VARBASE}/spool/ejabberd
+EJABBERD_USER?=		ejabberd
+EJABBERD_GROUP?=	ejabberd
+EJABBERD_PIDDIR?=	${VARBASE}/run/ejabberd
+EJABBERD_LOGDIR?=	${VARBASE}/log/ejabberd
+EJABBERD_DB?=		${VARBASE}/spool/ejabberd
 EJABBERD_EXDIR=		share/examples/ejabberd
 
 OWN_DIRS+=		${EJABBERD_PIDDIR}
@@ -93,8 +93,7 @@ post-patch:
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/dev.html ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 	${INSTALL_DATA} ${WRKSRC}/doc/features.html ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
-	${INSTALL_DATA} ${WRKSRC}/doc/features.pdf ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
-	${INSTALL_DATA} ${WRKSRC}/doc/guide.pdf ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
+	${INSTALL_DATA} ${WRKSRC}/doc/guide.html ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 
 SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Localizing paths

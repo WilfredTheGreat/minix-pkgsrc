@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.7 2009/08/29 15:34:56 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2012/06/03 17:25:09 wiz Exp $
 #
 
-DISTNAME=		libXau-1.0.6
+DISTNAME=		libXau-1.0.7
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=		.tar.bz2
@@ -23,6 +23,8 @@ CONFIGURE_ENV+=		LIB_MAN_SUFFIX=3
 PKGCONFIG_OVERRIDE+=	xau.pc.in
 
 CPPFLAGS.OSF1+=		-pthread # Required by compiler if including pthread.h
+
+.include "../../meta-pkgs/modular-xorg/hacks.mk"
 
 .include "../../x11/xproto/buildlink3.mk"
 

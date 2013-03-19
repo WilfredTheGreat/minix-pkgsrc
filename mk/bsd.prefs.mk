@@ -1,4 +1,4 @@
-# $NetBSD: bsd.prefs.mk,v 1.316 2011/09/10 16:30:02 abs Exp $
+# $NetBSD: bsd.prefs.mk,v 1.326 2012/08/14 15:27:07 asau Exp $
 #
 # This file includes the mk.conf file, which contains the user settings.
 #
@@ -73,6 +73,11 @@ UNAME=echo Unknown
 OPSYS:=			${:!${UNAME} -s!:S/-//g:S/\///g}
 MAKEFLAGS+=		OPSYS=${OPSYS:Q}
 .endif
+
+# OS_VARIANT is used to differentiate operating systems which have a common
+# basis but offer contrasting environments, for example Linux distributions
+# or illumos forks.
+OS_VARIANT?=		# empty
 
 # The _CMD indirection allows code below to modify these values
 # without executing the commands at all.  Later, recursed make
@@ -216,18 +221,11 @@ LOWER_VENDOR?=		sgi
 .elif ${OPSYS} == "Linux"
 OS_VERSION:=		${OS_VERSION:C/-.*$//}
 LOWER_OPSYS?=		linux
-MACHINE_ARCH:=          ${MACHINE_ARCH:C/i.86/i386/}
-MACHINE_ARCH:=		${MACHINE_ARCH:C/ppc/powerpc/}
 .  if !defined(LOWER_ARCH)
 LOWER_ARCH!=		${UNAME} -m | sed -e 's/i.86/i386/' -e 's/ppc/powerpc/'
 .  endif # !defined(LOWER_ARCH)
-.  if ${LOWER_ARCH} == "x86_64"
-MACHINE_ARCH=		x86_64
-.  endif
-.  if ${MACHINE_ARCH} == "unknown" || ${MACHINE_ARCH} == ""
 MACHINE_ARCH=		${LOWER_ARCH}
 MAKEFLAGS+=		LOWER_ARCH=${LOWER_ARCH:Q}
-.  endif
 .  if exists(/etc/debian_version)
 LOWER_VENDOR?=		debian
 .  elif exists(/etc/mandrake-release)
@@ -262,13 +260,17 @@ LOWER_OPSYS_VERSUFFIX?=	${OS_VERSION}
 LOWER_VENDOR?=		hp
 
 .elif ${OPSYS} == "SunOS"
+ABI?=			32
 .  if ${MACHINE_ARCH} == "sparc"
 SPARC_TARGET_ARCH?=	sparcv7
 .  elif ${MACHINE_ARCH} == "sun4"
 MACHINE_ARCH=		sparc
 SPARC_TARGET_ARCH?=	sparcv7
-.  elif ${MACHINE_ARCH} == "i86pc" || ${MACHINE_ARCH} == "i86xpv"
-MACHINE_ARCH=		i386
+.  elif ${MACHINE_ARCH} == "i86pc" || ${MACHINE_ARCH} == "i86xpv" || ${MACHINE_ARCH} == "i386"
+LOWER_ARCH.32=		i386
+LOWER_ARCH.64=		x86_64
+LOWER_ARCH=		${LOWER_ARCH.${ABI}}
+MACHINE_ARCH=		${LOWER_ARCH}
 .  elif ${MACHINE_ARCH} == "unknown"
 .    if !defined(LOWER_ARCH)
 LOWER_ARCH!=		${UNAME} -p
@@ -277,7 +279,11 @@ MAKEFLAGS+=		LOWER_ARCH=${LOWER_ARCH:Q}
 .  endif
 LOWER_VENDOR?=		sun
 LOWER_OPSYS?=		solaris
-LOWER_OPSYS_VERSUFFIX=	2
+LOWER_OPSYS_VERSUFFIX=	2.${OS_VERSION:C/5.//}
+_UNAME_V!=		${UNAME} -v
+.  if !empty(_UNAME_V:Mjoyent_*)
+OS_VARIANT=		SmartOS
+.  endif
 
 .elif !defined(LOWER_OPSYS)
 LOWER_OPSYS:=		${OPSYS:tl}
@@ -426,10 +432,10 @@ do-install:
 
 # After 2011Q1, the default is to use DESTDIR.
 USE_DESTDIR?=		yes
-# PKG_DESTDIR_SUPPORT can only be one of "destdir" or "user-destdir".
-PKG_DESTDIR_SUPPORT?=	# empty
+# PKG_DESTDIR_SUPPORT can only be one of "none", "destdir", or "user-destdir".
+PKG_DESTDIR_SUPPORT?=	user-destdir
 
-.if empty(PKG_DESTDIR_SUPPORT) || empty(USE_DESTDIR:M[Yy][Ee][Ss])
+.if ${PKG_DESTDIR_SUPPORT} == "none" || empty(USE_DESTDIR:M[Yy][Ee][Ss])
 .  if empty(USE_DESTDIR:M[Yy][Ee][Ss]) && empty(USE_DESTDIR:M[Nn][Oo])
 PKG_FAIL_REASON+=	"USE_DESTDIR must be either \`\`yes'' or \`\`no''"
 .  endif
@@ -439,12 +445,12 @@ _USE_DESTDIR=		user-destdir
 .elif ${PKG_DESTDIR_SUPPORT} == "destdir"
 _USE_DESTDIR=		destdir
 .else
-PKG_FAIL_REASON+=	"PKG_DESTDIR_SUPPORT must be \`\`destdir'' or \`\`user-destdir''."
+PKG_FAIL_REASON+=	"PKG_DESTDIR_SUPPORT must be \`\`none'', \`\`destdir'', or \`\`user-destdir''."
 .endif
 
 # This stanza serves to warn the user; deciding to not build
 # non-DESTDIR-capable packages when not in DESTDIR mode is above.
-.if empty(PKG_DESTDIR_SUPPORT)
+.if ${PKG_DESTDIR_SUPPORT} == "none"
 WARNINGS+=	"[bsd.prefs.mk] The package ${PKGNAME} is missing DESTDIR support."
 .endif
 
@@ -549,6 +555,8 @@ X11BASE?=	/usr
 .  elif !empty(MACHINE_PLATFORM:MDarwin-9.*-*) || \
         !empty(MACHINE_PLATFORM:MDarwin-??.*-*)
 X11BASE?=	/usr/X11
+.  elif ${OPSYS} == "NetBSD" && ${X11FLAVOUR:U} == "Xorg"
+X11BASE?=	/usr/X11R7
 .  elif exists(/usr/X11R7/lib/libX11.so)
 X11BASE?=	/usr/X11R7
 .  else
@@ -556,18 +564,6 @@ X11BASE?=	/usr/X11R6
 .  endif
 .endif
 CROSSBASE?=	${LOCALBASE}/cross
-
-# If xpkgwedge.def is found, then clearly we're using xpkgwedge.
-.if exists(${LOCALBASE}/lib/X11/config/xpkgwedge.def) || \
-    exists(${X11BASE}/lib/X11/config/xpkgwedge.def)
-USE_XPKGWEDGE=  yes
-.elif ${PKG_INSTALLATION_TYPE} == "pkgviews"
-USE_XPKGWEDGE=		yes
-.elif ${X11_TYPE} == "modular"
-USE_XPKGWEDGE=	no
-.else
-USE_XPKGWEDGE?=	yes
-.endif
 
 .if defined(FIX_SYSTEM_HEADERS) && ${FIX_SYSTEM_HEADERS} == "yes" && \
     !defined(BOOTSTRAP_PKG) && \
@@ -579,14 +575,26 @@ USE_XPKGWEDGE?=	yes
 X11BASE=		${LOCALBASE}
 .endif
 
-.if !empty(USE_XPKGWEDGE:M[Yy][Ee][Ss])
 X11PREFIX=		${LOCALBASE}
-.else
-X11PREFIX=		${X11BASE}
-.endif
 
 # Default directory for font encodings
 X11_ENCODINGSDIR?=	${X11BASE}/lib/X11/fonts/encodings
+
+IMAKE_MAN_SOURCE_PATH=	man/man
+IMAKE_MAN_SUFFIX=	1
+IMAKE_LIBMAN_SUFFIX=	3
+IMAKE_KERNMAN_SUFFIX=	4
+IMAKE_FILEMAN_SUFFIX=	5
+IMAKE_GAMEMAN_SUFFIX=	6
+IMAKE_MISCMAN_SUFFIX=	7
+IMAKE_MAN_DIR=		${IMAKE_MAN_SOURCE_PATH}1
+IMAKE_LIBMAN_DIR=	${IMAKE_MAN_SOURCE_PATH}3
+IMAKE_KERNMAN_DIR=	${IMAKE_MAN_SOURCE_PATH}4
+IMAKE_FILEMAN_DIR=	${IMAKE_MAN_SOURCE_PATH}5
+IMAKE_GAMEMAN_DIR=	${IMAKE_MAN_SOURCE_PATH}6
+IMAKE_MISCMAN_DIR=	${IMAKE_MAN_SOURCE_PATH}7
+IMAKE_MANNEWSUFFIX=	${IMAKE_MAN_SUFFIX}
+IMAKE_MANINSTALL?=	maninstall
 
 DEPOT_SUBDIR?=		packages
 DEPOTBASE=		${LOCALBASE}/${DEPOT_SUBDIR}

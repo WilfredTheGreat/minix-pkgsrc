@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.9 2011/04/14 09:03:40 adam Exp $
+# $NetBSD: Makefile,v 1.12 2012/06/13 11:02:35 jperkin Exp $
 
-DISTNAME=	xz-5.0.3
+DISTNAME=	xz-5.0.4
 CATEGORIES=	archivers
 MASTER_SITES=	http://tukaani.org/xz/
 EXTRACT_SUFX=	.tar.bz2
@@ -24,6 +24,11 @@ CONFLICTS=	lzma-[0-9]* lzma-utils-[0-9]* lzmalib-[0-9]*
 
 .if !empty(PKGSRC_COMPILER:Msunpro)
 CONFIGURE_ARGS+=	--disable-assembler
+.endif
+
+.if ${OPSYS} == "SunOS"
+CONFIGURE_ENV+=		ac_cv_have_decl_optreset=no
+CONFIGURE_ENV+=		gl_cv_cc_visibility=no
 .endif
 
 .include "../../devel/gettext-lib/buildlink3.mk"

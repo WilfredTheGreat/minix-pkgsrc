@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.13 2011/04/19 13:14:28 roy Exp $
+# $NetBSD: Makefile,v 1.21 2012/08/14 21:04:21 fhajny Exp $
 #
 
-DISTNAME=	numpy-1.4.1
-PKGREVISION=	1
-PKGNAME=	${PYPKGPREFIX}-numpy-1.4.1
+DISTNAME=	numpy-1.6.2
+PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	math python
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=numpy/}
 
@@ -14,8 +13,8 @@ LICENSE=	modified-bsd
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-PYDISTUTILSPKG=	yes
-USE_LANGUAGES+=	c fortran77
+USE_LANGUAGES+=	c fortran
+PYTHON_VERSIONS_INCLUDE_3X= yes
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 MAKE_ENV+=	ATLAS=None
 
@@ -42,12 +41,20 @@ PYSETUPBUILDARGS+= --fcompiler=gnu95
 PYSETUPBUILDARGS+= --fcompiler=gnu
 .endif
 
+# According to http://projects.scipy.org/numpy/ticket/1101,
+# LDFLAGS should either not be set or include -shared.
+LDFLAGS+=		-shared
+
+# This package bypasses the wrappers and calls the compilers directly when
+# linking, so ensure that we pass through requisite options.
+LDFLAGS+=		${_COMPILER_ABI_FLAG.${ABI}}
+
 # needs devel/py-nose
 #do-test:
 #	${PYTHONBIN} -c "import numpy; numpy.test()"
 
 .include "../../lang/python/application.mk"
-.include "../../lang/python/extension.mk"
+.include "../../lang/python/distutils.mk"
 .include "../../math/blas/buildlink3.mk"
 .include "../../math/lapack/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.5 2010/11/02 21:14:23 shattered Exp $
+# $NetBSD: Makefile,v 1.7 2011/11/07 12:05:17 drochner Exp $
 #
 
-DISTNAME=	boxbackup-0.10
-PKGNAME=	boxbackup-server-0.10
-PKGREVISION=	1
+DISTNAME=	boxbackup-0.11.1
+PKGNAME=	boxbackup-server-0.11.1
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=boxbackup/}
 EXTRACT_SUFX=	.tgz
@@ -27,6 +26,13 @@ REPLACE_PERL+=	bin/bbstored/bbstored-certs bin/bbstored/bbstored-config
 REPLACE_PERL+=	lib/raidfile/raidfile-config
 
 INSTALLATION_DIRS+=	bin
+
+.include "../../mk/bsd.prefs.mk"
+
+# for backtrace
+.if ${OPSYS} == "NetBSD" && exists(/usr/include/execinfo.h)
+LIBS+=  -lexecinfo
+.endif
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/parcels/boxbackup*-backup-server-*/bbstoreaccounts ${DESTDIR}${PREFIX}/bin

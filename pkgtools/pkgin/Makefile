@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2011/08/10 10:56:23 imil Exp $
+# $NetBSD: Makefile,v 1.26 2012/08/01 11:15:32 imil Exp $
 #
 
-DISTNAME=		pkgin-0.4.3
+DISTNAME=		pkgin-0.6.2.2
+PKGREVISION=		1
 CATEGORIES=		pkgtools
 MASTER_SITES=		ftp://ftp.NetBSD.org/pub/NetBSD/misc/imil/
 
@@ -32,6 +33,9 @@ SUBST_SED.path+=	-e "s|/usr/pkg|${PREFIX}|g"
 
 GNU_CONFIGURE=		yes
 USE_FEATURES=		nbcompat
+USE_TOOLS+=		nroff
+
+DEPENDS+=		pkg_install>=20110215:../../pkgtools/pkg_install
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -55,10 +59,7 @@ do-install:
 .	include "../../net/libfetch/buildlink3.mk"
 .endif
 
-# Only MINIX doesn't compile SQLite Amalgation source
-.if ${OPSYS} == "Minix"
-.	include "../../databases/sqlite3/buildlink3.mk"
-.endif
-
 .include "../../archivers/libarchive/buildlink3.mk"
+.include "../../databases/sqlite3/buildlink3.mk"
+.include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

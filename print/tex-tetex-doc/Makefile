@@ -1,17 +1,20 @@
-# $NetBSD: Makefile,v 1.7 2011/02/02 18:33:12 minskim Exp $
+# $NetBSD: Makefile,v 1.10 2012/03/04 01:01:43 minskim Exp $
 
 DISTNAME=	tetex.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-3.0.19695
-TEXLIVE_REV=	21308
+PKGNAME=	tex-${DISTNAME:S/./-/}-3.0.26894
+TEXLIVE_REV=	26894
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Documentation for tex-tetex
 
 CONFLICTS+=	teTeX-bin<=3.0nb42
+CONFLICTS+=	texlive-tetex<2011
 
 TEX_TEXMF_DIRS+=	${PREFIX}/share/texmf
 
-TEXLIVE_IGNORE_PATTERNS=	texmf/doc/man
+TEXLIVE_IGNORE_PATTERNS+=	texmf/doc/man/man1/a* texmf/doc/man/man1/d* \
+				texmf/doc/man/man1/f* texmf/doc/man/man1/t* \
+				texmf/doc/man/man5/f*
 
 .include "../../print/texlive/package.mk"
 .include "../../mk/bsd.pkg.mk"

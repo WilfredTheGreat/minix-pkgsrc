@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.56 2011/04/22 13:44:03 obache Exp $
+# $NetBSD: Makefile,v 1.65 2012/06/14 07:43:58 sbd Exp $
 #
 
 DISTNAME=	mail-notification-5.4
-PKGREVISION=	8
+PKGREVISION=	15
 CATEGORIES=	mail gnome
 MASTER_SITES=	http://savannah.nongnu.org/download/mailnotify/
 EXTRACT_SUFX=	.tar.bz2
@@ -17,6 +17,7 @@ HAS_CONFIGURE=		YES
 CONFIGURE_SCRIPT=	./jb configure
 USE_TOOLS+=		gmake intltool msgfmt pkg-config
 USE_PKGLOCALEDIR=	YES
+LDFLAGS+=		-lX11
 
 CONFIGURE_ARGS=		prefix="${PREFIX}" destdir="${DESTDIR}" sysconfdir=${PKG_SYSCONFDIR:Q}
 CONFIGURE_ARGS+=	cc="${CC}" cflags="${CFLAGS}" cppflags="${CPPFLAGS}" ldflags="${LDFLAGS}"
@@ -28,7 +29,7 @@ CONFIGURE_ARGS+=	evolution=no
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.mail-notification
 PKG_SUPPORTED_OPTIONS=	inet6 sasl ssl
-PKG_SUGGESTED_OPTIONS=	ssl
+PKG_SUGGESTED_OPTIONS=	inet6 ssl
 
 .include "../../mk/bsd.options.mk"
 
@@ -70,4 +71,5 @@ do-install:
 .include "../../sysutils/libnotify/buildlink3.mk"
 .include "../../mk/omf-scrollkeeper.mk"
 .include "../../x11/gtk2/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

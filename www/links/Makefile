@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.56 2010/01/17 12:02:49 wiz Exp $
+# $NetBSD: Makefile,v 1.58 2012/01/27 08:24:28 sbd Exp $
 #
 
 COMMENT=	Lynx-like text WWW browser

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST.linux-x86_64,v 1.3 2011/08/25 10:32:52 sbd Exp $
+@comment $NetBSD: PLIST.linux-x86_64,v 1.6 2012/04/27 04:27:16 sbd Exp $
 bin/sun6-java
 bin/sun6-javaws
 bin/sun6-keytool
@@ -168,8 +168,8 @@ java/sun-6/lib/fontconfig.RedHat.3.bfc.default
 java/sun-6/lib/fontconfig.RedHat.3.properties.src.default
 java/sun-6/lib/fontconfig.RedHat.4.bfc.default
 java/sun-6/lib/fontconfig.RedHat.4.properties.src.default
-java/sun-6/lib/fontconfig.RedHat.6.0.bfc.default
-java/sun-6/lib/fontconfig.RedHat.6.0.properties.src.default
+java/sun-6/lib/fontconfig.RedHat.6.bfc.default
+java/sun-6/lib/fontconfig.RedHat.6.properties.src.default
 java/sun-6/lib/fontconfig.RedHat.bfc.default
 java/sun-6/lib/fontconfig.RedHat.properties.src.default
 java/sun-6/lib/fontconfig.SuSE.11.bfc.default
@@ -255,7 +255,15 @@ java/sun-6/lib/security/local_policy.jar
 java/sun-6/lib/security/trusted.libraries
 java/sun-6/lib/servicetag/jdk_header.png
 java/sun-6/lib/sound.properties.default
-${PLIST.x11}java/sun-6/lib/amd64/libX11.so.6
+${PLIST.native}java/sun-6/lib/amd64/libX11.so.6
+${PLIST.native}java/sun-6/lib/amd64/jli/libX11.so.6
+${PLIST.native}java/sun-6/lib/amd64/libXext.so.6
+${PLIST.native}java/sun-6/lib/amd64/libXi.so.6
+${PLIST.native}java/sun-6/lib/amd64/libXt.so.6
+${PLIST.native}java/sun-6/lib/amd64/libXtst.so.6
+${PLIST.native}java/sun-6/lib/amd64/libasound.so.2
+${PLIST.native}java/sun-6/lib/amd64/libodbc.so
+${PLIST.native}java/sun-6/lib/amd64/libodbcinst.so
 java/sun-6/lib/zi/Africa/Abidjan
 java/sun-6/lib/zi/Africa/Accra
 java/sun-6/lib/zi/Africa/Addis_Ababa
@@ -281,6 +289,7 @@ java/sun-6/lib/zi/Africa/Freetown
 java/sun-6/lib/zi/Africa/Gaborone
 java/sun-6/lib/zi/Africa/Harare
 java/sun-6/lib/zi/Africa/Johannesburg
+java/sun-6/lib/zi/Africa/Juba
 java/sun-6/lib/zi/Africa/Kampala
 java/sun-6/lib/zi/Africa/Khartoum
 java/sun-6/lib/zi/Africa/Kigali
@@ -345,6 +354,7 @@ java/sun-6/lib/zi/America/Cayman
 java/sun-6/lib/zi/America/Chicago
 java/sun-6/lib/zi/America/Chihuahua
 java/sun-6/lib/zi/America/Costa_Rica
+java/sun-6/lib/zi/America/Creston
 java/sun-6/lib/zi/America/Cuiaba
 java/sun-6/lib/zi/America/Curacao
 java/sun-6/lib/zi/America/Danmarkshavn
@@ -483,6 +493,7 @@ java/sun-6/lib/zi/Asia/Dubai
 java/sun-6/lib/zi/Asia/Dushanbe
 java/sun-6/lib/zi/Asia/Gaza
 java/sun-6/lib/zi/Asia/Harbin
+java/sun-6/lib/zi/Asia/Hebron
 java/sun-6/lib/zi/Asia/Ho_Chi_Minh
 java/sun-6/lib/zi/Asia/Hong_Kong
 java/sun-6/lib/zi/Asia/Hovd

@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.144 2011/05/07 20:02:42 ryoon Exp $
+# $NetBSD: Makefile,v 1.152 2012/06/16 21:07:08 dholland Exp $
 #
 
 COMMENT=	Editors
 
+SUBDIR+=	OmegaT
 SUBDIR+=	Sigil
 SUBDIR+=	TeXmacs
 SUBDIR+=	TeXmacs-devel
@@ -20,6 +21,7 @@ SUBDIR+=	cooledit
 SUBDIR+=	dasher
 SUBDIR+=	easyedit
 SUBDIR+=	ed
+SUBDIR+=	edt
 SUBDIR+=	elvis
 SUBDIR+=	elvis-x11
 SUBDIR+=	emacs
@@ -31,6 +33,8 @@ SUBDIR+=	emacs21
 SUBDIR+=	emacs21-nox11
 SUBDIR+=	emacs22
 SUBDIR+=	emacs22-nox11
+SUBDIR+=	emacs24
+SUBDIR+=	emacs24-nox11
 SUBDIR+=	ex
 SUBDIR+=	fe
 SUBDIR+=	gate
@@ -42,6 +46,7 @@ SUBDIR+=	gice
 SUBDIR+=	gnuserv
 SUBDIR+=	gobby
 SUBDIR+=	gtranslator
+SUBDIR+=	gummi
 SUBDIR+=	heme
 SUBDIR+=	hexedit
 SUBDIR+=	hnb
@@ -50,8 +55,10 @@ SUBDIR+=	jde
 SUBDIR+=	jed
 SUBDIR+=	joe
 SUBDIR+=	jove
+SUBDIR+=	kate
 SUBDIR+=	kdissert
 SUBDIR+=	kile
+SUBDIR+=	kile-kde3
 SUBDIR+=	leafpad
 SUBDIR+=	leim20
 SUBDIR+=	leim21
@@ -59,6 +66,7 @@ SUBDIR+=	lpe
 SUBDIR+=	lyx
 SUBDIR+=	manedit
 SUBDIR+=	matlab-mode
+SUBDIR+=	medit
 SUBDIR+=	mflteco
 SUBDIR+=	mg
 SUBDIR+=	mg2a
@@ -119,6 +127,7 @@ SUBDIR+=	ted-pl
 SUBDIR+=	ted-pt
 SUBDIR+=	ted-sv
 SUBDIR+=	texmaker
+SUBDIR+=	texworks
 SUBDIR+=	tomboy
 SUBDIR+=	uemacs
 SUBDIR+=	ve

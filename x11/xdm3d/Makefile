@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.21 2009/02/09 16:28:44 joerg Exp $
+# $NetBSD: Makefile,v 1.25 2012/01/08 00:33:34 dholland Exp $
 
 DISTNAME=		xdm3d-1.0
-PKGREVISION=		3
+PKGREVISION=		5
 CATEGORIES=		x11
 MASTER_SITES=		${MASTER_SITE_LOCAL}
 
@@ -33,6 +33,7 @@ PKG_FAIL_REASON+=	"Cannot find xdm directory."
 .  if ${X11_TYPE} == "native"
 # wrong in 5.x's native X
 IMAKEOPTS+=-DHasSecureRPC=NO
+BUILDLINK_TRANSFORM+=	rm:-DSECURE_RPC
 .  endif
 IMAKEOPTS+=-DHasSetUserContext=YES
 .endif
@@ -56,7 +57,7 @@ do-install:
 	${SED} "$$sedexpr" ${PKGDIR}/PLIST > ${PLIST_SRC}
 	@if [ -r ${XDMDIR}/chooser ]; then				\
 		${INSTALL_PROGRAM} ${XDMDIR}/chooser ${DESTDIR}${PREFIX}/share/xdm3d;		\
-	elif [ -r ${X11BASE}/libexec/cooser ]; then			\
+	elif [ -r ${X11BASE}/libexec/chooser ]; then			\
 		${INSTALL_PROGRAM} ${X11BASE}/libexec/chooser ${DESTDIR}${PREFIX}/share/xdm3d;	\
 	else								\
 		${INSTALL_PROGRAM} ${WRKSRC}/chooser ${DESTDIR}${PREFIX}/share/xdm3d;		\
@@ -73,7 +74,6 @@ do-install:
 .include "../../x11/libXau/buildlink3.mk"
 .include "../../x11/libXdmcp/buildlink3.mk"
 .include "../../x11/libXmu/buildlink3.mk"
-.include "../../x11/libXp/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../mk/xaw.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

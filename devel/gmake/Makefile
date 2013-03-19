@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.77 2011/04/22 13:43:19 obache Exp $
+# $NetBSD: Makefile,v 1.81 2012/05/29 21:37:03 cheusov Exp $
 
 DISTNAME=	make-3.82
 PKGNAME=	g${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=make/}
 EXTRACT_SUFX=	.tar.bz2
@@ -26,32 +26,13 @@ TEST_TARGET=		check
 
 .include "../../mk/bsd.prefs.mk"
 
-.if defined(GNU_PROGRAM_PREFIX)
-CONFIGURE_ARGS+=	--program-prefix=${GNU_PROGRAM_PREFIX:Q}
-.endif
-PLIST_SUBST+=		GNU_PROGRAM_PREFIX=${GNU_PROGRAM_PREFIX:Q}
-BUILD_DEFS+=		GNU_PROGRAM_PREFIX
+CONFIGURE_ARGS+=	--program-prefix=g
 
-PLIST_VARS+=		gmake
-
-.if !defined(GNU_PROGRAM_PREFIX) || ${GNU_PROGRAM_PREFIX} != "g"
-PLIST.gmake=		yes
-.endif
+AUTO_MKDIRS=		yes
 
 PLIST_SRC=		${PKGDIR}/PLIST
 
-GMAKE_LOCALE?=		yes
-BUILD_DEFS+=		GMAKE_LOCALE
-MAKEFLAGS+=		GMAKE_LOCALE=${GMAKE_LOCALE:Q}
-.if !empty(GMAKE_LOCALE:M[yY][eE][sS])
-USE_PKGLOCALEDIR=		yes
-PLIST_SRC+=			${PKGDIR}/PLIST.locale
-USE_TOOLS+=			msgfmt
-.  include "../../devel/gettext-lib/buildlink3.mk"
-.else
-CONFIGURE_ARGS+=	--without-libintl
-CONFIGURE_ARGS+=	--without-libiconv
-.endif
+.include "options.mk"
 
 .if ${OPSYS} == "MirBSD"
 # workaround for broken strndup
@@ -59,10 +40,9 @@ CONFIGURE_ARGS+=	ac_cv_func_strndup=no
 .endif
 
 post-install:
-	${CHMOD} g-s ${DESTDIR}${PREFIX}/bin/${GNU_PROGRAM_PREFIX}make
-	${CHGRP} ${BINGRP} ${DESTDIR}${PREFIX}/bin/${GNU_PROGRAM_PREFIX}make
-.if !defined(GNU_PROGRAM_PREFIX) || ${GNU_PROGRAM_PREFIX} != "g"
-	${LN} -sf ${GNU_PROGRAM_PREFIX}make ${DESTDIR}${PREFIX}/bin/gmake
-.endif
+	${CHMOD} g-s ${DESTDIR}${PREFIX}/bin/gmake
+	${CHGRP} ${BINGRP} ${DESTDIR}${PREFIX}/bin/gmake
+	${LN} -sf ${PREFIX}/bin/gmake ${DESTDIR}${PREFIX}/gnu/bin/make
+	${LN} -sf ${PREFIX}/${PKGMANDIR}/man1/gmake.1 ${DESTDIR}${PREFIX}/gnu/man/man1/make.1
 
 .include "../../mk/bsd.pkg.mk"

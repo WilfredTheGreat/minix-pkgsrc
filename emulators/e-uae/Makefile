@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.15 2011/01/13 13:53:27 wiz Exp $
+# $NetBSD: Makefile,v 1.19 2012/03/03 12:54:17 wiz Exp $
 
 DISTNAME=	e-uae-0.8.28
-PKGREVISION=	9
+PKGREVISION=	12
 CATEGORIES=	emulators
 MASTER_SITES=	http://www.rcdrummond.net/uae/e-uae-0.8.28/
 EXTRACT_SUFX=	.tar.bz2
@@ -19,6 +19,7 @@ CONFLICTS+=	uae-[0-9]*
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
+LIBS.SunOS+=		-lsocket -lnsl
 
 .include "options.mk"
 

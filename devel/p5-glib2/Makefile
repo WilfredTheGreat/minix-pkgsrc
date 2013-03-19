@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.35 2011/08/14 12:26:49 obache Exp $
+# $NetBSD: Makefile,v 1.39 2012/03/03 00:12:00 wiz Exp $
 
-DISTNAME=	Glib-1.224
+DISTNAME=	Glib-1.260
 PKGNAME=	p5-${DISTNAME:S/Glib/glib2/}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gtk2-perl/}
@@ -17,7 +17,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 DEPENDS+=	p5-ExtUtils-Depends>=0.300:../../devel/p5-ExtUtils-Depends
 DEPENDS+=	p5-ExtUtils-PkgConfig>=1.00:../../devel/p5-ExtUtils-PkgConfig
 
-BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.0.0
+BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.12.0
 
 USE_TOOLS+=		pkg-config
 PERL5_PACKLIST=		auto/Glib/.packlist

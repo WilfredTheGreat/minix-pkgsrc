@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.4 2011/05/27 14:02:57 hans Exp $
+# $NetBSD: Makefile,v 1.8 2012/07/04 20:10:25 drochner Exp $
 #
 
-DISTNAME=	libgnome-keyring-2.32.0
-PKGREVISION=	2
+DISTNAME=	libgnome-keyring-3.4.1
 CATEGORIES=	security gnome
-MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libgnome-keyring/2.32/}
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libgnome-keyring/3.4/}
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gnome.org/
@@ -23,5 +22,6 @@ PKGCONFIG_OVERRIDE+=	library/gnome-keyring-1.pc.in
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../security/libgcrypt/buildlink3.mk"
+BUILDLINK_API_DEPENDS.dbus+=    dbus>=1.2.1
 .include "../../sysutils/dbus/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

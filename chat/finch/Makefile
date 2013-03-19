@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.32 2011/07/30 20:13:07 gls Exp $
+# $NetBSD: Makefile,v 1.42 2012/06/14 07:44:14 sbd Exp $
 
 PKGNAME=	finch-${PIDGIN_VERSION}
 
@@ -31,7 +31,6 @@ CONFIGURE_ARGS+=	--with-ncurses-headers=${BUILDLINK_DIR}/include
 USE_NCURSES=		yes # force ncurses, for libpanel
 
 BUILD_DIRS=		finch
-INSTALLATION_DIRS+=	${PKGMANDIR}/man1
 
 .include "options.mk"
 
@@ -41,9 +40,7 @@ pre-build:
 	${TEST} -r ${WRKSRC}/libpurple/libpurple.la || \
 	  ln -s ${BUILDLINK_DIR}/lib/libpurple.la ${WRKSRC}/libpurple
 
-post-install:
-	${INSTALL_MAN} ${WRKSRC}/doc/finch.1 \
-		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
+INSTALL_DIRS=		finch doc
 
 BUILDLINK_API_DEPENDS.libpurple+=	libpurple-${PIDGIN_VERSION}{,nb*}
 .include "../../chat/libpurple/buildlink3.mk"

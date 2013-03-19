@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:37:47 joerg Exp $
+@comment $NetBSD: PLIST,v 1.5 2012/02/16 15:26:41 hans Exp $
 bin/licq
 bin/viewurl-firefox.sh
 bin/viewurl-lynx.sh

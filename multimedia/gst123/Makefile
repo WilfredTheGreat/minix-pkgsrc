@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2011/04/22 13:44:15 obache Exp $
+# $NetBSD: Makefile,v 1.11 2012/06/14 07:44:16 sbd Exp $
 #
 
-DISTNAME=	gst123-0.2.1
+DISTNAME=	gst123-0.3.1
 CATEGORIES=	multimedia
 MASTER_SITES=	http://space.twc.de/~stefan/gst123/
 EXTRACT_SUFX=	.tar.bz2
@@ -9,7 +9,7 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	ryoon@NetBSD.org
 HOMEPAGE=	http://space.twc.de/~stefan/gst123.php
 COMMENT=	The gst123 is designed to be a more flexible command line player
-LICENSE=	gnu-gpl-v2
+LICENSE=	gnu-lgpl-v2
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 

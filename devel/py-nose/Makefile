@@ -1,11 +1,13 @@
-# $NetBSD: Makefile,v 1.2 2010/02/10 10:31:46 drochner Exp $
+# $NetBSD: Makefile,v 1.4 2012/02/17 18:30:23 drochner Exp $
 #
 
-DISTNAME=	nose-0.11.3
+DISTNAME=	nose-1.1.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
 #MASTER_SITES=	http://python-nose.googlecode.com/files/
-MASTER_SITES=	http://somethingaboutorange.com/mrl/projects/nose/
+#MASTER_SITES=	http://somethingaboutorange.com/mrl/projects/nose/
+MASTER_SITES=	http://pypi.python.org/packages/source/n/nose/
+EXTRACT_USING=	gtar
 
 MAINTAINER=	kamel.derouiche@gmail.com
 HOMEPAGE=	http://code.google.com/p/python-nose/
@@ -18,6 +20,7 @@ LICENSE=	gnu-lgpl-v2.1
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 USE_LANGUAGES=	# none
+PYTHON_VERSIONS_INCLUDE_3X= yes
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-extract:

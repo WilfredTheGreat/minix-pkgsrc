@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2010/02/21 15:13:42 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2011/12/22 16:32:04 joerg Exp $
 
 DISTNAME=	scipy-0.7.2
 PKGNAME=	${PYPKGPREFIX}-scipy-0.7.2
@@ -27,6 +27,9 @@ PYSETUPBUILDARGS+= --fcompiler=gnu95
 .else
 BROKEN=		Requires fortran 95
 .endif
+
+CPPFLAGS+=	-D__STDC_FORMAT_MACROS
+FFLAGS+=	-fPIC
 
 .include "../../lang/python/extension.mk"
 .include "../../math/fftw/buildlink3.mk"

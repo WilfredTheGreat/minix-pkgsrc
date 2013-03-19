@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.29 2011/01/13 13:37:07 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2012/03/09 12:34:00 wiz Exp $
 #
 
 DISTNAME=		solfege-3.14.1
-PKGREVISION=		7
+PKGREVISION=		12
 CATEGORIES=		audio
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=solfege/}
 
@@ -22,6 +22,7 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 CONFIGURE_ARGS+=	--disable-oss-sound
 CONFIGURE_ARGS+=	--disable-pygtk-test
 CONFIGURE_ARGS+=	--enable-docbook-stylesheet=${LOCALBASE}/share/xsl/docbook/html/chunk.xsl
+CONFIGURE_ARGS+=	--localedir=${LOCALBASE}/${PKGLOCALEDIR}/locale
 
 USE_TOOLS+=		gmake gm4 makeinfo pkg-config msgfmt bash:run
 

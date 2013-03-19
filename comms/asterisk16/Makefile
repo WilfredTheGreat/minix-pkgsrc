@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.32 2011/07/05 08:34:47 jnemeth Exp $
+# $NetBSD: Makefile,v 1.42 2012/05/04 16:06:13 joerg Exp $
 #
 # NOTE: when updating this package, there are two places that sound
 #       tarballs need to be checked
 
-DISTNAME=	asterisk-1.6.2.19
-PKGREVISION=	1
+DISTNAME=	asterisk-1.6.2.24
 DIST_SUBDIR=	${PKGNAME_NOREV}
 DISTFILES=	${DEFAULT_DISTFILES}
 EXTRACT_ONLY=	${DISTNAME}.tar.gz
+PKGREVISION=	1
 CATEGORIES=	comms net audio
 MASTER_SITES=	http://downloads.asterisk.org/pub/telephony/asterisk/ \
 		http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/ \
@@ -19,6 +19,8 @@ COMMENT=	The Asterisk Software PBX
 LICENSE=	gnu-gpl-v2
 
 CONFLICTS+=	asterisk-sounds-extra-[0-9]*
+
+NOT_FOR_PLATFORM+=	DragonFly-*-*
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
@@ -90,6 +92,11 @@ MAKE_FLAGS+=		WRKSRC=${WRKSRC}
 MAKE_FLAGS+=		LDOPTS=${LDFLAGS:M*:Q}
 MAKE_FLAGS+=		HTTP_DOCSDIR=${PREFIX}/share/httpd/htdocs
 MAKE_FLAGS+=		HTTP_CGIDIR=${PREFIX}/libexec/cgi-bin
+MAKE_FLAGS+=		OPTIMIZE=
+
+.if !empty(MACHINE_PLATFORM:MSunOS-*-i386)
+BUILDLINK_TRANSFORM+=	rm:-march=i386
+.endif
 
 .include "options.mk"
 
@@ -236,6 +243,7 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/voicemail_odbc_postgresql.txt ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 	${INSTALL_DATA} ${WRKSRC}/doc/tex/asterisk.txt ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 
+.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"

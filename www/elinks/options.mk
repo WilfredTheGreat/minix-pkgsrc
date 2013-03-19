@@ -1,16 +1,17 @@
-# $NetBSD: options.mk,v 1.10 2009/07/02 20:04:12 drochner Exp $
+# $NetBSD: options.mk,v 1.13 2012/01/09 14:53:31 drochner Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.elinks
 PKG_SUPPORTED_OPTIONS+=	bittorrent nntp javascript finger gopher
 PKG_SUPPORTED_OPTIONS+=	inet6 x11 elinks-exmode expat
 PKG_SUPPORTED_OPTIONS+= elinks-html-highlight elinks-root-exec
 PKG_SUPPORTED_OPTIONS+=	kerberos
+PKG_SUPPORTED_OPTIONS+=        python
 PKG_OPTIONS_GROUP.tls=	gnutls ssl
 PKG_OPTIONS_GROUP.malloc=	boehm-gc elinks-fastmem
 PKG_OPTIONS_REQUIRED_GROUPS=	tls
 PKG_OPTIONS_OPTIONAL_GROUPS=	malloc
 PKG_SUGGESTED_OPTIONS=	ssl javascript elinks-html-highlight elinks-exmode
-PKG_SUGGESTED_OPTIONS+=	expat boehm-gc
+PKG_SUGGESTED_OPTIONS+=	expat boehm-gc inet6
 
 PKG_OPTIONS_LEGACY_OPTS+= spidermonkey:javascript
 
@@ -67,10 +68,7 @@ CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
 .elif !empty(PKG_OPTIONS:Mgnutls)
 
 .include "../../security/gnutls/buildlink3.mk"
-.include "../../security/gnutls/libgnutls-config.mk"
 
-CONFIGURE_ARGS+= --with-gnutls-includes=${BUILDLINK_PREFIX.gnutls}/include
-CONFIGURE_ARGS+= --with-gnutls-libs=${BUILDLINK_PREFIX.gnutls}/lib
 CONFIGURE_ARGS+= --without-openssl
 .endif
 
@@ -133,4 +131,11 @@ CONFIGURE_ARGS+=	--with-gssapi
 .  include "../../mk/krb5.buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--without-gssapi
+.endif
+
+.if !empty(PKG_OPTIONS:Mpython)
+.include "../../lang/python/pyversion.mk"
+CONFIGURE_ARGS+=       --with-python=${PYTHONBIN}
+.else
+CONFIGURE_ARGS+=       --without-python
 .endif

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.1.1.1 2010/04/15 12:57:49 obache Exp $
+# $NetBSD: Makefile,v 1.3 2012/03/12 04:39:16 joerg Exp $
 #
 
 DISTNAME=	libbind-6.0
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	ftp://ftp.isc.org/isc/libbind/6.0/
 
@@ -12,15 +13,14 @@ LICENSE=	isc
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
+CONFLICTS=		man-pages-[0-9]*
+
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_TOOLS+=	nroff tbl
 
 CONFIGURE_ARGS+=	--with-libtool=yes
 
 MAKE_JOBS_SAFE=	no
-
-BUILD_TARGET=	all man
 
 .include "options.mk"
 

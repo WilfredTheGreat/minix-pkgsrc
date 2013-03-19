@@ -1,10 +1,14 @@
-# $NetBSD: Makefile,v 1.14 2011/04/22 13:44:27 obache Exp $
+# $NetBSD: Makefile,v 1.20 2012/03/13 13:22:24 taca Exp $
 
 .include "../../net/samba/Makefile.mirrors"
 
 DISTNAME=		samba-${VERSION}
+PKGREVISION=		4
 CATEGORIES=		net
 MASTER_SITES=		${SAMBA_MIRRORS:=old-versions/}
+PATCH_SITES=		http://www.samba.org/samba/ftp/patches/security/
+PATCHFILES=		samba-3.3.16-CVE-2012-1182.patch
+PATCH_DIST_STRIP=	 -p2
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.samba.org/
@@ -49,8 +53,8 @@ FILES_SUBST+=		SAMBA_STATEDIR=${SAMBA_STATEDIR:Q}
 FILES_SUBST+=		SAMBA_VARDIR=${SAMBA_VARDIR:Q}
 FILES_SUBST+=		WINBINDD_RCD_SCRIPT=${WINBINDD_RCD_SCRIPT:Q}
 
+GNU_CONFIGURE_LIBDIR=	${SAMBA_LIBDIR}
 CONFIGURE_ARGS+=	--with-configdir=${SAMBA_ETCDIR:Q}
-CONFIGURE_ARGS+=	--libdir=${SAMBA_LIBDIR:Q}
 CONFIGURE_ARGS+=	--with-lockdir=${SAMBA_LOCKDIR:Q}
 CONFIGURE_ARGS+=	--with-logfilebase=${SAMBA_LOGDIR:Q}
 CONFIGURE_ARGS+=	--with-modulesdir=${SAMBA_MODULESDIR:Q}
@@ -69,7 +73,7 @@ USE_GNU_READLINE=	yes
 .include "../../devel/readline/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-readline=${BUILDLINK_PREFIX.readline}
 
-.include "../../net/samba/options.mk"
+.include "options.mk"
 
 # Only Linux supports mount.cifs for mounting a CIFS share into the
 # filesystem.

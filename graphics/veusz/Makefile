@@ -1,18 +1,21 @@
-# $NetBSD: Makefile,v 1.21 2011/04/22 13:43:52 obache Exp $
+# $NetBSD: Makefile,v 1.29 2012/03/09 12:34:11 wiz Exp $
 #
 
-DISTNAME=		veusz-1.12
+DISTNAME=		veusz-1.16
 CATEGORIES=		graphics
 MASTER_SITES=		http://download.gna.org/veusz/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://home.gna.org/veusz/
 COMMENT=		Scientific plotting package
+LICENSE=		gnu-gpl-v2
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 PYDISTUTILSPKG=		yes
 USE_LANGUAGES=		c c++
+
+REPLACE_PYTHON=		examples/embedexample.py
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"

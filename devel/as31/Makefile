@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.16 2008/03/03 17:45:34 jlam Exp $
+# $NetBSD: Makefile,v 1.18 2012/03/07 20:39:47 hans Exp $
 
 DISTNAME=	asm.8051
 PKGNAME=	as31-19900126
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	ftp://ftp.uu.net/usenet/comp.sources.misc/volume10/
 EXTRACT_SUFX=	.Z
@@ -18,6 +18,7 @@ EXTRACT_CMD=	${GZCAT} ${DOWNLOADED_DISTFILE} | \
 USE_TOOLS+=	yacc
 MAKE_FILE=	makefile
 BUILD_TARGET=	as31
+MAKE_JOBS_SAFE=	no
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 

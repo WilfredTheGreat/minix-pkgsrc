@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.28 2011/05/28 11:53:55 taca Exp $
+# $NetBSD: Makefile,v 1.36 2012/06/16 03:04:23 taca Exp $
 
-DISTNAME=	drupal-6.22
-PKGREVISION=	1
+DISTNAME=	drupal-6.26
 CATEGORIES=	www
 MASTER_SITES=	http://drupal.org/files/projects/
 
@@ -10,15 +9,8 @@ HOMEPAGE=	http://drupal.org/
 COMMENT=	Open source content management system
 LICENSE=	gnu-gpl-v2
 
-CONFLICTS+=	drupal-5.*{,nb*}
-
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-.include "../../lang/php/phpversion.mk"
-
-.if ${PKG_PHP_VERSION} == "5"
-DEPENDS+=	php>=5.2.0<5.3:../../lang/php5
-.endif
 DEPENDS+=	${PHP_PKG_PREFIX}-gd>=4.3.5:../../graphics/php-gd
 
 NO_BUILD=	YES
@@ -56,11 +48,14 @@ SUBST_CLASSES+=		conf
 SUBST_STAGE.conf=	pre-install
 SUBST_FILES.conf=	drupal.conf
 SUBST_SED.conf=		-e "s|@DRUPAL@|${DRUPAL}|g"
-SUBST_SED.conf=		-e "s|@PREFIX@|${PREFIX}|g"
+SUBST_SED.conf+=	-e "s|@PREFIX@|${PREFIX}|g"
 SUBST_MESSAGE.conf=	Fixing configuration files.
 
 INSTALLATION_DIRS+=	${DRUPAL}/files ${DRUPAL}/sites/all \
 			share/doc/drupal share/examples/drupal
+.for i in ${PAX_DIRS}
+INSTALLATION_DIRS+=	${DRUPAL}/${i}
+.endfor
 
 .include "options.mk"
 
@@ -93,4 +88,5 @@ post-install:
 	${FIND} ${DESTDIR}${PREFIX}/${DRUPAL} \
 		\( -name '*.jpg' -o -name '*.png' \) | ${XARGS} ${CHMOD} 0644
 
+.include "../../lang/php/phpversion.mk"
 .include "../../mk/bsd.pkg.mk"

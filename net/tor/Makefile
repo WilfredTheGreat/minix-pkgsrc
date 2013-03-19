@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.82 2011/09/07 00:34:56 gdt Exp $
+# $NetBSD: Makefile,v 1.87 2012/06/17 12:09:40 hauke Exp $
 #
 
-DISTNAME=		tor-0.2.2.33
+DISTNAME=		tor-0.2.2.38
 CATEGORIES=		net security
 MASTER_SITES=		http://www.torproject.org/dist/
 # MASTER_SITES redirects to https, and ftp(1) cannot handle that.
@@ -55,6 +55,12 @@ CONF_FILES+=		${PREFIX}/share/examples/tor/torrc.sample 	\
 
 FILES_SUBST+=		PKG_HOME=${PKG_HOME}
 FILES_SUBST+=		TOR_USER=${TOR_USER} TOR_GROUP=${TOR_GROUP}
+
+SUBST_CLASSES+=			fix-paths
+SUBST_STAGE.fix-paths=		pre-configure
+SUBST_MESSAGE.fix-paths=	Fixing absolute paths.
+SUBST_FILES.fix-paths=		contrib/torify.in
+SUBST_SED.fix-paths=		-e 's,"/etc/tor,"${PKG_SYSCONFDIR},g'
 
 INSTALL_MAKE_FLAGS+=	sysconfdir=${PREFIX}/share/examples
 

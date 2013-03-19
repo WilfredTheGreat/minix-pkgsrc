@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.25 2011/01/13 13:38:42 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2012/06/14 07:45:05 sbd Exp $
 
 DISTNAME=	qalculate-kde-0.9.5
-PKGREVISION=	11
+PKGREVISION=	18
 CATEGORIES=	math
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=qalculate/}
 
@@ -18,6 +18,7 @@ USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_TOOLS+=		autoconf gmake msgfmt pkg-config perl
 GNU_CONFIGURE=		yes
+SET_LIBDIR=		yes
 
 pre-configure:
 	${RUN} cd ${WRKSRC}; autoconf
@@ -26,4 +27,5 @@ pre-configure:
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../math/qalculate/buildlink3.mk"
 .include "../../x11/kdelibs3/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

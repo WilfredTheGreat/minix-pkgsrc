@@ -1,7 +1,9 @@
-@comment $NetBSD$
-bin/${GNU_PROGRAM_PREFIX}sed
+@comment $NetBSD: PLIST,v 1.14 2012/05/29 22:22:00 cheusov Exp $
+bin/gsed
+gnu/bin/sed
+gnu/man/man1/sed.1
 info/sed.info
-man/man1/${GNU_PROGRAM_PREFIX}sed.1
+man/man1/gsed.1
 share/locale/af/LC_MESSAGES/sed.mo
 share/locale/ca/LC_MESSAGES/sed.mo
 share/locale/cs/LC_MESSAGES/sed.mo

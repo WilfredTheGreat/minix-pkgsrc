@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.78 2011/04/08 14:32:03 drochner Exp $
+# $NetBSD: Makefile,v 1.83 2012/04/08 19:09:19 wiz Exp $
 #
 
 DISTNAME=	pygtk-2.24.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/pygtk/gtk2/}
-PKGREVISION=	1
+PKGREVISION=	5
 CATEGORIES=	x11 python
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/pygtk/2.24/}
 EXTRACT_SUFX=	.tar.bz2
@@ -23,8 +23,6 @@ PKGCONFIG_OVERRIDE+=	pygtk-2.0.pc.in
 GNU_CONFIGURE=	YES
 CONFIGURE_ENV+=	PYTHON=${PYTHONBIN:Q}
 USE_TOOLS+=	gmake pkg-config
-
-PYTHON_VERSIONS_ACCEPTED=	27 26 25
 
 .include "../../lang/python/extension.mk"
 .include "../../lang/python/application.mk"

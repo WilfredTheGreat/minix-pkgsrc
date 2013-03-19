@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2011/06/10 09:39:59 obache Exp $
+# $NetBSD: Makefile,v 1.10 2012/05/07 00:10:58 dholland Exp $
 
 DISTNAME=	libdmapsharing-2.1.9
-PKGREVISION=	3
+PKGREVISION=	9
 CATEGORIES=	net
 MASTER_SITES=	http://www.flyn.org/projects/libdmapsharing/
 
@@ -14,7 +14,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 GNU_CONFIGURE=		yes
 LICENSE=		gnu-lgpl-v2.1
 USE_LIBTOOL=		yes
-USE_TOOLS=		gmake pkg-config
+USE_TOOLS+=		gmake pkg-config
 
 PKGCONFIG_OVERRIDE=	libdmapsharing.pc.in
 

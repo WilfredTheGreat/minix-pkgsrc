@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.29 2008/07/27 16:47:46 dholland Exp $
+# $NetBSD: Makefile,v 1.31 2012/02/16 19:47:32 hans Exp $
 #
 
 DISTNAME=	lavaps-2.7
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	sysutils x11
 MASTER_SITES=	http://www.isi.edu/~johnh/SOFTWARE/LAVAPS/
 
@@ -15,7 +15,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 MAKE_JOBS_SAFE=		no
 
 USE_LANGUAGES=	c c++
-USE_TOOLS+=	perl
+USE_TOOLS+=	perl pod2man pod2html
 
 GNU_CONFIGURE=	YES
 CONFIGURE_ARGS+=--with-tcltk \

@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.26 2010/12/06 16:40:50 adam Exp $
+# $NetBSD: options.mk,v 1.29 2012/02/01 08:30:39 sbd Exp $
 
 # Recommended package options for various setups:
 #
@@ -31,7 +31,7 @@ SAMBA_STATIC_MODULES:=	# empty
 PKG_OPTIONS+=		ldap
 .  endif
 CONFIGURE_ARGS+=	--with-ads
-CONFIGURE_ARGS+=	--with-krb5=${KRB5BASE:Q}
+CONFIGURE_ARGS+=	--with-krb5=${KRB5BASE}
 
 # Avoid build failures with recent version of Heimdal under NetBSD.
 .  if ${OPSYS} == "NetBSD"
@@ -136,6 +136,7 @@ PLIST.winbind=		yes
 
 # Install the NSS winbind module if it exists.
 PLIST_SUBST+=		NSS_WINBIND=${NSS_WINBIND:Q}
+FILES_SUBST+=		NSS_WINBIND=${NSS_WINBIND:Q}
 NSS_WINBIND=		${NSS_WINBIND_cmd:sh}
 NSS_WINBIND_cmd=	\
 	${TEST} -x ${WRKSRC}/config.status ||				\
@@ -146,11 +147,17 @@ NSS_WINBIND_cmd=	\
 		{ sub(".*/", "lib/"); print; }' &&			\
 	${RM} -f config.log
 
+# Install a /usr/lib/${NSS_WINBIND:T} -> ${PREFIX}/${NSS_WINBIND} symlink
+# Unfortunately NSS_WINDIND_cmd can not be used to determine whether the
+# (de)install templates are needed or not.
+INSTALL_TEMPLATES+=	INSTALL.nss_winbind
+DEINSTALL_TEMPLATES+=	DEINSTALL.nss_winbind
+
 .PHONY: samba-nss-winbind-install
 post-install: samba-nss-winbind-install
 samba-nss-winbind-install:
-	lib=${WRKSRC:Q}/nsswitch/${NSS_WINBIND:T:Q};			\
-	${TEST} ! -f $$lib || ${INSTALL_LIB} $$lib ${DESTDIR}${PREFIX:Q}/lib
+	lib=${WRKDIR}/${DISTNAME}/nsswitch/${NSS_WINBIND:T:Q};		\
+	${TEST} ! -f $$lib || ${INSTALL_LIB} $$lib ${DESTDIR}${PREFIX}/lib
 
 # Install the NSS WINS module if it exists.
 PLIST_SUBST+=	NSS_WINS=${NSS_WINS:Q}
@@ -167,8 +174,8 @@ NSS_WINS_cmd=	\
 .PHONY: samba-nss-wins-install
 post-install: samba-nss-wins-install
 samba-nss-wins-install:
-	lib=${WRKSRC:Q}/nsswitch/${NSS_WINS:T:Q};			\
-	${TEST} ! -f $$lib || ${INSTALL_LIB} $$lib ${DESTDIR}${PREFIX:Q}/lib
+	lib=${WRKDIR}/${DISTNAME}/nsswitch/${NSS_WINS:T:Q};		\
+	${TEST} ! -f $$lib || ${INSTALL_LIB} $$lib ${DESTDIR}${PREFIX}/lib
 .else
 CONFIGURE_ARGS+=	--without-winbind
 PLIST_SUBST+=		NSS_WINBIND="no NSS winbind module"

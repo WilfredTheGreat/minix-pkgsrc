@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.47 2011/07/25 06:44:23 he Exp $
+# $NetBSD: Makefile,v 1.62 2012/07/31 08:16:06 he Exp $
 #
 
-VERSION=		3.7.0
-RTYPE=			devel
+VERSION=		4.6.0
+RTYPE=			stable
 DISTNAME=		parrot-${VERSION}
 CATEGORIES=		lang
 MASTER_SITES=		ftp://ftp.parrot.org/pub/parrot/releases/${RTYPE}/${VERSION}/
@@ -51,6 +51,7 @@ REPLACE_PERL+=		tools/build/ops2c.pl
 REPLACE_PERL+=		tools/build/pmc2c.pl
 REPLACE_PERL+=		tools/dev/create_language.pl
 REPLACE_PERL+=		tools/dev/gen_makefile.pl
+REPLACE_PERL+=		tools/dev/mk_language_shell.in
 REPLACE_PERL+=		tools/dev/pprof2cg.pl
 REPLACE_PERL+=		tools/dev/reconfigure.pl
 
@@ -58,6 +59,30 @@ REPLACE_INTERPRETER+=	parrot
 REPLACE.parrot.old=	.*parrot[^[:space:]]*
 REPLACE.parrot.new=	${PREFIX}/bin/parrot
 REPLACE_FILES.parrot+= 	tools/dev/pbc_to_exe.pir
+
+REPLACE_INTERPRETER+=	parrot-nqp
+REPLACE.parrot-nqp.old=	.*parrot-nqp[^[:space:]]*
+REPLACE.parrot-nqp.new= ${PREFIX}/bin/parrot-nqp
+REPLACE_FILES.parrot-nqp+= compilers/data_json/JSON.nqp
+
+REPLACE_INTERPRETER+=	nqp
+REPLACE.nqp.old=	.*nqp[^[:space:]]*
+REPLACE.nqp.new=	${PREFIX}/bin/parrot-nqp
+REPLACE_FILES.nqp+=	runtime/parrot/library/YAML/Tiny.pm
+
+# These have been reported to parrot, Git tracking issue #201
+CHECK_WRKREF_SKIP+=	bin/ops2c
+CHECK_WRKREF_SKIP+=	bin/parrot
+CHECK_WRKREF_SKIP+=	bin/parrot-nqp
+CHECK_WRKREF_SKIP+=	bin/parrot-prove
+CHECK_WRKREF_SKIP+=	bin/parrot_config
+CHECK_WRKREF_SKIP+=	bin/parrot_nci_thunk_gen
+CHECK_WRKREF_SKIP+=	bin/pbc_merge
+CHECK_WRKREF_SKIP+=	bin/pbc_to_exe
+CHECK_WRKREF_SKIP+=	bin/winxed
+CHECK_WRKREF_SKIP+=	lib/parrot/${VERSION}/include/config.fpmc
+CHECK_WRKREF_SKIP+=	lib/parrot/${VERSION}/parrot_config.o
+CHECK_WRKREF_SKIP+=	lib/parrot/${VERSION}/tools/lib/Parrot/Config/Generated.pm
 
 # Does relink internally, so allow local rpath entries
 BUILDLINK_PASSTHRU_RPATHDIRS+=	${WRKSRC}
@@ -67,4 +92,5 @@ pre-install:
 
 .include "../../textproc/icu/buildlink3.mk"
 .include "../../devel/gmp/buildlink3.mk"
+.include "../../devel/readline/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

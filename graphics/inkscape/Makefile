@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.61 2011/07/12 18:55:09 drochner Exp $
+# $NetBSD: Makefile,v 1.72 2012/07/04 20:33:14 drochner Exp $
 
-DISTNAME=	inkscape-0.48.2
-PKGREVISION=	1
+DISTNAME=	inkscape-0.48.3.1
+PKGREVISION=	3
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=inkscape/}
 EXTRACT_SUFX=	.tar.bz2
@@ -26,6 +26,7 @@ USE_TOOLS+=		gmake intltool msgfmt perl:run pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ENV+=		MSGFMT=${TOOLS_DIR}/bin/msgfmt
 CONFIGURE_ENV+=		GMSGFMT=${TOOLS_DIR}/bin/msgfmt
+CONFIGURE_ARGS+=	--with-python
 
 REPLACE_PERL+=		share/extensions/*.p[lm]
 REPLACE_PERL+=		share/extensions/svg_dropshadow
@@ -34,6 +35,8 @@ BUILDLINK_API_DEPENDS.boehm-gc+=	boehm-gc>=6.4
 BUILDLINK_API_DEPENDS.poppler+=		poppler>=0.5.9
 
 UNLIMIT_RESOURCES=	datasize
+
+LDFLAGS.DragonFly=	-lX11
 
 SUBST_CLASSES+= pypath
 SUBST_STAGE.pypath= pre-configure

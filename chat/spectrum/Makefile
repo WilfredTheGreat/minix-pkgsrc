@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.5 2011/04/22 13:43:08 obache Exp $
+# $NetBSD: Makefile,v 1.19 2012/06/14 07:44:14 sbd Exp $
 
-DISTNAME=		spectrum-1.4.7
-PKGREVISION=		3
+DISTNAME=		spectrum-1.4.8
+PKGREVISION=		9
 CATEGORIES=		chat
-MASTER_SITES=		http://spectrum.im/attachments/download/37/
+MASTER_SITES=		http://spectrum.im/attachments/download/43/
 
 MAINTAINER=		schnoebe@NetBSD.org
 HOMEPAGE=		http://spectrum.im/
@@ -12,8 +12,6 @@ LICENSE=		gnu-gpl-v3
 
 DEPENDS+=		${PYPKGPREFIX}-xmpppy>=0.4.1:../../chat/py-xmpppy
 DEPENDS+=		${PYPKGPREFIX}-expat>=0nb4:../../textproc/py-expat
-
-PYTHON_VERSIONS_ACCEPTED=	27 26 25
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
@@ -25,6 +23,7 @@ REPLACE_PYTHON+=	spectrumctl/spectrumctl.py
 PY_PATCHPLIST=		yes
 
 BUILD_DEFS+=		JABBER_USER JABBER_GROUP
+BUILD_DEFS+=		SPECTRUM_RUN SPECTRUM_DB SPECTRUM_LOG
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -37,6 +36,14 @@ FILES_SUBST+=		JABBER_GROUP=${JABBER_GROUP}
 PKG_GROUPS+=		${JABBER_GROUP}
 PKG_USERS+=		${JABBER_USER}:${JABBER_GROUP}
 
+SPECTRUM_RUN?=		/var/run/spectrum
+SPECTRUM_DB?=		/var/db/spectrum
+SPECTRUM_LOG?=		/var/log/spectrum
+
+OWN_DIRS+=		${SPECTRUM_RUN} ${SPECTRUM_DB} ${SPECTRUM_LOG}
+OWN_DIRS_PERMS+=	${SPECTRUM_RUN} ${JABBER_USER} ${JABBER_GROUP} 770
+OWN_DIRS_PERMS+=	${SPECTRUM_DB} ${JABBER_USER} ${JABBER_GROUP} 770
+OWN_DIRS_PERMS+=	${SPECTRUM_LOG} ${JABBER_USER} ${JABBER_GROUP} 770
 
 PKG_SYSCONFSUBDIR=	spectrum
 EGDIR=			${PREFIX}/share/examples/spectrum
@@ -71,6 +78,14 @@ SUBST_FILES.users+=	man/spectrumctl.8
 SUBST_MESSAGE.users=	Correcting spectrum user
 SUBST_SED.users=	-e 's/@SPECTRUM_USER@/${JABBER_USER}/g'
 
+SUBST_CLASSES+=		cfg
+SUBST_STAGE.cfg=	post-patch
+SUBST_FILES.cfg=	spectrum.cfg
+SUBST_MESSAGE.cfg=	Fixing paths in default config file
+SUBST_SED.cfg=		-e 's,/var/run/spectrum,${SPECTRUM_RUN},g'
+SUBST_SED.cfg+=		-e 's,/var/lib/spectrum,${SPECTRUM_DB},g'
+SUBST_SED.cfg+=		-e 's,/var/log/spectrum,${SPECTRUM_LOG},g'
+
 MESSAGE_SUBST+=		EGDIR=${EGDIR}
 MESSAGE_SUBST+=		PREFIX=${PREFIX}
 MESSAGE_SUBST+=		PKG_SYSCONFDIR=${PKG_SYSCONFDIR}
@@ -101,6 +116,7 @@ post-install:
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/py-readline/buildlink3.mk"
+# .include "../../devel/libev/buildlink3.mk"
 .include "../../devel/poco/buildlink3.mk"
 .include "../../graphics/ImageMagick/buildlink3.mk"
 .include "../../lang/python/application.mk"

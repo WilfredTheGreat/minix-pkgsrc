@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2011/01/13 13:38:01 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2012/06/14 07:45:42 sbd Exp $
 #
 
 DISTNAME=	frameworks-0.3.7
-PKGREVISION=	6
+PKGREVISION=	11
 CATEGORIES=	graphics
 MASTER_SITES=	http://frameworks.polycrystal.org/release/
 SITES.frameworks.png=	http://frameworks.polycrystal.org/images/
@@ -16,6 +16,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	pkg-config gmake autoconf
+LDFLAGS+=	-lm    # Explicit for binutils 2.22 linker
 
 SUBST_CLASSES=		xdg
 SUBST_STAGE.xdg=	pre-configure
@@ -41,4 +42,5 @@ post-install:
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/libv4l/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,8 +1,10 @@
-$NetBSD: patch-ab,v 1.2 2007/06/23 04:31:55 obache Exp $
+$NetBSD: patch-ab,v 1.4 2012/02/27 11:53:07 obache Exp $
 
---- configure.in.orig	2009-09-27 08:02:17.000000000 +0000
+* Use own optimization flags.
+
+--- configure.in.orig	2012-04-01 14:21:02.000000000 +0000
 +++ configure.in
-@@ -98,8 +98,8 @@ dnl
+@@ -90,8 +90,8 @@ dnl
  dnl check gcc
  dnl
  if test -n "$GCC"; then

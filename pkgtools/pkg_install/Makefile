@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.182 2011/01/31 07:25:03 agc Exp $
+# $NetBSD: Makefile,v 1.185 2012/03/01 21:40:00 joerg Exp $
 
 # Notes to package maintainers:
 #
@@ -64,6 +64,7 @@ CPPFLAGS+=		-DDEF_UMASK=${DEF_UMASK}
 
 MAKE_ENV+=		MACHINE_ARCH=${MACHINE_ARCH:Q}
 MAKE_ENV+=		OPSYS=${OPSYS:Q}
+MAKE_ENV+=		MANINSTALL=${MANINSTALL:Q}
 
 PKG_DBDIR?=		/var/db/pkg
 EGDIR=			${PREFIX}/share/examples/pkg_install
@@ -121,6 +122,12 @@ LDFLAGS+=	-L${WRKDIR}/zlib
 CPPFLAGS+=	-I${WRKDIR}/libarchive/libarchive
 LDFLAGS+=	-L${WRKDIR}/libarchive/.libs
 
+# Until we support pkgsrc openssl at bootstrap time, disable it completely
+# if asked to avoid the builtin.
+.if empty(USE_BUILTIN.openssl:M[Yy][Ee][Ss])
+LIBARCHIVE_CONFIGURE_ARGS=	--without-openssl
+.endif
+
 LIBARCHIVE_LIBS=	${SED} -n -e 's/^Libs://p' -e 's/^Libs.private://p' \
     ${WRKDIR}/libarchive/build/pkgconfig/libarchive.pc 2>/dev/null || echo
 LIBS+=		${LIBARCHIVE_LIBS:sh}
@@ -133,6 +140,11 @@ CONFIG_SUB_OVERRIDE+=	${WRKDIR}/libarchive/build/autoconf/config.sub
 # (outdated) dynamic library "/usr/lib/libarchive.dylib".
 LDFLAGS+=	-Wl,-search_paths_first
 .  endif
+
+.if ${OPSYS} == SunOS
+# workaround for pkg/45491
+CONFIGURE_ENV+=	ac_cv_header_ext2fs_ext2_fs_h=no
+.endif
 
 # Hack to make sure that the libarchive version is replaced
 pre-configure: config-guess-override config-sub-override
@@ -170,7 +182,8 @@ pre-configure:
 		${CONFIG_SHELL} ${CONFIG_SHELL_FLAGS}			\
 		./configure --disable-shared --disable-bsdtar		\
 		--disable-bsdcpio --without-expat --without-xml2	\
-		--disable-dependency-tracking
+		--disable-dependency-tracking				\
+		${LIBARCHIVE_CONFIGURE_ARGS}
 	cd ${WRKDIR}/libarchive && ${BUILD_MAKE_CMD}
 .endif
 	cd ${WRKDIR}/libfetch && ${SETENV} ${MAKE_ENV} ${BSD_MAKE_ENV}	\

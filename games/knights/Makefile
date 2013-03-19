@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.41 2011/01/13 13:37:47 wiz Exp $
+# $NetBSD: Makefile,v 1.47 2012/03/03 00:13:07 wiz Exp $
 
 DISTNAME=	knights-0.6
-PKGREVISION=	18
+PKGREVISION=	23
 CATEGORIES=	games kde
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=knights/}
 
@@ -14,6 +14,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 USE_TOOLS+=		gmake
 USE_LANGUAGES=		c c++
 GNU_CONFIGURE=		YES
+SET_LIBDIR=		YES
 USE_LIBTOOL=		YES
 
 .include "../../meta-pkgs/kde3/kde3.mk"

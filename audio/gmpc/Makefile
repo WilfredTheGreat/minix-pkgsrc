@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.42 2011/04/22 13:42:17 obache Exp $
+# $NetBSD: Makefile,v 1.48 2012/04/27 12:31:33 obache Exp $
 #
 
 DISTNAME=		gmpc-0.20.0
-PKGREVISION=		6
+PKGREVISION=		11
 CATEGORIES=		audio
 MASTER_SITES=		http://download.sarine.nl/Programs/gmpc/0.20.0/ \
 			${MASTER_SITE_SOURCEFORGE:=musicpd/}
@@ -18,6 +18,7 @@ USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		intltool msgfmt pkg-config gmake
 PKGCONFIG_OVERRIDE=	data/gmpc.pc.in
+REPLACE_SH=		remote/gmpc-remote-stream
 
 .include "options.mk"
 

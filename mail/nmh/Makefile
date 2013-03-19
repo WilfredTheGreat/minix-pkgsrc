@@ -1,12 +1,13 @@
-# $NetBSD: Makefile,v 1.70 2008/08/21 20:35:36 epg Exp $
+# $NetBSD: Makefile,v 1.75 2012/01/24 09:11:07 sbd Exp $
 
-DISTNAME=		nmh-1.3
+DISTNAME=		nmh-1.5
 CATEGORIES=		mail
 MASTER_SITES=		http://savannah.nongnu.org/download/nmh/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.nongnu.org/nmh/
 COMMENT=		Cleaned up MH mailer suite
+LICENSE=		modified-bsd
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
@@ -36,7 +37,7 @@ NMH_MTA?=		smtp
 
 GNU_CONFIGURE=		yes
 
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/libexec/nmh
+GNU_CONFIGURE_LIBDIR=	${PREFIX}/libexec/nmh
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 CONFIGURE_ARGS+=	--enable-nmh-pop
 CONFIGURE_ARGS+=	--with-mts=${NMH_MTA:Q}
@@ -97,11 +98,16 @@ CONF_FILES+=		${EGDIR}/${f} ${PKG_SYSCONFDIR}/${f}
 .endfor
 
 post-install:
-	for f in `${GREP} '^${DOCDIR}/' ${PKGDIR}/PLIST`; do \
-	    ${INSTALL_DATA} ${WRKSRC}/docs/`${BASENAME} $$f` \
-		${DESTDIR}${PREFIX}/${DOCDIR}; \
-	done
 	${INSTALL_DATA} ${FILESDIR}/mhn.defaults.dist \
 	    ${DESTDIR}${EGDIR}/mhn.defaults
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "Linux"
+.include "../../databases/gdbm_compat/buildlink3.mk"
+CONFIGURE_ARGS+=	--with-ndbm='gdbm_compat -lgdbm'
+CONFIGURE_ARGS+=	--with-ndbmheader=ndbm.h
+.endif
+
+.include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

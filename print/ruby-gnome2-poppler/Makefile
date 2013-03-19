@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2011/04/22 13:44:33 obache Exp $
+# $NetBSD: Makefile,v 1.28 2012/04/14 04:27:50 obache Exp $
 #
 
 PKGNAME=		${RUBY_PKGPREFIX}-gnome2-poppler-${VERSION}
+PKGREVISION=		1
 COMMENT=		Ruby binding of poppler-glib
 CATEGORIES=		print
 
@@ -11,7 +12,6 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 RUBY_EXTCONF_SUBDIRS=	poppler
 
-DEPENDS+=		${RUBY_PKGPREFIX}-gnome2-gdkpixbuf>=${VERSION}:../../graphics/ruby-gnome2-gdkpixbuf
 DEPENDS+=		${RUBY_PKGPREFIX}-gnome2-gtk>=${VERSION}:../../x11/ruby-gnome2-gtk
 
 do-test:

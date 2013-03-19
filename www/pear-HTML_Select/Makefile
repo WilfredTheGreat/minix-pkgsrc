@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.12 2010/02/04 16:36:05 joerg Exp $
+# $NetBSD: Makefile,v 1.14 2012/03/07 14:50:57 taca Exp $
 
-DISTNAME=	HTML_Select-1.3.0
+DISTNAME=	HTML_Select-1.3.1
 CATEGORIES=	www
 
-MAINTAINER=	jdolecek@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	PHP class for generating HTML form select elements
 
 PKG_DESTDIR_SUPPORT=	user-destdir

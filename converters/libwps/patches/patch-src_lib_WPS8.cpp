@@ -1,13 +1,16 @@
 $NetBSD$
 
---- src/lib/WPS8.cpp.orig	2011-02-04 20:04:48.000000000 +0000
+Fix clang error: expression result unused [-Werror,-Wunused-value]
+https://sourceforge.net/tracker/?func=detail&aid=3512534&group_id=176121&atid=875977
+
+--- src/lib/WPS8.cpp.orig	2011-11-10 16:05:28.000000000 +0000
 +++ src/lib/WPS8.cpp
-@@ -128,7 +128,7 @@ void WPS8Parser::appendUTF16LE(WPXInputS
- 	uint16_t high_surrogate = 0;
- 	bool fail = false;
- 	uint16_t readVal;
--	uint32_t ucs4Character;
-+	uint32_t ucs4Character = 0;
- 	while (true) {
- 		if (input->atEOS()) {
- 			fail = true;
+@@ -205,8 +205,6 @@ void WPS8Parser::readNotes(std::vector<W
+ 	if (headerIndexTable.end() == pos)
+ 		return;
+ 
+-	pos->second.length;
+-
+ 	uint32_t unk1;
+ 	uint32_t count;
+ 	uint32_t boff;

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2011/10/04 19:25:31 gls Exp $
+# $NetBSD: Makefile,v 1.30 2011/11/24 20:07:48 gls Exp $
 
-DISTNAME=	suite3270-3.3.12ga7-src
-PKGNAME=	x3270-3.3.12ga7
+DISTNAME=	suite3270-3.3.12ga11-src
+PKGNAME=	x3270-3.3.12ga11
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=x3270/}
 EXTRACT_SUFX=	.tgz
@@ -29,6 +29,7 @@ EGDIR=			${PREFIX}/share/examples/x3270
 CONF_FILES=		${EGDIR}/ibm_hosts ${PKG_SYSCONFDIR}/ibm_hosts
 INSTALLATION_DIRS+=	${EGDIR}
 
+.include "../../security/openssl/buildlink3.mk"
 .include "../../x11/libXaw/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../x11/xbitmaps/buildlink3.mk"

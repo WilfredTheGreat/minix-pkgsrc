@@ -1,13 +1,18 @@
-# $NetBSD: Makefile,v 1.15 2011/01/23 07:55:14 markd Exp $
+# $NetBSD: Makefile,v 1.27 2012/06/14 22:09:29 sbd Exp $
 
 #DISTNAME=	kdepim-runtime-${_KDE_VERSION}
-DISTNAME=	kdepim-runtime-4.4.9
-MASTER_SITES=	${MASTER_SITE_KDE:=kdepim-4.4.9/src/}
-PKGREVISION=	1
+DISTNAME=	kdepim-runtime-4.4.11.1
+PKGNAME=	${DISTNAME:S/-4/4-4/}
+MASTER_SITES=	${MASTER_SITE_KDE:=kdepim-4.4.11.1/src/}
+PKGREVISION=	3
 CATEGORIES=	misc
 COMMENT=	Runtime requirements for the KDE PIM tools
+EXTRACT_SUFX=	.tar.bz2
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
+
+# tar: Invalid header, starting valid header search.
+EXTRACT_USING=	gtar
 
 # BUILD_MAKE_FLAGS+= VERBOSE=1
 

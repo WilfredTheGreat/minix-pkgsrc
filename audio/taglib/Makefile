@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.23 2011/05/21 15:13:20 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2012/03/22 11:47:15 drochner Exp $
 #
 
-DISTNAME=	taglib-1.7
-PKGREVISION=	1
+DISTNAME=	taglib-1.7.2
 CATEGORIES=	audio
-MASTER_SITES=	http://ktown.kde.org/~wheeler/files/src/
+MASTER_SITES=	http://developer.kde.org/~wheeler/files/src/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://developer.kde.org/~wheeler/taglib.html
@@ -20,6 +19,7 @@ CMAKE_ARGS=		-DWITH_MP4=ON -DWITH_ASF=ON
 USE_LIBTOOL=		YES
 
 PKGCONFIG_OVERRIDE=	bindings/c/taglib_c.pc.cmake taglib.pc.cmake
+REPLACE_SH=		taglib-config.cmake
 
 SUBST_CLASSES+=		pc
 SUBST_FILES.pc=		taglib-config.cmake

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.7 2006/12/27 13:37:41 joerg Exp $
+# $NetBSD: Makefile,v 1.9 2011/11/01 06:02:41 sbd Exp $
 #
 
 DISTNAME=	cwm-3
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	wm
 MASTER_SITES=	http://monkey.org/~marius/cwm/
 
@@ -14,6 +14,8 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	pkg-config
+
+LDFLAGS.DragonFly+=	-lfontconfig
 
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../x11/libXft/buildlink3.mk"

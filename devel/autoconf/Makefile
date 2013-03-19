@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.77 2010/08/15 12:08:59 wiz Exp $
+# $NetBSD: Makefile,v 1.80 2012/01/23 20:50:13 joerg Exp $
 
-DISTNAME=		autoconf-2.68
+DISTNAME=		autoconf-2.69
 CATEGORIES=		devel
 MASTER_SITES=		${MASTER_SITE_GNU:=autoconf/}
 
@@ -9,14 +9,17 @@ HOMEPAGE=		http://www.gnu.org/software/autoconf/autoconf.html
 COMMENT=		Generates automatic source code configuration scripts
 LICENSE=		gnu-gpl-v3 AND gnu-fdl-v1.3
 
+BUILD_DEPENDS+=		help2man-[0-9]*:../../converters/help2man
+
 # XXX: needs m4>1.4.6; wants m4>1.4.13
 USE_TOOLS+=		gm4:run perl:run
 
 # The next line is for conflicts with old versions of this package,
 # which had autoconf-devel as PKGNAME.
 CONFLICTS=		autoconf-devel-[0-9]*
-# old versions of devel/gdb6 installed standards.info as well.
-CONFLICTS+=		gdb<6.2.1nb5
+# old versions of devel/gdb* installed standards.info as well.
+CONFLICTS+=		gdb<5.3
+CONFLICTS+=		gdb>6<6.2.1nb5
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 PKG_DESTDIR_SUPPORT=	user-destdir

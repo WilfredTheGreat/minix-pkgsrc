@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.48 2011/03/23 21:44:24 shattered Exp $
+# $NetBSD: Makefile,v 1.52 2012/06/01 00:16:02 dholland Exp $
 
 DISTNAME=	slrn-0.9.9p1
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	news
 MASTER_SITES=	ftp://space.mit.edu/pub/davis/slrn/
 
@@ -33,6 +33,7 @@ CONFIGURE_ENV+=		INSTALL=/usr/bin/install
 .endif
 
 LDFLAGS.Linux+=	-ldl
+LDFLAGS.SunOS+=	-lsocket -lnsl
 
 .include "../../devel/libslang2/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"

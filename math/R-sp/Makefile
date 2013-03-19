@@ -1,14 +1,15 @@
-# $NetBSD: Makefile,v 1.1.1.1 2008/10/14 08:15:24 markd Exp $
+# $NetBSD: Makefile,v 1.3 2011/11/20 05:06:29 markd Exp $
 
 CATEGORIES=	math
 MASTER_SITES=	${MASTER_SITE_R_CRAN:=contrib/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	${R_HOMEPAGE_BASE}/sp/
-COMMENT=	classes and methods for spatial data
+COMMENT=	Classes and methods for spatial data
+LICENSE=	gnu-gpl-v2
 
 R_PKGNAME=	sp
-R_PKGVER=	0.9-51
+R_PKGVER=	0.9-98
 
 .include "../../math/R/Makefile.extension"
 .include "../../mk/bsd.pkg.mk"

@@ -1,13 +1,15 @@
-# $NetBSD: Makefile,v 1.3 2009/10/28 01:02:03 joerg Exp $
+# $NetBSD: Makefile,v 1.6 2012/01/26 14:17:38 joerg Exp $
 #
 
 DISTNAME=	agg-2.5
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.antigrain.com/
 
-MAINTAINER=	matias@dotbsd.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.antigrain.com/
 COMMENT=	High Quality Rendering Engine for C++
+LICENSE=	gnu-gpl-v2
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 

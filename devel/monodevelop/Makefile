@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.40 2011/06/10 09:39:42 obache Exp $
+# $NetBSD: Makefile,v 1.47 2012/04/27 12:31:43 obache Exp $
 
 DISTNAME=	monodevelop-2.4.2
-PKGREVISION=	3
+PKGREVISION=	10
 CATEGORIES=	devel
 MASTER_SITES=	http://ftp.novell.com/pub/mono/sources/monodevelop/
 EXTRACT_SUFX=	.tar.bz2

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.22 2010/12/23 11:44:31 dsainty Exp $
+# $NetBSD: Makefile,v 1.24 2011/11/01 06:01:19 sbd Exp $
 
 DISTNAME=	neverball-1.5.4
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	games
 MASTER_SITES=	http://neverball.org/
 
@@ -22,6 +22,8 @@ MAKE_ENV+=	ENABLE_NLS=0
 SHAREDIR=	${PREFIX}/share/${PKGBASE}
 
 INSTALLATION_DIRS=	bin share/doc/${PKGBASE} share/${PKGBASE}
+
+LDFLAGS.DragonFly=	-lX11 -lm
 
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/MANUAL ${WRKSRC}/README \

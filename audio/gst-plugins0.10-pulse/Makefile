@@ -1,15 +1,15 @@
-# $NetBSD: Makefile,v 1.3 2011/05/18 09:49:00 drochner Exp $
+# $NetBSD: Makefile,v 1.8 2012/03/03 00:12:40 wiz Exp $
 #
 
 GST_PLUGINS0.10_NAME=	pulse
 GST_PLUGINS0.10_DIRS=	ext/pulse
 GST_PLUGINS0.10_FLAGS=	pulse
-
-PKGREVISION=	1
+PKGREVISION=		1
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 .include "../../multimedia/gst-plugins0.10-good/Makefile.common"
+PKGREVISION=1
 
 .include "../../audio/pulseaudio/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

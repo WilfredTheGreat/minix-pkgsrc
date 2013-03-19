@@ -1,13 +1,13 @@
-$NetBSD: patch-ab,v 1.1.1.1 2009/02/14 20:55:41 plunky Exp $
+$NetBSD: patch-ab,v 1.4 2012/03/15 22:46:01 plunky Exp $
 
---- map/Projection.h.orig	2008-11-07 17:34:23.000000000 +0000
+--- map/Projection.h.orig	2012-06-03 21:03:41.000000000 +0000
 +++ map/Projection.h
 @@ -20,7 +20,7 @@ along with this program.  If not, see <h
  #define PROJECTION_H
  #include <QObject>
  
--#include "projects.h"		// libproj
-+#include <projects.h>		// libproj
- 
+-#include "proj_api.h"
++#include <proj_api.h>
  
  class Projection : public QObject
+ {

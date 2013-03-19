@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2010/08/27 06:31:40 sno Exp $
+# $NetBSD: Makefile,v 1.12 2012/03/22 16:20:30 sno Exp $
 #
 
-DISTNAME=	Path-Class-0.21
+DISTNAME=	Path-Class-0.26
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/K/KW/KWILLIAMS/}
 

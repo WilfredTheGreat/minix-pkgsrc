@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2011/04/22 13:42:36 obache Exp $
+# $NetBSD: Makefile,v 1.18 2012/07/03 18:14:26 drochner Exp $
 #
 
-DISTNAME=	QScintilla-gpl-2.5.1
+DISTNAME=	QScintilla-gpl-2.6.2
 PKGNAME=	${PYPKGPREFIX}-qt4-${DISTNAME:tl:S/-gpl-/-/}
 CATEGORIES=	x11
 MASTER_SITES=	http://www.riverbankcomputing.com/static/Downloads/QScintilla2/
@@ -12,6 +12,8 @@ COMMENT=	QScintilla -- Python bindings --
 LICENSE=	gnu-gpl-v3
 
 PKG_DESTDIR_SUPPORT=	user-destdir
+
+PYTHON_VERSIONS_INCOMPATIBLE+=	25
 
 WRKSRC=		${WRKDIR}/${DISTNAME}/Python
 
