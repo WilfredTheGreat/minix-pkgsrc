@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.108 2011/02/28 14:53:04 wiz Exp $
+# $NetBSD: Makefile,v 1.118 2012/06/14 07:39:36 sbd Exp $
 
-DISTNAME=	libxml2-2.7.8
+DISTNAME=	libxml2-2.8.0
 PKGREVISION=	3
 CATEGORIES=	textproc
 MASTER_SITES=	ftp://xmlsoft.org/libxml2/ \
@@ -27,9 +27,9 @@ CONFIGURE_ARGS+=	--without-python
 
 .include "options.mk"
 
-# Don't use threads - it's not apparent whether it's necessary or not,
-# and this library needs to be usable by non-threaded applications too
-CONFIGURE_ARGS+=	--without-threads
+# allow thread-awareness, but make sure the library is not
+# linked against libpthread
+#CONFIGURE_ARGS+=	--without-threads
 
 MAKE_ENV+=	PAX=${PAX:Q}
 
@@ -43,6 +43,8 @@ SUBST_FILES.cat=	catalog.c xmlcatalog.c
 SUBST_SED.cat=	-e "s,@@SGML_DEFAULT_CATALOG@@,${SGML_DEFAULT_CATALOG},g"
 SUBST_SED.cat+=	-e "s,@@XML_DEFAULT_CATALOG@@,${XML_DEFAULT_CATALOG},g"
 
+.include "../../mk/pthread.buildlink3.mk"
+.include "../../archivers/xz/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../textproc/xmlcatmgr/catalogs.mk"

@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.22 2009/05/19 08:59:25 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2011/11/16 19:52:25 drochner Exp $
 #
 # In order to ensure compliance with U.S. and international law, please
 # do not modify this file to provide pointers to the source or homepage
 # for this software or submit any PRs telling us the contents of the
 # HOMEPAGE or MASTER_SITES definitions in this Makefile.
 
-DISTNAME=	libdvdcss-1.2.10
+DISTNAME=	libdvdcss-1.2.12
 CATEGORIES=	multimedia
 MASTER_SITES=	${LIBDVDCSS_MASTER_SITES}/${DISTNAME:S/libdvdcss-//}/
 EXTRACT_SUFX=	.tar.bz2

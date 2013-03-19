@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.17 2010/06/13 22:45:11 wiz Exp $
+# $NetBSD: Makefile,v 1.19 2011/11/01 06:02:19 sbd Exp $
 
 DISTNAME=	kiax-0.8.51-src
 PKGNAME=	${DISTNAME:S/-src//}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	comms net audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=kiax/}
 
@@ -36,7 +36,8 @@ SUBST_FILES.path=	src/src.pro bin/Makefile
 SUBST_SED.path=		-e 's:/usr/local:${PREFIX}:g'
 
 .include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "NetBSD" && exists(/usr/include/sys/pset.h)
+.if ${OPSYS} == "NetBSD" && exists(/usr/include/sys/pset.h) || \
+    ${OPSYS} == "SunOS"
 RT_LIB_SCHED=		-lrt
 .else
 RT_LIB_SCHED=		# empty

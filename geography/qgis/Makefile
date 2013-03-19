@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2011/04/22 13:43:41 obache Exp $
+# $NetBSD: Makefile,v 1.17 2012/06/02 16:36:34 drochner Exp $
 
-DISTNAME=	qgis-1.6.0
+DISTNAME=	qgis-1.7.4
 PKGREVISION=	4
 CATEGORIES=	geography
 MASTER_SITES=	http://qgis.org/downloads/
@@ -13,8 +13,6 @@ LICENSE=	gnu-gpl-v2
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
-
 USE_CMAKE=		yes
 USE_LANGUAGES=		c c++ fortran77
 USE_LIBTOOL=		yes
@@ -24,7 +22,9 @@ USE_X11=		yes
 
 .include "options.mk"
 
-.include "../../databases/sqlite3/buildlink3.mk"
+pre-configure:
+	cd ${WRKSRC} && ${RM} -f cmake/FindGDAL.cmake
+
 .include "../../geography/gdal-lib/buildlink3.mk"
 .include "../../geography/proj/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
@@ -32,6 +32,7 @@ USE_X11=		yes
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../www/fcgi/buildlink3.mk"
 .include "../../x11/qt4-libs/buildlink3.mk"
+BUILDLINK_DEPMETHOD.qt4-tools=	full
 .include "../../x11/qt4-tools/buildlink3.mk"
 .include "../../x11/qwt-qt4/buildlink3.mk"
 .include "../../mk/pgsql.buildlink3.mk"

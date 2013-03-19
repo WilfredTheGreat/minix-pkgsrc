@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.85 2011/07/08 11:35:52 drochner Exp $
+# $NetBSD: Makefile,v 1.93 2012/05/29 13:51:28 wiz Exp $
 #
 
 DISTNAME=	rhythmbox-0.12.8
-PKGREVISION=	8
+PKGREVISION=	15
 CATEGORIES=	audio gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/rhythmbox/0.12/}
 EXTRACT_SUFX=	.tar.bz2
@@ -29,7 +29,6 @@ GCONF_SCHEMAS=		rhythmbox.schemas
 .include "../../lang/python/application.mk"
 .include "../../x11/py-gtk2/buildlink3.mk"
 .include "../../multimedia/py-gstreamer0.10/buildlink3.mk"
-BUILDLINK_API_DEPENDS.musicbrainz+=	musicbrainz>=2.1.0
 .include "../../audio/libmusicbrainz/buildlink3.mk"
 .include "../../devel/GConf/schemas.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"

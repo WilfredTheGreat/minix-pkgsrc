@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.72 2011/06/03 13:26:50 taca Exp $
+# $NetBSD: Makefile,v 1.76 2012/04/13 21:17:38 shattered Exp $
 
 PKGNAME=	subversion-base-${SVNVER}
-PKGREVISION=	1
+PKGREVISION=	5
 COMMENT=	Version control system, base programs and libraries
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
@@ -53,6 +53,8 @@ SUBST_STAGE.paths=	pre-configure
 SUBST_FILES.paths=	contrib/cgi/tweak-log.cgi
 SUBST_SED.paths=	-e "s|/usr/local/bin/|${PREFIX}/bin|g"
 SUBST_MESSAGE.paths=	Fixing hardcoded /usr/local/bin paths.
+
+RCD_SCRIPTS=	svnserve
 
 post-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${SVNDOC}

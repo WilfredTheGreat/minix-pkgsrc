@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/04/13 13:04:30 obache Exp $
+# $NetBSD: Makefile,v 1.3 2012/02/26 11:54:59 obache Exp $
 #
 
-DISTNAME=	ruby-ole-1.2.11.2
+DISTNAME=	ruby-ole-1.2.11.4
 PKGNAME=	${DISTNAME:S/ruby-/${RUBY_PKGPREFIX}-/}
 CATEGORIES=	devel
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.6 2010/06/08 15:17:04 minskim Exp $
+# $NetBSD: Makefile,v 1.8 2012/03/03 23:28:04 minskim Exp $
 
-DISTNAME=	texlive-20100720-source
-PKGNAME=	dvipsk-5.99
+DISTNAME=	texlive-20120701-source
+PKGNAME=	dvipsk-5.992
 CATEGORIES=	print
 MASTER_SITES=	${MASTER_SITE_TEX_CTAN:=systems/texlive/Source/}
 EXTRACT_SUFX=	.tar.xz
@@ -13,7 +13,7 @@ COMMENT=	DVI-to-PostScript translator
 CONFLICTS+=	teTeX-bin<3.0nb24
 CONFLICTS+=	teTeX-texmf<3.0nb9
 BUILD_DEPENDS+=	texlive-tetex-[0-9]*:../../print/texlive-tetex
-DEPENDS+=	tex-dvips>=2009.16376:../../print/tex-dvips
+DEPENDS+=	tex-dvips>=2011.25424:../../print/tex-dvips
 
 EXTRACT_ELEMENTS=	${DISTNAME}/build-aux \
 			${DISTNAME}/texk/dvipsk
@@ -23,7 +23,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 GNU_CONFIGURE=	yes
 INFO_FILES=	yes
 USE_LIBTOOL=	yes
-WRKSRC=		${WRKDIR}/${DISTNAME}/texk/dvipsk
+CONFIGURE_DIRS=	texk/dvipsk
 
 CONFIGURE_ARGS+=	--with-system-kpathsea \
 		--with-kpathsea-includes=${BUILDLINK_PREFIX.kpathsea}/include \
@@ -45,20 +45,24 @@ TEX_TEXMF_DIRS+=	${PKG_SYSCONFDIR}
 TEX_TEXMF_DIRS+=	${PREFIX}/share/texmf
 TEX_TEXMF_DIRS+=	${PREFIX}/share/texmf-dist
 
+FIND_PREFIX:=	TEX_DVIPS_PREFIX=tex-dvips \
+		TEXCONFIG_PREFIX=texlive-tetex
+.include "../../mk/find-prefix.mk"
+
 .include "../../print/kpathsea/buildlink3.mk"
 .include "../../print/kpathsea/texmf.mk"
 
 post-build:
-	${MKDIR} -p ${WRKSRC}/texmf/dvips/config
-	${CP} ${LOCALBASE}/share/texmf/dvips/config/config.ps \
-		${WRKSRC}/texmf/dvips/config
-	env TEXMFCONFIG=${LOCALBASE}/share/texmf \
-		TFC_TEXMFCONFIG=${WRKSRC}/texmf \
-		configPsFile=${WRKSRC}/config.ps \
-		${LOCALBASE}/bin/texconfig dvips paper ${LOWER_PAPERSIZE}
+	${MKDIR} -p ${WRKSRC}/texk/dvipsk/texmf/dvips/config
+	${CP} ${TEX_DVIPS_PREFIX}/share/texmf/dvips/config/config.ps \
+		${WRKSRC}/texk/dvipsk/texmf/dvips/config
+	env TEXMFCONFIG=${TEX_DVIPS_PREFIX}/share/texmf \
+		TFC_TEXMFCONFIG=${WRKSRC}/texk/dvipsk/texmf \
+		configPsFile=${WRKSRC}/texk/dvipsk/texmf/dvips/config/config.ps \
+		${TEXCONFIG_PREFIX}/bin/texconfig dvips paper ${LOWER_PAPERSIZE}
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/texmf/dvips/config/config.ps \
+	${INSTALL_DATA} ${WRKSRC}/texk/dvipsk/texmf/dvips/config/config.ps \
 		${DESTDIR}${PREFIX}/share/texmf-dist/dvips/config
 
 .include "../../mk/bsd.pkg.mk"

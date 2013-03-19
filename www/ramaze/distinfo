@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.4 2011/06/19 03:56:24 taca Exp $
+$NetBSD: distinfo,v 1.7 2012/03/20 13:53:35 taca Exp $
 
-SHA1 (ramaze-2011.07.25.gem) = 6aa95e61ccfcaecf207cfe021f93daa5eeaae075
-RMD160 (ramaze-2011.07.25.gem) = 56628639b04c27743dd7c574eb2689771a360b6c
-Size (ramaze-2011.07.25.gem) = 530944 bytes
+SHA1 (ramaze-2012.04.14.gem) = 04c593c66a4510526daed3a1ce128147a58e7018
+RMD160 (ramaze-2012.04.14.gem) = cc3a6a36563713c170fcc94ba444333482f39702
+Size (ramaze-2012.04.14.gem) = 601088 bytes

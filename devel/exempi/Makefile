@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.7 2010/01/30 16:28:01 heinz Exp $
+# $NetBSD: Makefile,v 1.12 2012/02/29 16:32:21 hans Exp $
 #
 
 DISTNAME=	exempi-2.1.1
+PKGREVISION=	5
 CATEGORIES=	devel graphics
 MASTER_SITES=	http://libopenraw.freedesktop.org/download/
 
@@ -24,6 +25,7 @@ PKGCONFIG_OVERRIDE+=	exempi/exempi-2.0.pc.in
 
 .include "options.mk"
 
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

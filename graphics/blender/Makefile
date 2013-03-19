@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.74 2011/04/01 10:59:56 wiz Exp $
+# $NetBSD: Makefile,v 1.79 2012/05/16 13:49:22 marino Exp $
 
 DISTNAME=	blender-2.49b
-PKGREVISION=	6
+PKGREVISION=	10
 CATEGORIES=	graphics
 MASTER_SITES=	http://download.blender.org/source/
 
@@ -20,6 +20,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 MAKE_JOBS_SAFE=		no
 
 LDFLAGS+=		-lcrypto
+LDFLAGS.DragonFly=	-lX11
 
 .include "options.mk"
 

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.8 2011/03/08 17:09:25 drochner Exp $
+# $NetBSD: Makefile,v 1.12 2012/06/03 22:03:24 wiz Exp $
 #
 
-DISTNAME=	mupdf-0.8-source
-PKGNAME=	mupdf-0.8
+DISTNAME=	mupdf-1.1-source
+PKGNAME=	${DISTNAME:S/-source//}
 CATEGORIES=	print
 MASTER_SITES=	http://ccxvii.net/mupdf/download/ \
 		http://ccxvii.net/mupdf/download/archive/
@@ -12,7 +12,6 @@ HOMEPAGE=	http://mupdf.com/
 COMMENT=	Lightweight PDF viewer and toolkit
 LICENSE=	gnu-gpl-v3
 
-WRKSRC=		${WRKDIR}/mupdf-0.8
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 USE_TOOLS+=	pkg-config gmake
@@ -21,7 +20,8 @@ USE_LIBTOOL=	yes
 
 INSTALLATION_DIRS+=	bin include lib/pkgconfig
 INSTALL_MAKE_FLAGS+=	prefix=${DESTDIR}${PREFIX}
-LDFLAGS=	-Wl,-rpath,${X11BASE}/lib
+INSTALL_MAKE_FLAGS+=	mandir=${DESTDIR}${PREFIX}/${PKGMANDIR}
+LDFLAGS=	${COMPILER_RPATH_FLAG}${X11BASE}/lib
 MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
 
 post-build:

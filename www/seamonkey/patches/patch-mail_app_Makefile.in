@@ -1,0 +1,15 @@
+$NetBSD: patch-mail_app_Makefile.in,v 1.2 2012/04/28 22:48:06 ryoon Exp $
+
+--- mail/app/Makefile.in.orig	2012-06-05 05:50:26.000000000 +0000
++++ mail/app/Makefile.in
+@@ -96,6 +96,10 @@ LOCAL_INCLUDES += \
+ DEFINES += -DXPCOM_GLUE
+ STL_FLAGS=
+ 
++ifeq ($(OS_ARCH),NetBSD)
++LIBS += -lossaudio
++endif
++
+ LIBS += \
+ 	$(EXTRA_DSO_LIBS) \
+ 	$(XPCOM_STANDALONE_GLUE_LDOPTS) \

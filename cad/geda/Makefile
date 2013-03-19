@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.69 2011/05/11 11:20:23 dmcmahill Exp $
+# $NetBSD: Makefile,v 1.75 2012/05/07 18:15:11 dholland Exp $
 #
 
 DISTNAME=	geda-gaf-1.6.2
 PKGNAME=	${DISTNAME:S/-gaf-/-/}
-PKGREVISION=	1
+PKGREVISION=	6
 CATEGORIES=	cad
 MASTER_SITES=	ftp://ftp.geda.seul.org/pub/geda/release/v1.6/${PKGVERSION_NOREV}/ \
 		http://geda.seul.org/release/v1.6/${PKGVERSION_NOREV}/
@@ -29,7 +29,7 @@ CONFLICTS+=	libgeda-[0-9]*
 
 USE_PKGLOCALEDIR=	yes
 
-DEPENDS+=               gettext-tools>=0.14.6:../../devel/gettext-tools
+DEPENDS+=		gettext-tools>=0.14.6:../../devel/gettext-tools
 
 GNU_CONFIGURE=		YES
 USE_LIBTOOL=		YES
@@ -63,11 +63,11 @@ EVAL_PREFIX+=	PCBDIR=pcb
 CONFIGURE_ARGS+=	--with-pcbm4dir=${PCBDIR}/share/pcb/m4
 CONFIGURE_ARGS+=	--with-pcbconfdir=${PKG_SYSCONFDIR}/pcb
 
-SUBST_CLASSES+=                 python
-SUBST_STAGE.python=             pre-configure
-SUBST_FILES.python=             utils/scripts/garchive.py
-SUBST_SED.python=               -e 's,/usr/bin/env python,${PYTHONBIN},'
-SUBST_SED.python+=              -e 's,%PYTHONBIN%,${PYTHONBIN},'
+SUBST_CLASSES+=			python
+SUBST_STAGE.python=		pre-configure
+SUBST_FILES.python=		utils/scripts/garchive.py
+SUBST_SED.python=		-e 's,/usr/bin/env python,${PYTHONBIN},'
+SUBST_SED.python+=		-e 's,%PYTHONBIN%,${PYTHONBIN},'
 
 REPLACE_SH+=		gnetlist/scripts/sch2eaglepos.sh
 USE_TOOLS+=		sh:run

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/01/12 07:57:58 adam Exp $
+# $NetBSD: Makefile,v 1.3 2011/11/01 06:01:44 sbd Exp $
 
 DISTNAME=	sk1libs-0.9.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	graphics python
 MASTER_SITES=	http://uniconvertor.googlecode.com/files/
 
@@ -12,7 +13,6 @@ LICENSE=	gnu-lgpl-v2
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-PYTHON_VERSIONS_ACCEPTED=	27 26 25
 USE_LANGUAGES=		c
 PYDISTUTILSPKG=		yes
 

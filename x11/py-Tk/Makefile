@@ -1,15 +1,17 @@
-# $NetBSD: Makefile,v 1.46 2011/07/10 16:58:19 wiz Exp $
+# $NetBSD: Makefile,v 1.49 2012/04/15 22:01:05 wiz Exp $
 #
 
 PKGNAME=	${PYPKGPREFIX}-Tk-0
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	x11 python
 
-MAINTAINER=	tsarna@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://wiki.python.org/moin/TkInter
 COMMENT=	Tkinter -- Python interface to Tcl/Tk
 
 PKG_DESTDIR_SUPPORT=	user-destdir
+
+PYTHON_VERSIONS_INCLUDE_3X=	yes
 
 EXTRACT_ELEMENTS=	${PYSUBDIR}/Modules/_tkinter.c \
 			${PYSUBDIR}/Modules/tkappinit.c

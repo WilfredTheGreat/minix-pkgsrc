@@ -1,4 +1,4 @@
-@comment $NetBSD$
+@comment $NetBSD: PLIST.linux-i386,v 1.24 2012/04/27 04:27:16 sbd Exp $
 bin/sun6-java
 bin/sun6-javaws
 bin/sun6-keytool
@@ -123,8 +123,8 @@ java/sun-6/lib/fontconfig.RedHat.3.bfc.default
 java/sun-6/lib/fontconfig.RedHat.3.properties.src.default
 java/sun-6/lib/fontconfig.RedHat.4.bfc.default
 java/sun-6/lib/fontconfig.RedHat.4.properties.src.default
-java/sun-6/lib/fontconfig.RedHat.6.0.bfc.default
-java/sun-6/lib/fontconfig.RedHat.6.0.properties.src.default
+java/sun-6/lib/fontconfig.RedHat.6.bfc.default
+java/sun-6/lib/fontconfig.RedHat.6.properties.src.default
 java/sun-6/lib/fontconfig.RedHat.bfc.default
 java/sun-6/lib/fontconfig.RedHat.properties.src.default
 java/sun-6/lib/fontconfig.SuSE.11.bfc.default
@@ -155,7 +155,15 @@ java/sun-6/lib/i386/headless/libmawt.so
 java/sun-6/lib/i386/jli/libjli.so
 java/sun-6/lib/i386/jvm.cfg.default
 java/sun-6/lib/i386/libJdbcOdbc.so
-${PLIST.x11}java/sun-6/lib/i386/libX11.so.6
+${PLIST.native}java/sun-6/lib/i386/libX11.so.6
+${PLIST.native}java/sun-6/lib/i386/jli/libX11.so.6
+${PLIST.native}java/sun-6/lib/i386/libXext.so.6
+${PLIST.native}java/sun-6/lib/i386/libXi.so.6
+${PLIST.native}java/sun-6/lib/i386/libXt.so.6
+${PLIST.native}java/sun-6/lib/i386/libXtst.so.6
+${PLIST.native}java/sun-6/lib/i386/libasound.so.2
+${PLIST.native}java/sun-6/lib/i386/libodbc.so
+${PLIST.native}java/sun-6/lib/i386/libodbcinst.so
 java/sun-6/lib/i386/libawt.so
 java/sun-6/lib/i386/libcmm.so
 java/sun-6/lib/i386/libdcpr.so
@@ -286,6 +294,7 @@ java/sun-6/lib/zi/Africa/Freetown
 java/sun-6/lib/zi/Africa/Gaborone
 java/sun-6/lib/zi/Africa/Harare
 java/sun-6/lib/zi/Africa/Johannesburg
+java/sun-6/lib/zi/Africa/Juba
 java/sun-6/lib/zi/Africa/Kampala
 java/sun-6/lib/zi/Africa/Khartoum
 java/sun-6/lib/zi/Africa/Kigali
@@ -350,6 +359,7 @@ java/sun-6/lib/zi/America/Cayman
 java/sun-6/lib/zi/America/Chicago
 java/sun-6/lib/zi/America/Chihuahua
 java/sun-6/lib/zi/America/Costa_Rica
+java/sun-6/lib/zi/America/Creston
 java/sun-6/lib/zi/America/Cuiaba
 java/sun-6/lib/zi/America/Curacao
 java/sun-6/lib/zi/America/Danmarkshavn
@@ -488,6 +498,7 @@ java/sun-6/lib/zi/Asia/Dubai
 java/sun-6/lib/zi/Asia/Dushanbe
 java/sun-6/lib/zi/Asia/Gaza
 java/sun-6/lib/zi/Asia/Harbin
+java/sun-6/lib/zi/Asia/Hebron
 java/sun-6/lib/zi/Asia/Ho_Chi_Minh
 java/sun-6/lib/zi/Asia/Hong_Kong
 java/sun-6/lib/zi/Asia/Hovd

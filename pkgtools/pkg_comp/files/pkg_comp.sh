@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $NetBSD: pkg_comp.sh,v 1.38 2010/07/20 16:50:26 jmmv Exp $
+# $NetBSD: pkg_comp.sh,v 1.40 2012/02/27 22:42:27 jmmv Exp $
 #
 # pkg_comp - Build packages inside a clean chroot environment
 # Copyright (c) 2002, 2003, 2004, 2005 Julio M. Merino Vidal <jmmv@NetBSD.org>
@@ -51,7 +51,7 @@ _TEMPLATE_VARS="DESTDIR ROOTSHELL COPYROOTCFG BUILD_TARGET DISTRIBDIR SETS \
                 REAL_PACKAGES REAL_PACKAGES_OPTS REAL_PKGVULNDIR \
                 NETBSD_RELEASE MAKEROOT_HOOKS MOUNT_HOOKS UMOUNT_HOOKS \
                 SYNC_UMOUNT AUTO_TARGET AUTO_PACKAGES BUILD_PACKAGES \
-                REAL_CCACHE LIBKVER_STANDALONE_PREFIX"
+                REAL_CCACHE LIBKVER_STANDALONE_PREFIX GENERATE_PKG_SUMMARY"
 
 _BUILD_RESUME=
 
@@ -126,6 +126,7 @@ env_setdefaults()
     : ${UMOUNT_HOOKS:=}
     : ${SYNC_UMOUNT:=no}
     : ${REAL_CCACHE:=}
+    : ${GENERATE_PKG_SUMMARY:=yes}
 
     if [ -n "${MAKE_PACKAGES}" ]; then
         warn "MAKE_PACKAGES is deprecated; use {AUTO,BUILD}_PACKAGES instead."
@@ -688,6 +689,18 @@ pkg_auto()
     pkg_removeroot
 }
 
+# generate_pkg_summary directory
+#
+#    Generates a pkg_summary.gz file in the specified directory.
+generate_pkg_summary()
+{
+    local directory="${1}"; shift
+
+    echo "PKG_COMP ==> Generating pkg_summary.tgz"
+    for pkg in "${directory}"/*.tgz; do pkg_info -X "${pkg}"; done \
+        | gzip -c >"${directory}"/pkg_summary.gz
+}
+
 # ----------------------------------------------------------------------
 # build target
 # ----------------------------------------------------------------------
@@ -701,13 +714,14 @@ pkg_build()
 {
     local failed invalid p pkgs script statfile
 
-    pkgs="$*"
-
-    # Check if all packages exist
-    invalid=""
-    for p in $pkgs; do
-        if [ ! -d $REAL_PKGSRC/$p ]; then
-            invalid="$invalid $p"
+    pkgs=
+    invalid=
+    for pkg in "${@}"; do
+        local match="$(find_pkg "${pkg}")"
+        if [ -z "${match}" ]; then
+            invalid="${invalid} ${pkg}"
+        else
+            pkgs="${pkgs} ${match}"
         fi
     done
     if [ -n "$invalid" ]; then
@@ -752,6 +766,35 @@ EOF
             echo "    $p"
         done
     fi
+    if [ "${GENERATE_PKG_SUMMARY}" = yes ]; then
+        generate_pkg_summary "${REAL_PACKAGES}/All"
+    fi
+}
+
+# find_pkg name
+#
+#   Checks if the given package exists and outputs its path within pkgsrc.
+#   Outputs nothing if the package is not found.
+find_pkg()
+{
+    local name="${1}"
+
+    case "${name}" in
+    */*)
+        if [ -d "${REAL_PKGSRC}/${name}" ]; then
+            echo "${name}"
+        else
+            :  # Not found; output nothing.
+        fi
+        ;;
+    *)
+        local match="$(cd "${REAL_PKGSRC}" && echo */"${name}")"
+        if [ -d "${REAL_PKGSRC}/${match}" ]; then
+            echo "${match}"
+        else
+            :  # Not found; output nothing.
+        fi
+    esac
 }
 
 # build_and_install pkg

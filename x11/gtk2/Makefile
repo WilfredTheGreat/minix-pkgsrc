@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.220 2011/09/06 19:29:15 drochner Exp $
+# $NetBSD: Makefile,v 1.231 2012/05/29 22:58:52 cheusov Exp $
 
-DISTNAME=	gtk+-2.24.6
+DISTNAME=	gtk+-2.24.11
 PKGNAME=	${DISTNAME:S/gtk/gtk2/}
 CATEGORIES=	x11
 MASTER_SITES=	ftp://ftp.gtk.org/pub/gtk/2.24/ \
 		${MASTER_SITE_GNOME:=sources/gtk+/2.24/}
-EXTRACT_SUFX=	.tar.bz2
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gtk.org/
@@ -67,7 +67,7 @@ CONFIGURE_ARGS+=	--disable-visibility
 # which do not have it.
 .if ${OPSYS} == "SunOS"
 BUILD_DEPENDS+=		grep-[0-9]*:../../textproc/grep
-TOOLS_PATH.grep=	${LOCALBASE}/bin/${GNU_PROGRAM_PREFIX}grep
+TOOLS_PATH.grep=	${LOCALBASE}/bin/ggrep
 .endif
 
 CPPFLAGS+=		-DPREFIX="\"${PREFIX}\""

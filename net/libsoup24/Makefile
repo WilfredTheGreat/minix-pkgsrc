@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.33 2011/07/29 10:27:29 drochner Exp $
+# $NetBSD: Makefile,v 1.42 2012/05/06 13:53:44 jakllsch Exp $
 
-DISTNAME=	libsoup-2.34.3
+DISTNAME=	libsoup-2.38.1
 PKGNAME=	${DISTNAME:S/libsoup/libsoup24/}
+PKGREVISION=	1
 CATEGORIES=	net gnome
-MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libsoup/2.34/}
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libsoup/2.38/}
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gnome.org/
@@ -25,8 +26,14 @@ TEST_TARGET=	check
 
 .include "options.mk"
 
+# gcc>=4.2 specific -Werror=XXX flags will be added unconditionally.
+.include "../../mk/compiler.mk"
+.if !empty(CC_VERSION:Mgcc-4.[01].*) || !empty(CC_VERSION:Mgcc-[1-3].*)
+CONFIGURE_ARGS+= 	--disable-more-warnings
+.endif
+
 .include "../../databases/sqlite3/buildlink3.mk"
-BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.21.3
+BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.31.7
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../www/libproxy/buildlink3.mk"

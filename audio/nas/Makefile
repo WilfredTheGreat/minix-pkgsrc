@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.85 2011/06/29 19:47:35 hans Exp $
+# $NetBSD: Makefile,v 1.87 2012/02/15 15:33:27 hans Exp $
 
 DISTNAME=	nas-1.9.1.src
 PKGNAME=	${DISTNAME:S/.src//}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=nas/}
 
@@ -69,10 +69,7 @@ SUBST_FILES.owngrp=	clients/audio/auconvert/Makefile \
 SUBST_SED.owngrp=	-e 's/-c -o root -g wheel/-c -o ${UNPRIVILEGED_USER} -g ${UNPRIVILEGED_GROUP}/g'
 .endif
 
-.if ${OPSYS} == "SunOS"
-post-install:
-	${LN} -s libaudio.so.2.4 ${DESTDIR}${PREFIX}/lib/libaudio.so.2
-.endif
+REPLACE_SH=		clients/audio/util/checkmail
 
 PLIST_SRC=	${PKGDIR}/PLIST.clients
 
@@ -93,6 +90,4 @@ pre-configure:
 
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXaw/buildlink3.mk"
-.include "../../x11/libXp/buildlink3.mk"
-
 .include "../../mk/bsd.pkg.mk"

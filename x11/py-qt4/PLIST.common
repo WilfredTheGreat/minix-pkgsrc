@@ -25,7 +25,7 @@ ${PYSITELIB}/PyQt4/uic/Compiler/__init__.py
 ${PYSITELIB}/PyQt4/uic/Compiler/compiler.py
 ${PYSITELIB}/PyQt4/uic/Compiler/indenter.py
 ${PYSITELIB}/PyQt4/uic/Compiler/misc.py
-${PYSITELIB}/PyQt4/uic/Compiler/proxy_type.py
+${PYSITELIB}/PyQt4/uic/Compiler/proxy_metaclass.py
 ${PYSITELIB}/PyQt4/uic/Compiler/qobjectcreator.py
 ${PYSITELIB}/PyQt4/uic/Compiler/qtproxies.py
 ${PYSITELIB}/PyQt4/uic/Loader/__init__.py
@@ -256,6 +256,7 @@ share/sip${PYVERSSUFFIX}/QtGui/qframe.sip
 share/sip${PYVERSSUFFIX}/QtGui/qgenericmatrix.sip
 share/sip${PYVERSSUFFIX}/QtGui/qgesture.sip
 share/sip${PYVERSSUFFIX}/QtGui/qgesturerecognizer.sip
+share/sip${PYVERSSUFFIX}/QtGui/qglyphrun.sip
 share/sip${PYVERSSUFFIX}/QtGui/qgraphicsanchorlayout.sip
 share/sip${PYVERSSUFFIX}/QtGui/qgraphicseffect.sip
 share/sip${PYVERSSUFFIX}/QtGui/qgraphicsgridlayout.sip
@@ -272,9 +273,11 @@ share/sip${PYVERSSUFFIX}/QtGui/qgraphicsview.sip
 share/sip${PYVERSSUFFIX}/QtGui/qgraphicswidget.sip
 share/sip${PYVERSSUFFIX}/QtGui/qgridlayout.sip
 share/sip${PYVERSSUFFIX}/QtGui/qgroupbox.sip
+share/sip${PYVERSSUFFIX}/QtGui/qguiapplication.sip
 share/sip${PYVERSSUFFIX}/QtGui/qheaderview.sip
 share/sip${PYVERSSUFFIX}/QtGui/qicon.sip
 share/sip${PYVERSSUFFIX}/QtGui/qiconengine.sip
+share/sip${PYVERSSUFFIX}/QtGui/qidentityproxymodel.sip
 share/sip${PYVERSSUFFIX}/QtGui/qimage.sip
 share/sip${PYVERSSUFFIX}/QtGui/qimageiohandler.sip
 share/sip${PYVERSSUFFIX}/QtGui/qimagereader.sip
@@ -305,6 +308,7 @@ share/sip${PYVERSSUFFIX}/QtGui/qmessagebox.sip
 share/sip${PYVERSSUFFIX}/QtGui/qmime.sip
 share/sip${PYVERSSUFFIX}/QtGui/qmouseeventtransition.sip
 share/sip${PYVERSSUFFIX}/QtGui/qmovie.sip
+share/sip${PYVERSSUFFIX}/QtGui/qpagedpaintdevice.sip
 share/sip${PYVERSSUFFIX}/QtGui/qpagesetupdialog.sip
 share/sip${PYVERSSUFFIX}/QtGui/qpaintdevice.sip
 share/sip${PYVERSSUFFIX}/QtGui/qpaintengine.sip
@@ -330,6 +334,7 @@ share/sip${PYVERSSUFFIX}/QtGui/qpushbutton.sip
 share/sip${PYVERSSUFFIX}/QtGui/qpytextobject.sip
 share/sip${PYVERSSUFFIX}/QtGui/qquaternion.sip
 share/sip${PYVERSSUFFIX}/QtGui/qradiobutton.sip
+share/sip${PYVERSSUFFIX}/QtGui/qrawfont.sip
 share/sip${PYVERSSUFFIX}/QtGui/qregion.sip
 share/sip${PYVERSSUFFIX}/QtGui/qrgb.sip
 share/sip${PYVERSSUFFIX}/QtGui/qrubberband.sip
@@ -378,6 +383,7 @@ share/sip${PYVERSSUFFIX}/QtGui/qtoolbar.sip
 share/sip${PYVERSSUFFIX}/QtGui/qtoolbox.sip
 share/sip${PYVERSSUFFIX}/QtGui/qtoolbutton.sip
 share/sip${PYVERSSUFFIX}/QtGui/qtooltip.sip
+share/sip${PYVERSSUFFIX}/QtGui/qtouchdevice.sip
 share/sip${PYVERSSUFFIX}/QtGui/qtransform.sip
 share/sip${PYVERSSUFFIX}/QtGui/qtreeview.sip
 share/sip${PYVERSSUFFIX}/QtGui/qtreewidget.sip
@@ -421,6 +427,7 @@ share/sip${PYVERSSUFFIX}/QtNetwork/qftp.sip
 share/sip${PYVERSSUFFIX}/QtNetwork/qhostaddress.sip
 share/sip${PYVERSSUFFIX}/QtNetwork/qhostinfo.sip
 share/sip${PYVERSSUFFIX}/QtNetwork/qhttp.sip
+share/sip${PYVERSSUFFIX}/QtNetwork/qhttpmultipart.sip
 share/sip${PYVERSSUFFIX}/QtNetwork/qlocalserver.sip
 share/sip${PYVERSSUFFIX}/QtNetwork/qlocalsocket.sip
 share/sip${PYVERSSUFFIX}/QtNetwork/qnetworkaccessmanager.sip

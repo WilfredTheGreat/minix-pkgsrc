@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.61 2010/01/29 16:44:13 joerg Exp $
+# $NetBSD: Makefile,v 1.64 2012/02/16 17:18:50 hans Exp $
 
 VERS=		4.2.5
 DISTNAME=	hylafax-${VERS}
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	comms
 MASTER_SITES_BETA=	ftp://ftp.hylafax.org/source/BETA/
 MASTER_SITES_RELEASE=	ftp://ftp.hylafax.org/source/
@@ -27,6 +27,7 @@ CONFIGURE_ARGS+=	--with-MAKE=${MAKE_PROGRAM:Q}
 CONFIGURE_ARGS+=	--with-INSTALL="" --nointeractive
 CONFIGURE_ARGS+=	--with-ZLIBINC=-I${BUILDLINK_PREFIX.zlib}/include
 CONFIGURE_ARGS+=	--with-LIBZ="-L${BUILDLINK_PREFIX.zlib}/lib -lz"
+CONFIGURE_ARGS+=	--with-SYSVINIT=no
 CONFIGURE_ENV+=		PREFIX=${PREFIX:Q} OPTIMIZER=${CFLAGS:Q}
 CONFIGURE_ENV+=		FAXUID=${FAXUSER:Q} FAXGID=${FAXGROUP:Q}
 CONFIGURE_ENV+=		VARBASE=${VARBASE:Q}
@@ -62,6 +63,9 @@ CONFIGURE_ARGS+=	--disable-pam
 .if ${OPSYS} == "NetBSD" && exists(/usr/include/sys/pset.h)
 CONFIGURE_ENV+=		MACHDEPLIBS=-lrt
 .endif
+
+# Affected by TIFFHeader -> TIFFHeaderClassic change in 4.x.
+BUILDLINK_API_DEPENDS.libtiff+=	tiff>=4.0.0
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"

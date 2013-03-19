@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.6 2011/04/22 13:42:30 obache Exp $
+# $NetBSD: Makefile,v 1.8 2012/04/27 12:31:59 obache Exp $
 
 DISTNAME=	monotorrent-0.72
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	net
 MASTER_SITES=	http://projects.qnetp.net/attachments/download/13/
 
@@ -13,7 +13,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 GNU_CONFIGURE=	yes
 MAKE_JOBS_SAFE=	no
-USE_TOOLS+=	gmake bsdtartar pkg-config
+USE_TOOLS+=	gmake bsdtar pkg-config
 EXTRACT_USING=	bsdtar
 
 .include "../../lang/mono/buildlink3.mk"

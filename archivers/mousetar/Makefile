@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.16 2007/06/05 05:52:11 wiz Exp $
+# $NetBSD: Makefile,v 1.19 2012/04/07 23:32:40 dholland Exp $
 #
 
 DISTNAME=	mousetar-20021217
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	ftp://sparkle.rodents.montreal.qc.ca/pub/mouse/ftp.netbsd.org/tar/
 DISTFILES=	tar.c tar.man
@@ -18,6 +19,10 @@ NOT_FOR_PLATFORM+=	Interix-*-* # no sys/mtio.h tape support
 WRKSRC=		${WRKDIR}
 
 .include "../../mk/bsd.prefs.mk"
+
+CPPFLAGS+=		-DDIRENT_FIXUP
+CPPFLAGS.SunOS+=	-DTAR_INODE_NONE -DLINUX_NAMLEN
+CPPFLAGS.SunOS+=	-DL_SET=SEEK_SET -DL_INCR=SEEK_CUR -DL_XTND=SEEK_END
 
 .if ${MACHINE_PLATFORM:MNetBSD-[2-9].*-*} != ""
 CPPFLAGS+=	-DTAR_INODE_INTERNAL

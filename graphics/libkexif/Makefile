@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.29 2011/01/13 13:36:19 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2012/03/03 00:12:34 wiz Exp $
 
 DISTNAME=	libkexif-0.2.5
-PKGREVISION=	12
+PKGREVISION=	17
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=kipi/}
 EXTRACT_SUFX=	.tar.bz2
@@ -15,6 +15,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 USE_TOOLS+=		gmake pkg-config msgfmt
 USE_LANGUAGES=		c c++
 GNU_CONFIGURE=		YES
+SET_LIBDIR=		YES
 USE_LIBTOOL=		YES
 SHLIBTOOL_OVERRIDE=	# empty
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2008/05/24 21:45:15 tnn Exp $
+# $NetBSD: Makefile,v 1.7 2012/06/03 17:46:52 wiz Exp $
 #
 
-DISTNAME=		libXv-1.0.5
+DISTNAME=		libXv-1.0.7
 CATEGORIES=		x11
 MASTER_SITES=		${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=		.tar.bz2
@@ -23,6 +23,8 @@ USE_TOOLS+=		pkg-config
 .if ${OPSYS} == "NetBSD"
 CONFIGURE_ARGS+=	--disable-malloc0returnsnull
 .endif
+
+.include "../../meta-pkgs/modular-xorg/hacks.mk"
 
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"

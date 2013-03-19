@@ -1,14 +1,16 @@
-# $NetBSD: Makefile,v 1.7 2011/02/02 01:58:57 gdt Exp $
+# $NetBSD: Makefile,v 1.12 2012/05/25 11:25:56 gdt Exp $
 #
 
-VERSION=	1.8.3
+VERSION=	1.9.2
 DISTNAME=	allmydata-tahoe-${VERSION}
 EGG_NAME=	allmydata_tahoe-${VERSION}
 PKGNAME=	tahoe-lafs-${VERSION}
-PKGREVISION=	1
 CATEGORIES=	filesystems
-MASTER_SITES=	http://tahoe-lafs.org/source/tahoe-lafs/releases/
+MASTER_SITES=	https://tahoe-lafs.org/source/tahoe-lafs/releases/
+#for beta, add
+#MASTER_SITES+=		http://tahoe-lafs.org/source/tahoe-lafs/tarballs/
 EXTRACT_SUFX=	.tar.bz2
+FETCH_USING=	curl
 
 MAINTAINER=	gdt@NetBSD.org
 HOMEPAGE=	http://tahoe-lafs.org/
@@ -19,6 +21,7 @@ USE_TOOLS=	gmake
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
+# $WRKDIR/Makefile has 'python' hardcoded; this works after hand-patching
 TEST_TARGET=	test
 
 # TODO
@@ -35,7 +38,7 @@ DEPENDS+=	${PYPKGPREFIX}-pyutil-[0-9]*:../../devel/py-pyutil
 DEPENDS+=	${PYPKGPREFIX}-mock-[0-9]*:../../devel/py-mock
 # Included egg setuptools_trial, not used.
 # Included egg setuptools_darcs, used (no package yet).
-DEPENDS+=	${PYPKGPREFIX}-foolscap-[0-9]*:../../net/py-foolscap
+DEPENDS+=	${PYPKGPREFIX}-foolscap>=0.6.3:../../net/py-foolscap
 DEPENDS+=	${PYPKGPREFIX}-twisted-[0-9]*:../../net/py-twisted
 DEPENDS+=	${PYPKGPREFIX}-asn1-[0-9]*:../../security/py-asn1
 DEPENDS+=	${PYPKGPREFIX}-crypto-[0-9]*:../../security/py-crypto
@@ -43,11 +46,15 @@ DEPENDS+=	${PYPKGPREFIX}-cryptopp-[0-9]*:../../security/py-cryptopp
 DEPENDS+=	${PYPKGPREFIX}-OpenSSL-[0-9]*:../../security/py-OpenSSL
 DEPENDS+=	${PYPKGPREFIX}-nevow-[0-9]*:../../www/py-nevow
 
+#1.9.1 seems ok
+#BAD_DISTFILE_MODES=yes
+.if defined(BAD_DISTFILE_MODES)
 # Distfile has files mode 600, which leads to root-owned 600 files in
 # the binary package.
-#post-extract:
-#	${ECHO} "Fixing distfile contents to be world readable:"
-#	chmod -R +r ${WRKSRC}
+post-extract:
+	${ECHO} "Fixing distfile contents to be world readable:"
+	chmod -R +r ${WRKSRC}
+.endif
 
 REPLACE_PYTHON+= src/allmydata/reliability.py
 REPLACE_PYTHON+= src/allmydata/storage/shares.py

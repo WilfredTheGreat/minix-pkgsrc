@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2010/05/21 22:10:11 schwarz Exp $
+# $NetBSD: Makefile,v 1.13 2012/05/29 14:22:27 wiz Exp $
 
-DISTNAME=		imake-1.0.3
+DISTNAME=		imake-1.0.5
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=util/}
 EXTRACT_SUFX=		.tar.bz2
@@ -40,6 +40,8 @@ SUBST_MESSAGE.xmkmf=	Fixing "xmkmf" script.
 SUBST_STAGE.xmkmf=	post-build
 SUBST_FILES.xmkmf=	xmkmf
 SUBST_SED.xmkmf=	-e "s/^configdirspec= */configdirspec=/"
+
+.include "../../meta-pkgs/modular-xorg/hacks.mk"
 
 .include "../../x11/xproto/buildlink3.mk"
 

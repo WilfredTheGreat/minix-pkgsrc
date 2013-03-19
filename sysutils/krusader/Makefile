@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.31 2011/01/13 13:39:24 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2012/06/14 07:44:12 sbd Exp $
 #
 
 DISTNAME=	krusader-1.90.0
-PKGREVISION=	9
+PKGREVISION=	15
 CATEGORIES=	kde sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=krusader/}
 
@@ -16,6 +16,7 @@ USE_TOOLS+=	gmake perl msgfmt
 USE_LANGUAGES=	c c++
 USE_LIBTOOL=	YES
 GNU_CONFIGURE=	YES
+SET_LIBDIR=	YES
 
 SHLIBTOOL_OVERRIDE=	# empty
 
@@ -31,4 +32,5 @@ CONFIGURE_ARGS+= --without-acl
 .include "../../x11/libSM/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

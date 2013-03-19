@@ -1,18 +1,12 @@
-# $NetBSD: options.mk,v 1.19 2011/08/23 16:38:01 tnn Exp $
+# $NetBSD: options.mk,v 1.21 2012/03/19 20:28:11 ryoon Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.seamonkey
-PKG_SUPPORTED_OPTIONS=	debug mozilla-jemalloc gnome
+PKG_SUPPORTED_OPTIONS=	debug mozilla-jemalloc gnome mozilla-enigmail mozilla-lightning
 
-PLIST_VARS+=	gnome
+PLIST_VARS+=	gnome jemalloc
 
 .if ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"
 PKG_SUGGESTED_OPTIONS+=	mozilla-jemalloc
-.endif
-
-.if !empty(MACHINE_ARCH:Mi386) || !empty(MACHINE_ARCH:Msparc) || \
-	!empty(MACHINE_ARCH:Marm) || !empty(MACHINE_ARCH:Mx86_64)
-PKG_SUPPORTED_OPTIONS+=	mozilla-jit
-PKG_SUGGESTED_OPTIONS+=	mozilla-jit
 .endif
 
 .include "../../mk/bsd.options.mk"
@@ -27,6 +21,7 @@ CONFIGURE_ARGS+=	--disable-gnomevfs --disable-dbus --disable-gnomeui
 .endif
 
 .if !empty(PKG_OPTIONS:Mmozilla-jemalloc)
+PLIST.jemalloc=		yes
 CONFIGURE_ARGS+=	--enable-jemalloc
 .else
 CONFIGURE_ARGS+=	--disable-jemalloc
@@ -40,8 +35,16 @@ CONFIGURE_ARGS+=	--disable-debug --disable-debug-symbols
 CONFIGURE_ARGS+=	--enable-install-strip
 .endif
 
-.if !empty(PKG_OPTIONS:Mmozilla-jit)
-CONFIGURE_ARGS+=	--enable-tracejit
+.if !empty(PKG_OPTIONS:Mmozilla-enigmail) || make(distinfo)
+.include "enigmail.mk"
+.endif
+
+.if !empty(PKG_OPTIONS:Mmozilla-lightning)
+CONFIGURE_ARGS+=	--enable-calendar
+PLIST_SRC+=		PLIST.lightning
+XPI_FILES+=		${WRKSRC}/mozilla/dist/xpi-stage/calendar-timezones.xpi
+XPI_FILES+=		${WRKSRC}/mozilla/dist/xpi-stage/gdata-provider.xpi
+XPI_FILES+=		${WRKSRC}/mozilla/dist/xpi-stage/lightning.xpi
 .else
-CONFIGURE_ARGS+=	--disable-tracejit
+CONFIGURE_ARGS+=	--disable-calendar
 .endif

@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.15 2010/11/13 22:30:56 joerg Exp $
+# $NetBSD: Makefile,v 1.24 2012/08/07 10:42:08 imil Exp $
 
-DISTNAME=		nginx-1.0.4
-DISTFILES=		${DEFAULT_DISTFILES}
+DISTNAME=		nginx-1.2.3
 CATEGORIES=		www
-MASTER_SITES=		http://sysoev.ru/nginx/
+MASTER_SITES=		http://nginx.org/download/
+DISTFILES=		${DEFAULT_DISTFILES}
 
 MAINTAINER=		joerg@NetBSD.org
-HOMEPAGE=		http://nginx.net/
+HOMEPAGE=		http://nginx.org/
 COMMENT=		Lightweight HTTP server and mail proxy server
 LICENSE=		2-clause-bsd
 
@@ -19,7 +19,7 @@ NGINX_DATADIR?=		${VARBASE}/db/nginx
 NGINX_LOGDIR?=		${VARBASE}/log/nginx
 NGINX_PIDDIR?=		${VARBASE}/run
 
-BUILD_DEFS+=		NGINX_DATADIR NGINX_LOGDIR NGINX_PIDDIR
+BUILD_DEFS+=		NGINX_DATADIR NGINX_LOGDIR NGINX_PIDDIR VARBASE
 
 PKG_USERS_VARS+=	NGINX_USER
 PKG_GROUPS_VARS+=	NGINX_GROUP
@@ -50,12 +50,18 @@ CONFIGURE_ARGS+=	--http-fastcgi-temp-path=${NGINX_DATADIR}/fstcgi_temp
 
 PKG_SYSCONFSUBDIR=	nginx
 
+.include "options.mk"
+
 EGDIR=			${PREFIX}/share/examples/nginx
 EGFILES+=		fastcgi.conf fastcgi_params koi-utf koi-win \
 			mime.types nginx.conf win-utf
 
 .for file in ${EGFILES}
-CONF_FILES+=		${EGDIR}/conf/${file} ${PKG_SYSCONFDIR}/${file}
+CONF_FILES+=	${EGDIR}/conf/${file} ${PKG_SYSCONFDIR}/${file}
+.	if !empty(PKG_OPTIONS:Mnaxsi)
+CONF_FILES+=	${EGDIR}/conf/naxsi_core.rules
+CONF_FILES+=	${PKG_SYSCONFDIR}/naxsi_core.rules
+.	endif
 .endfor
 
 RCD_SCRIPTS=		nginx
@@ -80,8 +86,6 @@ SUBST_SED.paths+=	-e 's,%%NGINX_GROUP%%,${NGINX_GROUP},g'
 MESSAGE_SUBST+=		NGINX_LOGDIR=${NGINX_LOGDIR}
 MESSAGE_SUBST+=		NGINX_PIDDIR=${NGINX_PIDDIR}
 
-.include "options.mk"
-
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/objs/nginx ${DESTDIR}${PREFIX}/sbin/nginx
 .for file in ${EGFILES}
@@ -90,6 +94,10 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/html/50x.html ${DESTDIR}${EGDIR}/html/50x.html
 	${INSTALL_DATA} ${WRKSRC}/html/index.html ${DESTDIR}${EGDIR}/html/index.html
 	${INSTALL_MAN} ${WRKSRC}/man/nginx.8 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man8
+.if !empty(PKG_OPTIONS:Mnaxsi)
+	${INSTALL_DATA} ${WRKDIR}/${NAXSI}/naxsi_config/naxsi_core.rules ${DESTDIR}${EGDIR}/conf
+.endif
+
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

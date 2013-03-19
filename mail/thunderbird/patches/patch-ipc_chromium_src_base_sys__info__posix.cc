@@ -1,6 +1,6 @@
-$NetBSD: patch-ipc_chromium_src_base_sys__info__posix.cc,v 1.1 2011/07/11 20:46:36 tnn Exp $
+$NetBSD: patch-ipc_chromium_src_base_sys__info__posix.cc,v 1.3 2012/03/10 11:42:38 ryoon Exp $
 
---- mozilla/ipc/chromium/src/base/sys_info_posix.cc.orig	2011-06-15 21:57:27.000000000 +0000
+--- mozilla/ipc/chromium/src/base/sys_info_posix.cc.orig	2012-04-20 22:40:06.000000000 +0000
 +++ mozilla/ipc/chromium/src/base/sys_info_posix.cc
 @@ -18,6 +18,11 @@
  #include <mach/mach_init.h>
@@ -14,7 +14,19 @@ $NetBSD: patch-ipc_chromium_src_base_sys__info__posix.cc,v 1.1 2011/07/11 20:46:
  #include "base/logging.h"
  #include "base/string_util.h"
  
-@@ -52,6 +57,20 @@ int64 SysInfo::AmountOfPhysicalMemory() 
+@@ -26,7 +31,11 @@ namespace base {
+ int SysInfo::NumberOfProcessors() {
+   // It seems that sysconf returns the number of "logical" processors on both
+   // mac and linux.  So we get the number of "online logical" processors.
++#ifdef _SC_NPROCESSORS_ONLN
+   static long res = sysconf(_SC_NPROCESSORS_ONLN);
++#else
++  static long res = 1;
++#endif
+   if (res == -1) {
+     NOTREACHED();
+     return 1;
+@@ -52,6 +61,20 @@ int64 SysInfo::AmountOfPhysicalMemory() 
    }
  
    return static_cast<int64>(hostinfo.max_mem);

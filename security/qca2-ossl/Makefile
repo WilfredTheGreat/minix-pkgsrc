@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.12 2011/01/13 13:39:19 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2012/03/03 00:13:54 wiz Exp $
 
 DISTNAME=	qca-ossl-2.0.0-beta3
 PKGNAME=	qca2-ossl-${DISTNAME:S/-beta/beta/:C/.*-//}
-PKGREVISION=	11
+PKGREVISION=	16
 CATEGORIES=	security
 MASTER_SITES=	http://delta.affinix.com/download/qca/2.0/plugins/
 EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=	jdolecek@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://delta.affinix.com/qca/
 COMMENT=	Cross-platform crypto API for QT - OpenSSL plugin
 

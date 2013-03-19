@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.88 2011/04/22 13:43:52 obache Exp $
+# $NetBSD: Makefile,v 1.93 2012/06/14 07:44:34 sbd Exp $
 
 DISTNAME=	xsane-0.998
 PKGNAME=	xsane-0.99.8
+PKGREVISION=	5
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.xsane.org/download/old/ \
 		ftp://ftp.u-aizu.ac.jp/pub/misc/device/scsi/scanner/sane/xsane/ \

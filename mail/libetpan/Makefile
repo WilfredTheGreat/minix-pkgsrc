@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.33 2011/04/22 13:42:10 obache Exp $
+# $NetBSD: Makefile,v 1.35 2012/01/18 14:34:48 adam Exp $
 
-DISTNAME=	libetpan-1.0
-PKGREVISION=	3
+DISTNAME=	libetpan-1.1
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libetpan/}
 

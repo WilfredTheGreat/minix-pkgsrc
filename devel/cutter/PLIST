@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.3 2011/02/13 12:59:51 obache Exp $
+@comment $NetBSD: PLIST,v 1.6 2012/01/02 05:53:42 obache Exp $
 bin/cut-diff
 bin/cutter
 include/cutter/cppcutter.h
@@ -27,6 +27,7 @@ include/cutter/cutter/cut-helper.h
 include/cutter/cutter/cut-iterated-test.h
 include/cutter/cutter/cut-listener-utils.h
 include/cutter/cutter/cut-listener.h
+include/cutter/cutter/cut-logger.h
 include/cutter/cutter/cut-macros.h
 include/cutter/cutter/cut-main.h
 include/cutter/cutter/cut-module-factory-utils.h
@@ -178,7 +179,6 @@ share/gtk-doc/html/cutter/cutter-Test-Utilities.html
 share/gtk-doc/html/cutter/cutter-Types-for-GLib-support.html
 share/gtk-doc/html/cutter/cutter-Types.html
 share/gtk-doc/html/cutter/cutter-Version-Information.html
-share/gtk-doc/html/cutter/cutter.devhelp
 share/gtk-doc/html/cutter/cutter.devhelp2
 share/gtk-doc/html/cutter/cutter.html
 share/gtk-doc/html/cutter/dark-circle.png
@@ -211,6 +211,8 @@ share/gtk-doc/html/cutter/index-1-1-5.html
 share/gtk-doc/html/cutter/index-1-1-6.html
 share/gtk-doc/html/cutter/index-1-1-7.html
 share/gtk-doc/html/cutter/index-1-1-8.html
+share/gtk-doc/html/cutter/index-1-1-9.html
+share/gtk-doc/html/cutter/index-1-2-0.html
 share/gtk-doc/html/cutter/index-all.html
 share/gtk-doc/html/cutter/index-deprecated.html
 share/gtk-doc/html/cutter/index.html
@@ -249,6 +251,7 @@ share/gtk-doc/html/cutter/ja/api-index-1.1.3.xml
 share/gtk-doc/html/cutter/ja/api-index-1.1.4.xml
 share/gtk-doc/html/cutter/ja/api-index-1.1.5.xml
 share/gtk-doc/html/cutter/ja/api-index-1.1.6.xml
+share/gtk-doc/html/cutter/ja/api-index-1.2.0.xml
 share/gtk-doc/html/cutter/ja/api-index-deprecated.xml
 share/gtk-doc/html/cutter/ja/api-index-full.xml
 share/gtk-doc/html/cutter/ja/colorized-diff.png
@@ -257,22 +260,18 @@ share/gtk-doc/html/cutter/ja/cppcut-assertions.xml
 share/gtk-doc/html/cutter/ja/cppcut-macros.xml
 share/gtk-doc/html/cutter/ja/cppcutter.xml
 share/gtk-doc/html/cutter/ja/cut-assertions.xml
-share/gtk-doc/html/cutter/ja/cut-colorize-differ.xml
 share/gtk-doc/html/cutter/ja/cut-config.xml
 share/gtk-doc/html/cutter/ja/cut-console-diff-writer.xml
 share/gtk-doc/html/cutter/ja/cut-console.xml
-share/gtk-doc/html/cutter/ja/cut-diff-writer.xml
 share/gtk-doc/html/cutter/ja/cut-diff.html
-share/gtk-doc/html/cutter/ja/cut-differ.xml
 share/gtk-doc/html/cutter/ja/cut-experimental.xml
 share/gtk-doc/html/cutter/ja/cut-features.xml
 share/gtk-doc/html/cutter/ja/cut-helper.xml
+share/gtk-doc/html/cutter/ja/cut-logger.xml
 share/gtk-doc/html/cutter/ja/cut-multi-process.xml
-share/gtk-doc/html/cutter/ja/cut-readable-differ.xml
 share/gtk-doc/html/cutter/ja/cut-string-diff-writer.xml
 share/gtk-doc/html/cutter/ja/cut-test-utils.xml
 share/gtk-doc/html/cutter/ja/cut-types.xml
-share/gtk-doc/html/cutter/ja/cut-unified-differ.xml
 share/gtk-doc/html/cutter/ja/cut-version.xml
 share/gtk-doc/html/cutter/ja/cutter-Assertion-Utilities-for-GEnum-and-GFlags.html
 share/gtk-doc/html/cutter/ja/cutter-Assertion-Utilities-for-GError.html
@@ -304,7 +303,6 @@ share/gtk-doc/html/cutter/ja/cutter-Test-Utilities.html
 share/gtk-doc/html/cutter/ja/cutter-Types-for-GLib-support.html
 share/gtk-doc/html/cutter/ja/cutter-Types.html
 share/gtk-doc/html/cutter/ja/cutter-Version-Information.html
-share/gtk-doc/html/cutter/ja/cutter.devhelp
 share/gtk-doc/html/cutter/ja/cutter.devhelp2
 share/gtk-doc/html/cutter/ja/cutter.html
 share/gtk-doc/html/cutter/ja/cutter.xml
@@ -315,7 +313,6 @@ share/gtk-doc/html/cutter/ja/gcut-assertions-helper.xml
 share/gtk-doc/html/cutter/ja/gcut-assertions.xml
 share/gtk-doc/html/cutter/ja/gcut-data-helper.xml
 share/gtk-doc/html/cutter/ja/gcut-data.xml
-share/gtk-doc/html/cutter/ja/gcut-dynamic-data.xml
 share/gtk-doc/html/cutter/ja/gcut-egg.xml
 share/gtk-doc/html/cutter/ja/gcut-enum.xml
 share/gtk-doc/html/cutter/ja/gcut-error.xml
@@ -367,6 +364,8 @@ share/gtk-doc/html/cutter/ja/index-1-1-5.html
 share/gtk-doc/html/cutter/ja/index-1-1-6.html
 share/gtk-doc/html/cutter/ja/index-1-1-7.html
 share/gtk-doc/html/cutter/ja/index-1-1-8.html
+share/gtk-doc/html/cutter/ja/index-1-1-9.html
+share/gtk-doc/html/cutter/ja/index-1-2-0.html
 share/gtk-doc/html/cutter/ja/index-all.html
 share/gtk-doc/html/cutter/ja/index-deprecated.html
 share/gtk-doc/html/cutter/ja/index.html
@@ -396,6 +395,8 @@ share/gtk-doc/html/cutter/ja/soupcut-server.xml
 share/gtk-doc/html/cutter/ja/soupcutter.xml
 share/gtk-doc/html/cutter/ja/start.html
 share/gtk-doc/html/cutter/ja/style.css
+share/gtk-doc/html/cutter/ja/travis-ci-integration.html
+share/gtk-doc/html/cutter/ja/travis-ci.html
 share/gtk-doc/html/cutter/ja/tutorial.html
 share/gtk-doc/html/cutter/ja/up.png
 share/gtk-doc/html/cutter/ja/users.html
@@ -410,6 +411,8 @@ share/gtk-doc/html/cutter/reference.html
 share/gtk-doc/html/cutter/right.png
 share/gtk-doc/html/cutter/start.html
 share/gtk-doc/html/cutter/style.css
+share/gtk-doc/html/cutter/travis-ci-integration.html
+share/gtk-doc/html/cutter/travis-ci.html
 share/gtk-doc/html/cutter/tutorial.html
 share/gtk-doc/html/cutter/up.png
 share/gtk-doc/html/cutter/users.html

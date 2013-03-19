@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.17 2010/12/15 09:42:28 adam Exp $
+# $NetBSD: Makefile,v 1.21 2012/06/02 04:34:01 taca Exp $
 
-DISTNAME=	Mail_Mime-1.8.2
+DISTNAME=	Mail_Mime-1.8.5
 CATEGORIES+=	mail
 
-MAINTAINER=	jdolecek@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	PHP classes to create and manipulation of mime messages
 
 CONFLICTS=	php-pear-Mail_Mime-[0-9]*

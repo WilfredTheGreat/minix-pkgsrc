@@ -1,18 +1,21 @@
-# $NetBSD: Makefile,v 1.77 2011/01/16 07:31:12 wiz Exp $
+# $NetBSD: Makefile,v 1.81 2012/04/25 19:34:51 wiz Exp $
 
 DISTNAME=	unzip60
 PKGNAME=	unzip-6.0
+PKGREVISION=	1
 CATEGORIES=	archivers
 MASTER_SITES=	ftp://ftp.info-zip.org/pub/infozip/src/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	wiz@NetBSD.org
-HOMEPAGE=	http://www.info-zip.org/pub/infozip/UnZip.html
+HOMEPAGE=	http://www.info-zip.org/UnZip.html
 COMMENT=	List, test and extract compressed files in a ZIP archive
 LICENSE=	info-zip
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 PKG_DESTDIR_SUPPORT=	user-destdir
+
+REPLACE_SH=	unix/zipgrep
 
 USE_TOOLS+=	gmake
 
@@ -30,10 +33,13 @@ CPPFLAGS+=	-DBSD
      ${OPSYS} == "OSF1"  || \
      ${OPSYS} == "AIX"  || \
      ${OPSYS} == "OpenBSD"  || \
-    (${OPSYS} == "Darwin" && !empty(OS_VERSION:M[01234678].*))) 
+    (${OPSYS} == "Darwin" && !empty(OS_VERSION:M[01234678].*)))
 CPPFLAGS+=	-DNO_LCHMOD
 .endif
 CPPFLAGS+=	-DUNIX -Dunix -DUSE_UNSHRINK -I.
+.if (${OPSYS} != "SunOS")
+CPPFLAGS+=	-DLARGE_FILE_SUPPORT
+.endif
 
 MAKE_FLAGS+=	CF=${CPPFLAGS:Q}\ ${CFLAGS:Q}
 MAKE_FLAGS+=	LF2=${_STRIPFLAG_CC:Q}\ ${LDFLAGS:Q}\ -lz

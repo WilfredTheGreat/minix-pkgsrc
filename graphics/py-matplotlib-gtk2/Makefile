@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2011/02/25 09:47:24 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2012/06/14 07:44:04 sbd Exp $
 #
 
-DISTNAME=		matplotlib-1.0.1
-PKGNAME=		${PYPKGPREFIX}-matplotlib-gtk-1.0.1
-PKGREVISION=		1
+DISTNAME=		matplotlib-1.1.1
+PKGNAME=		${PYPKGPREFIX}-matplotlib-gtk-1.1.1
 CATEGORIES=		graphics python
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=matplotlib/}
 
@@ -17,8 +16,6 @@ USE_TOOLS+=		pkg-config
 PY_PATCHPLIST=		yes
 PYDISTUTILSPKG=		yes
 USE_LANGUAGES=		c c++
-
-PYTHON_VERSIONS_ACCEPTED=	27 26 25
 
 post-patch:
 	( echo "[directories]"; \

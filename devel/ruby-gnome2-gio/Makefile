@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.5 2011/04/22 13:43:23 obache Exp $
+# $NetBSD: Makefile,v 1.8 2012/03/03 00:12:58 wiz Exp $
 #
 
 PKGNAME=		${RUBY_PKGPREFIX}-gnome2-gio-${VERSION}

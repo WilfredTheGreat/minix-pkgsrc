@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.9 2009/08/20 17:15:21 epg Exp $
+# $NetBSD: Makefile,v 1.14 2012/07/01 14:05:58 wiz Exp $
 #
 
-DISTNAME=	simplejson-2.1.1
+DISTNAME=	simplejson-2.6.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	converters
 MASTER_SITES=	http://pypi.python.org/packages/source/s/simplejson/
@@ -18,5 +18,5 @@ USE_LANGUAGES=	c
 do-test:
 	cd ${WRKSRC} && ${PYTHONBIN} setup.py test -q
 
-.include "../../lang/python/egg.mk"
+.include "../../lang/python/distutils.mk"
 .include "../../mk/bsd.pkg.mk"

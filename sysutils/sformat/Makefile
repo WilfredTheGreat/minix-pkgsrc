@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.11 2009/02/09 17:27:40 joerg Exp $
+# $NetBSD: Makefile,v 1.13 2012/06/16 08:55:54 dholland Exp $
 #
 
 DISTNAME=		sformat-3.5
@@ -36,6 +36,9 @@ INSTALLATION_DIRS=	bin include lib ${PKGMANDIR}/man5 ${PKGMANDIR}/man8
 post-extract:
 	${CP} ${WRKSRC}/RULES/os-freebsd.id ${WRKSRC}/RULES/os-dragonfly.id
 	${CP} ${WRKSRC}/RULES/os-freebsd.def ${WRKSRC}/RULES/os-dragonfly.def
-	ln -s i386-netbsd-cc.rul ${WRKSRC}/RULES/amd64-netbsd-cc.rul
+.for x in amd64 macppc
+	ln -s i386-netbsd-cc.rul ${WRKSRC}/RULES/${x}-netbsd-cc.rul
+	ln -s i386-netbsd-cc.rul ${WRKSRC}/RULES/${x}-netbsd-gcc.rul
+.endfor
 
 .include "../../mk/bsd.pkg.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.4 2011/01/13 13:37:40 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2012/01/28 11:00:53 wiz Exp $
 #
 
 DISTNAME=		chromium-bsu-0.9.14
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		games
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=chromium-bsu/}
 
@@ -18,6 +18,7 @@ USE_PKGLOCALEDIR=	yes
 USE_LANGUAGES=		c c++
 GNU_CONFIGURE=		yes
 LDFLAGS+=		${BUILDLINK_LDADD.gettext}
+LDFLAGS.DragonFly=	-lSDL
 
 .include "../../audio/SDL_mixer/buildlink3.mk"
 .include "../../devel/SDL/buildlink3.mk"

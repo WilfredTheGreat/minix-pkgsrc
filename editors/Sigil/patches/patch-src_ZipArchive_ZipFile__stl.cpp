@@ -1,4 +1,4 @@
-$NetBSD$
+$NetBSD: patch-src_ZipArchive_ZipFile__stl.cpp,v 1.1 2011/10/14 09:49:07 ryoon Exp $
 
 Add DragonFly support.
 

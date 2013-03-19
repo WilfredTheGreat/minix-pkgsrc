@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.13 2011/10/11 03:12:55 jnemeth Exp $
+# $NetBSD: Makefile,v 1.42 2012/08/03 08:22:53 jnemeth Exp $
 #
 # NOTE: when updating this package, there are two places that sound
 #       tarballs need to be checked
 
-DISTNAME=	asterisk-1.8.7.0
-PKGREVISION=	1
+DISTNAME=	asterisk-1.8.15.0
 DIST_SUBDIR=	${PKGNAME_NOREV}
 DISTFILES=	${DEFAULT_DISTFILES}
 EXTRACT_ONLY=	${DISTNAME}.tar.gz
@@ -36,6 +35,7 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--without-gtk2
 # XXX remove when lang/lua gets builtin.mk
 CONFIGURE_ARGS+=	--without-lua
+CONFIGURE_ARGS+=	--with-oss=yes
 
 INSTALL_TARGET=		install samples
 INSTALLATION_DIRS+=	lib/pkgconfig share/doc/${PKGBASE}
@@ -90,6 +90,24 @@ MAKE_FLAGS+=		WRKSRC=${WRKSRC}
 MAKE_FLAGS+=		LDOPTS=${LDFLAGS:M*:Q}
 MAKE_FLAGS+=		HTTP_DOCSDIR=${PREFIX}/share/httpd/htdocs
 MAKE_FLAGS+=		HTTP_CGIDIR=${PREFIX}/libexec/cgi-bin
+MAKE_FLAGS+=		OPTIMIZE=-O3
+
+.if !empty(MACHINE_PLATFORM:MSunOS-*-i386)
+BUILDLINK_TRANSFORM+=	rm:-march=i386
+.endif
+
+PLIST_VARS+=	kqueue
+.if exists(/usr/include/sys/event.h)
+PLIST.kqueue=	yes
+.endif
+
+PLIST_VARS+=	mgcp
+# NOSIGPIPE is a temp variable, since PLIST.mgcp MUST remain undefined
+# if the grep fails
+NOSIGPIPE!=	${GREP} SO_NOSIGPIPE /usr/include/sys/socket.h || echo ""
+.if ${NOSIGPIPE} != ""
+PLIST.mgcp= yes
+.endif
 
 .include "options.mk"
 
@@ -165,10 +183,8 @@ CONF_FILES_PERMS+=	${ASTEXAMPLEDIR}/${f:Q} ${PKG_SYSCONFDIR}/${f:Q} ${ASTERISK_U
 	queues.conf res_config_mysql.conf res_config_sqlite.conf	\
 	res_curl.conf res_fax.conf res_ldap.conf res_odbc.conf		\
 	res_pgsql.conf res_pktccops.conf res_snmp.conf			\
-	res_stun_monitor.conf rpt.conf rtp.conf say.conf sip.conf	\
-	sip_notify.conf skinny.conf sla.conf smdi.conf telcordia-1.adsi	\
-	udptl.conf unistim.conf usbradio.conf users.conf voicemail.conf	\
-	vpb.conf
+	res_stun_monitor.conf rtp.conf say.conf sip.conf udptl.conf	\
+	unistim.conf users.conf voicemail.conf vpb.conf
 CONF_FILES_PERMS+=		${ASTEXAMPLEDIR}/${f:Q} ${PKG_SYSCONFDIR}/${f:Q} ${ASTERISK_USER} ${ASTERISK_GROUP} 0644
 .endfor
 
@@ -181,7 +197,7 @@ post-patch:
 
 post-install:
 # check sounds directory for current versions when upgrading package
-	${TAR} xzf ${WRKSRC}/sounds/asterisk-core-sounds-en-gsm-1.4.21.tar.gz -C ${DESTDIR}${ASTDATADIR}/sounds/en
+	${TAR} xzf ${WRKSRC}/sounds/asterisk-core-sounds-en-gsm-1.4.22.tar.gz -C ${DESTDIR}${ASTDATADIR}/sounds/en
 	${TAR} xzf ${WRKSRC}/sounds/asterisk-moh-opsound-wav-2.03.tar.gz -C ${DESTDIR}${ASTDATADIR}/moh
 	${TAR} xzf ${DISTDIR}/${DIST_SUBDIR}/asterisk-extra-sounds-en-gsm-1.4.11.tar.gz -C ${DESTDIR}${ASTDATADIR}/sounds/en
 	${INSTALL_DATA} ${WRKSRC}/BUGS ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
@@ -197,17 +213,18 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/UPGRADE-1.6.txt ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 	${INSTALL_DATA} ${WRKSRC}/UPGRADE.txt ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 	${INSTALL_DATA} ${WRKSRC}/Zaptel-to-DAHDI.txt ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
-	${INSTALL_DATA} ${WRKSRC}/doc/AST.pdf ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
-	${INSTALL_DATA} ${WRKSRC}/doc/AST.txt ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 	${INSTALL_DATA} ${WRKSRC}/doc/IAX2-security.pdf ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 	${INSTALL_DATA} ${WRKSRC}/doc/IAX2-security.txt ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 	${INSTALL_DATA} ${WRKSRC}/doc/README.txt ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 	${INSTALL_DATA} ${WRKSRC}/doc/api-1.6.2-changes.txt ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
+	cp -r ${WRKSRC}/doc/Asterisk-Admin-Guide ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}/Asterisk-Admin-Guide
 
+.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
+.include "../../mk/oss.buildlink3.mk"
 .include "../../mk/curses.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

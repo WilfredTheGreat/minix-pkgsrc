@@ -1,15 +1,13 @@
-# $NetBSD: Makefile,v 1.9 2011/02/25 09:47:24 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2012/04/22 13:56:19 obache Exp $
 #
 
 .include "../../inputmethod/input-pad/Makefile.common"
 
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	1
 
 MAINTAINER=	obache@NetBSD.org
 COMMENT=	Python wrapper for Input Pad
-
-PYTHON_VERSIONS_ACCEPTED=	27 26 25
 
 DEPENDS+=	${PYPKGPREFIX}-gtk2-[0-9]*:../../x11/py-gtk2
 BUILD_DEPENDS+=	swig-[0-9]*:../../devel/swig

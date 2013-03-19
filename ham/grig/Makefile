@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.23 2011/02/28 14:52:51 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2012/03/03 00:13:20 wiz Exp $
 #
 
 DISTNAME=	grig-0.7.2
-PKGREVISION=	6
+PKGREVISION=	9
 CATEGORIES=	ham
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=groundstation/}
 
@@ -18,4 +18,5 @@ GNU_CONFIGURE=	yes
 
 .include "../../ham/hamlib/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
+.include "../../devel/libltdl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

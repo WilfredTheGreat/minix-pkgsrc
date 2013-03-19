@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.26 2010/12/12 13:17:45 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2012/03/03 00:12:08 wiz Exp $
 #
 
-DISTNAME=	dbus-glib-0.92
-PKGREVISION=	1
+DISTNAME=	dbus-glib-0.100
 CATEGORIES=	sysutils
 MASTER_SITES=	http://dbus.freedesktop.org/releases/dbus-glib/
 

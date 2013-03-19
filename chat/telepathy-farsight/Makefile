@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2011/04/22 13:42:33 obache Exp $
+# $NetBSD: Makefile,v 1.22 2012/04/27 12:31:37 obache Exp $
 #
 
 DISTNAME=	telepathy-farsight-0.0.16
-PKGREVISION=	2
+PKGREVISION=	8
 CATEGORIES=	chat multimedia
 MASTER_SITES=	http://telepathy.freedesktop.org/releases/telepathy-farsight/
 
@@ -16,6 +16,8 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake pkg-config
+
+CFLAGS.SunOS+=	-std=c99 -D_XOPEN_SOURCE=600
 
 PKGCONFIG_OVERRIDE+=	telepathy-farsight/telepathy-farsight.pc.in
 

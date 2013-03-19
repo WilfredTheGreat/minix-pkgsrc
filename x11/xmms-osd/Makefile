@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.20 2011/01/13 13:40:08 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2012/02/06 12:42:31 wiz Exp $
 #
 
 PKG_DESTDIR_SUPPORT=	user-destdir
@@ -6,7 +6,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 .include "../../x11/xosd/Makefile.common"
 
 PKGNAME=		${DISTNAME:S/xosd/xmms-osd/}
-PKGREVISION=		5
+PKGREVISION=		8
 
 COMMENT=		XMMS plugin that shows current status on your desktop
 CONFLICTS=		xosd<=2.2.0

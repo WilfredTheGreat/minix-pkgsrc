@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.7 2008/09/07 01:59:26 dholland Exp $
+# $NetBSD: Makefile,v 1.10 2012/05/08 02:59:57 sbd Exp $
 
 DISTNAME=		g95_source
 VERSION=		0.92
+PKGREVISION=		1
 PKGNAME=		g95-${VERSION}
 CATEGORIES=		lang
 EXTRACT_SUFX.g95_source=	.tgz
@@ -27,6 +28,18 @@ GCC_G95_DIR=		${GCC_DIR}/g95
 GCC_CONFIGURE_SCRIPT=	../configure
 GCC_CONFIGURE_ARGS=	${CONFIGURE_ARGS}
 GCC_CONFIGURE_ARGS+=	--enable-languages=c
+GCC_CONFIGURE_ARGS+=	--disable-multilib
+
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "SunOS"
+GCC_CONFIGURE_ENV+=	OBJDUMP=/usr/sfw/bin/gobjdump
+GCC_CONFIGURE_ARGS+=	--without-gnu-ld --with-ld=/usr/ccs/bin/ld
+. if !exists(/usr/sfw/bin/gas)
+GCC_CONFIGURE_ARGS+=	--without-gnu-as --with-as=/usr/ccs/bin/as
+. else
+GCC_CONFIGURE_ARGS+=	--with-gnu-as --with-as=/usr/sfw/bin/gas
+. endif
+.endif
 
 CONFIGURE_ARGS+=	--with-gcc-dir=${GCC_DIR}
 

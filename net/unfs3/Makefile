@@ -1,18 +1,20 @@
-# $NetBSD: Makefile,v 1.6 2010/02/04 14:43:31 tnn Exp $
+# $NetBSD: Makefile,v 1.9 2012/07/18 20:00:45 cheusov Exp $
 #
 
 DISTNAME=	unfs3-0.9.22
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=unfs3/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://unfs3.sourceforge.net/
 COMMENT=	Userspace NFSv3 server
+LICENSE=	modified-bsd
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 GNU_CONFIGURE=	yes
-USE_TOOLS+=	gmake flex bison
+USE_TOOLS+=	flex bison
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -32,7 +34,7 @@ SUBST_SED.exports=	-e 's,/etc/exports,${PKG_SYSCONFDIR}/exports,g'
 
 pre-build:
 	cd ${WRKSRC}/Config && ${MAKE_PROGRAM} clean
-	
+
 post-install:
 	${INSTALL_DATA} ${FILESDIR}/exports \
 	    ${DESTDIR}${PREFIX}/share/examples/unfs3

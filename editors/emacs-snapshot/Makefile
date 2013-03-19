@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.21 2011/04/22 14:40:42 obache Exp $
+# $NetBSD: Makefile,v 1.29 2012/06/14 07:44:36 sbd Exp $
 
+PKGREVISION=	2
 CONFLICTS+=	emacs-nox11-[0-9]*
 
 .include "../../editors/emacs-snapshot/Makefile.common"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.37 2011/07/03 16:27:14 jym Exp $
+# $NetBSD: Makefile,v 1.52 2012/06/14 22:09:29 sbd Exp $
 #
 
-DISTNAME=	tellico-2.3.2
+DISTNAME=	tellico-2.3.5
 PKGREVISION=	5
 CATEGORIES=	misc
 MASTER_SITES=	http://tellico-project.org/files/
@@ -22,13 +22,13 @@ REPLACE_PYTHON+=	src/translators/griffith2tellico.py
 REPLACE_RUBY+=		src/fetch/scripts/boardgamegeek.rb
 
 USE_LANGUAGES=	c c++
-USE_CMAKE=	yes
 USE_TOOLS+=	msgfmt pkg-config
 
 .include "../../meta-pkgs/kde4/kde4.mk"
 .include "../../audio/taglib/buildlink3.mk"
 .include "../../devel/exempi/buildlink3.mk"
-.include "../../graphics/kdegraphics4/buildlink3.mk"
+.include "../../devel/qjson/buildlink3.mk"
+.include "../../graphics/libksane/buildlink3.mk"
 .include "../../graphics/qimageblitz/buildlink3.mk"
 .include "../../lang/python/application.mk"
 .include "../../lang/ruby/buildlink3.mk"

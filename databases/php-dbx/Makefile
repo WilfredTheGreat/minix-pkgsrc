@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.10 2010/03/21 11:20:41 jdolecek Exp $
+# $NetBSD: Makefile,v 1.12 2011/12/17 13:46:27 obache Exp $
 
 MODNAME=		dbx
 PECL_VERSION=		1.1.2
+PECL_LEGACY_VERSION_SCHEME=	yes
 CATEGORIES+=		databases
 COMMENT=		PHP database abstraction layer extension
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-MAINTAINER=		jdolecek@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 
 CONFLICTS=	php-dbx-[0-9]*
 

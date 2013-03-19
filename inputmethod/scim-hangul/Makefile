@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2011/01/13 13:38:31 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2012/03/03 00:13:23 wiz Exp $
 #
 
-DISTNAME=		scim-hangul-0.3.2
-PKGREVISION=		5
+DISTNAME=		scim-hangul-0.4.0
 CATEGORIES=		inputmethod korean
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=scim/}
 

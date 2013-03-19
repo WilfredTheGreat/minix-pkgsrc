@@ -1,8 +1,9 @@
-# $NetBSD$
+# $NetBSD: Makefile,v 1.2 2012/04/13 23:10:39 hans Exp $
 #
 
 .include "../../www/phraseanet/Makefile.common"
 PKGNAME=        phraseanet-indexer-${VERS}
+PKGREVISION=	1
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 EXTRACT_ELEMENTS=	${DISTNAME}/bin/src/phraseanet_indexer
@@ -11,6 +12,7 @@ USE_LANGUAGES=		c c++
 USE_TOOLS+=		aclocal autoconf automake
 GNU_CONFIGURE=		yes
 CFLAGS+=	-I${BUILDLINK_PREFIX.libxml2}/include/libxml2
+LIBS.SunOS+=		-lrt -lsocket
 
 
 pre-configure:

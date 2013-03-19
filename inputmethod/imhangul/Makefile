@@ -1,26 +1,27 @@
-# $NetBSD: Makefile,v 1.21 2010/11/16 02:07:14 obache Exp $
+# $NetBSD: Makefile,v 1.23 2011/11/10 10:51:33 obache Exp $
 
-DISTNAME=	imhangul-0.9.14
-PKGREVISION=	2
+DISTNAME=	imhangul-2.0.0
+PKGREVISION=	1
 CATEGORIES=	inputmethod korean
-MASTER_SITES=	http://kldp.net/frs/download.php/4944/
+MASTER_SITES=	http://kldp.net/frs/download.php/5924/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	minskim@NetBSD.org
-HOMEPAGE=	http://imhangul.kldp.net/
+HOMEPAGE=	http://kldp.net/projects/imhangul/
 COMMENT=	GTK+-2.0 Hangul Input Module
+LICENSE=	gnu-gpl-v2 # or later
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 USE_TOOLS+=		pkg-config msgfmt
 GNU_CONFIGURE=		YES
 USE_LIBTOOL=		YES
-SHLIBTOOL_OVERRIDE=	# empty
 USE_PKGLOCALEDIR=	YES
 GTK2_IMMODULES=		YES
+.include "../../x11/gtk2/modules.mk"
 
-BUILDLINK_API_DEPENDS.libhangul+=	libhangul>=0.0.9
+BUILDLINK_API_DEPENDS.libhangul+=	libhangul>=0.0.12
 
 .include "../../inputmethod/libhangul/buildlink3.mk"
-.include "../../x11/gtk2/modules.mk"
+.include "../../x11/gtk2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

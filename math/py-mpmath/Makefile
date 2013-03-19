@@ -1,15 +1,10 @@
-# $NetBSD: Makefile,v 1.2 2010/02/08 11:54:25 obache Exp $
+# $NetBSD: Makefile,v 1.4 2012/02/24 19:40:53 drochner Exp $
 #
 
-DISTNAME=	mpmath-0.15
+DISTNAME=	mpmath-0.17
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	math
 MASTER_SITES=	http://mpmath.googlecode.com/files/
-EXTRACT_SUFX=	.zip
-# XXX: all text file are DOS style.
-# XXX: if future version install binary file,
-# XXX: please consider to use another method.
-EXTRACT_OPTS_ZIP=	-aaqo
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://code.google.com/p/mpmath/

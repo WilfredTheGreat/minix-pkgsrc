@@ -1,4 +1,4 @@
-# $NetBSD: ext.mk,v 1.21 2010/03/21 11:06:05 jdolecek Exp $
+# $NetBSD: ext.mk,v 1.28 2012/06/16 02:47:51 taca Exp $
 #
 # PHP extension package framework, for both PECL and bundled PHP extensions.
 #
@@ -24,6 +24,7 @@ HOMEPAGE?=		http://pecl.php.net/package/${MODNAME}
 .include "${PHPPKGSRCDIR}/Makefile.common"
 
 PKGMODNAME?=		${MODNAME:S/-/_/}
+PHPSETUPSUBDIR?=	#empty
 MODULESDIR?=		${WRKSRC}/modules
 PLIST_SUBST+=		MODNAME=${PKGMODNAME}
 
@@ -35,11 +36,16 @@ WRKSRC?=		${WRKDIR}/${EXTRACT_ELEMENTS}
 DISTINFO_FILE=		${.CURDIR}/${PHPPKGSRCDIR}/distinfo
 .else
 # PECL extension
-PKGNAME?=		${PHP_PKG_PREFIX}-${MODNAME}-${PHP_BASE_VERS}.${PECL_VERSION}
+# WARINING: following fixed version number for PHP 5.3.x must not be bumped!
+.if defined(PECL_LEGACY_VERSION_SCHEME) && ${PKG_PHP_VERSION} == "53"
+PKGNAME?=		${PHP_PKG_PREFIX}-${MODNAME}-5.3.9.${PECL_VERSION}
+.else
+PKGNAME?=		${PHP_PKG_PREFIX}-${MODNAME}-${PECL_VERSION}
+.endif
 MASTER_SITES?=		http://pecl.php.net/get/
 PECL_DISTNAME?=		${MODNAME}-${PECL_VERSION}
 DISTNAME=		${PECL_DISTNAME}
-DIST_SUBDIR=		php-${MODNAME}
+DIST_SUBDIR?=		php-${MODNAME}
 EXTRACT_SUFX?=		.tgz
 .endif
 
@@ -79,7 +85,7 @@ pre-configure:	phpize-module
 phpize-module:
 	@cookie=${WRKDIR}/.phpize_module_done;				\
 	if [ ! -f $${cookie} ]; then					\
-		cd ${WRKSRC} && 					\
+		cd ${WRKSRC}/${PHPSETUPSUBDIR} &&			\
 		${SETENV}						\
 			AUTOCONF=${TOOLS_DIR:Q}/bin/autoconf		\
 			AUTOHEADER=${TOOLS_DIR:Q}/bin/autoheader	\

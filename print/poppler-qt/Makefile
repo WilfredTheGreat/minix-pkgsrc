@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.30 2011/07/11 10:05:22 drochner Exp $
+# $NetBSD: Makefile,v 1.32 2011/11/01 06:02:26 sbd Exp $
 #
 
-.include "../../print/poppler/Makefile.common"
+.include "../../print/poppler016/Makefile.common"
 
 PKGNAME=		poppler-qt-${POPPLER_VERS}
+PKGREVISION=		1
 
 COMMENT=		PDF rendering library (QT wrapper)
 MAINTAINER=		reed@reedmedia.net
@@ -16,7 +17,7 @@ CONFIGURE_ARGS+=	--disable-gtk-test
 CONFIGURE_ARGS+=	--disable-utils
 
 BUILDLINK_API_DEPENDS.poppler+=     poppler>=${POPPLER_VERS}
-.include "../../print/poppler/buildlink3.mk"
+.include "../../print/poppler016/buildlink3.mk"
 
 .if !empty(PKG_BUILD_OPTIONS.poppler:Mpoppler-cms)
 CONFIGURE_ARGS+=	--enable-cms

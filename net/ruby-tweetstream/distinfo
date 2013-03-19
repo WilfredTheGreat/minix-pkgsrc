@@ -1,5 +1,5 @@
-$NetBSD$
+$NetBSD: distinfo,v 1.3 2012/03/20 14:03:50 taca Exp $
 
-SHA1 (tweetstream-1.0.4.gem) = 05f94a47502ee7aa520847cc89a90f2441f47b9f
-RMD160 (tweetstream-1.0.4.gem) = a1e77474c4391105c300dce42666290d2e9c1a76
-Size (tweetstream-1.0.4.gem) = 15360 bytes
+SHA1 (tweetstream-1.1.5.gem) = 028047fabd459737512ad38e7aab0942e636b731
+RMD160 (tweetstream-1.1.5.gem) = a1c8ccb0ac10ab88c524eeb58b372122f2635fb7
+Size (tweetstream-1.1.5.gem) = 22528 bytes

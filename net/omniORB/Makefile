@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2010/09/25 12:24:02 obache Exp $
+# $NetBSD: Makefile,v 1.4 2012/03/16 04:31:15 obache Exp $
 #
 
 DISTNAME=		omniORB-4.1.5
+PKGREVISION=		1
 CATEGORIES=		devel
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=omniorb/}
 EXTRACT_SUFX+=		.tar.bz2
@@ -38,6 +39,8 @@ CONFIGURE_ARGS+=	--with-omniORB-config=${OMNIORB_CONFIG:Q}
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.omniORB
 PKG_SUPPORTED_OPTIONS=	inet6
+PKG_SUGGESTED_OPTIONS=	inet6
+
 .include "../../mk/bsd.options.mk"
 .if empty(PKG_OPTIONS:Minet6)
 CONFIGURE_ARGS+=--disable-ipv6

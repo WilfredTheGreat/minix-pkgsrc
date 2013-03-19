@@ -1,14 +1,12 @@
-# $NetBSD: Makefile,v 1.31 2009/06/10 13:33:39 obache Exp $
+# $NetBSD: Makefile,v 1.33 2012/03/31 21:52:56 shattered Exp $
 
-DISTNAME=	eggdrop1.6.19
-PKGNAME=	eggdrop-1.6.19
+DISTNAME=	eggdrop1.6.21
+PKGNAME=	eggdrop-1.6.21
+#KGREVISION=	1
 PKGREVISION=	1
 CATEGORIES=	chat
 MASTER_SITES=	ftp://ftp.eggheads.org/pub/eggdrop/source/1.6/
 EXTRACT_SUFX=	.tar.bz2
-
-PATCH_SITES=	ftp://ftp.eggheads.org/pub/eggdrop/patches/official/1.6/
-PATCHFILES=	eggdrop1.6.19+ctcpfix.patch.gz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.eggheads.org/

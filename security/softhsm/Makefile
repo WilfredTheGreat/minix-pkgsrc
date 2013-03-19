@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.9 2011/06/10 09:39:44 obache Exp $
+# $NetBSD: Makefile,v 1.14 2012/04/27 12:32:03 obache Exp $
 #
 
-DISTNAME=	softhsm-1.3.0
+DISTNAME=	softhsm-1.3.3
 CATEGORIES=	security
 MASTER_SITES=	http://www.opendnssec.org/files/source/
 

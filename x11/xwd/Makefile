@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2008/07/29 21:08:59 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2012/06/03 18:33:08 wiz Exp $
 #
 
-DISTNAME=	xwd-1.0.3
+DISTNAME=	xwd-1.0.5
 CATEGORIES=	x11 graphics
 MASTER_SITES=	${MASTER_SITE_XORG:=app/}
 EXTRACT_SUFX=	.tar.bz2
@@ -16,6 +16,8 @@ GNU_CONFIGURE=	yes
 USE_TOOLS+=	pkg-config
 
 CONFIGURE_ENV+=		APP_MAN_SUFFIX=1
+
+.include "../../meta-pkgs/modular-xorg/hacks.mk"
 
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXmu/buildlink3.mk"

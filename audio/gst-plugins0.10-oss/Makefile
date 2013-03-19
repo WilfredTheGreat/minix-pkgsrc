@@ -1,12 +1,14 @@
-# $NetBSD: Makefile,v 1.7 2011/04/22 13:45:21 obache Exp $
+# $NetBSD: Makefile,v 1.11 2012/03/03 00:14:24 wiz Exp $
 #
 
 GST_PLUGINS0.10_NAME=	oss
 GST_PLUGINS0.10_DIRS=	sys/oss
+PKGREVISION=		1
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 .include "../../multimedia/gst-plugins0.10-good/Makefile.common"
+PKGREVISION=1
 
 SUBST_CLASSES+=		devoss
 SUBST_MESSAGE.devoss=	Fixing path to OSS audio device.

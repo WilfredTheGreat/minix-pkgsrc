@@ -1,8 +1,8 @@
 $NetBSD$
 
---- configure.in.orig	2011-09-22 20:20:19.000000000 +0000
+--- configure.in.orig	2012-04-04 04:25:11.000000000 +0000
 +++ configure.in
-@@ -2090,7 +2090,7 @@ case "$target" in
+@@ -2413,7 +2413,7 @@ case "$target" in
      MOZ_FIX_LINK_PATHS='-Wl,-executable_path,$(LIBXUL_DIST)/bin'
      ;;
  
@@ -11,17 +11,17 @@ $NetBSD$
      if test `test -x /usr/bin/objformat && /usr/bin/objformat || echo elf` != "elf"; then
  	DLL_SUFFIX=".so.1.0"
  	DSO_LDOPTS="-shared"
-@@ -2098,6 +2098,9 @@ case "$target" in
+@@ -2421,6 +2421,9 @@ case "$target" in
      if test ! "$GNU_CC"; then
  	DSO_LDOPTS="-Bshareable $DSO_LDOPTS"
      fi
 +    if test "$LIBRUNPATH"; then
-+       DSO_LDOPTS="-Wl,-R$LIBRUNPATH $DSO_LDOPTS"
++	DSO_LDOPTS="-Wl,-R$LIBRUNPATH $DSO_LDOPTS"
 +    fi
-     ;; 
+     ;;
  
  ia64*-hpux*)
-@@ -3305,6 +3308,9 @@ dnl ====================================
+@@ -3412,6 +3415,9 @@ dnl ====================================
  case $target in
  *-hpux11.*)
  	;;
@@ -31,7 +31,7 @@ $NetBSD$
  *)
  	AC_CHECK_LIB(c_r, gethostbyname_r)
  	;;
-@@ -4567,6 +4573,14 @@ if test -n "$YASM"; then
+@@ -4358,6 +4364,14 @@ if test -n "$YASM"; then
    _YASM_BUILD=`        echo ${YASM_VERSION} | $AWK -F\. '{ print $4 }'`
  fi
  
@@ -46,30 +46,21 @@ $NetBSD$
  if test -z "$SKIP_LIBRARY_CHECKS"; then
  dnl system JPEG support
  dnl ========================================================
-@@ -7406,10 +7420,10 @@ else
-   *-mingw*)
-     AC_DEFINE(MOZ_MEMORY_WINDOWS)
-     dnl This is sort of awful. Will revisit if we add support for more versions
--    if test "$CC_VERSION" == "14.00.50727.762" -o "$CC_VERSION" == "15.00.30729.01"; then
-+    if test "$CC_VERSION" = "14.00.50727.762" -o "$CC_VERSION" = "15.00.30729.01"; then
-       WIN32_OLD_STYLE_JEMALLOC=1
-       AC_DEFINE(WIN32_OLD_STYLE_JEMALLOC)
--    elif test "$CC_VERSION" == "16.00.30319.01" -o "$CC_VERSION" == "16.00.40219.01"; then
-+    elif test "$CC_VERSION" = "16.00.30319.01" -o "$CC_VERSION" = "16.00.40219.01"; then
-       WIN32_NEW_STYLE_JEMALLOC=1
-       AC_DEFINE(WIN32_NEW_STYLE_JEMALLOC)
-     else        
-@@ -9323,7 +9337,8 @@ rm -f confdefs.h.save
- mv confdefs.h confdefs.h.save
- egrep -v "$_EGREP_PATTERN" confdefs.h.save > confdefs.h
- AC_OUTPUT_MAKE_DEFS()
--MOZ_DEFINES=$DEFS
-+# nbsed broken. PR bin/42261
-+MOZ_DEFINES="$DEFS`awk 'BEGIN {while(x<1000){printf " ";x++}}'`"
- AC_SUBST(MOZ_DEFINES)
- rm -f confdefs.h
- mv confdefs.h.save confdefs.h
-@@ -9435,6 +9450,8 @@ if test -z "$MOZ_NATIVE_NSPR"; then
+@@ -5732,11 +5746,11 @@ if test -n "$MOZ_WEBM" -a -z "$MOZ_NATIV
+ 
+     dnl See if we have assembly on this platform.
+     case "$OS_ARCH:$CPU_ARCH" in
+-    Linux:x86)
++    Linux:x86|DragonFly:x86|*BSD:i386)
+       VPX_ASFLAGS="-f elf32 -rnasm -pnasm"
+       VPX_X86_ASM=1
+     ;;
+-    Linux:x86_64)
++    Linux:x86_64|DragonFly:x86_64|*BSD:x86_64)
+       VPX_ASFLAGS="-f elf64 -rnasm -pnasm -DPIC"
+       VPX_X86_ASM=1
+     ;;
+@@ -9102,6 +9116,8 @@ if test -z "$MOZ_NATIVE_NSPR"; then
      AC_MSG_WARN([Recreating autoconf.mk with updated nspr-config output])
      if test "$OS_ARCH" != "WINNT"; then
         NSPR_LIBS=`./nsprpub/config/nspr-config --prefix=$LIBXUL_DIST --exec-prefix=$MOZ_BUILD_ROOT/dist --libdir=$LIBXUL_DIST/lib --libs`

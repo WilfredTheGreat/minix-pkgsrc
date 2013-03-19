@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.10 2009/09/13 11:17:30 sno Exp $
+# $NetBSD: options.mk,v 1.13 2012/03/21 16:25:47 obache Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.graphviz
 PKG_SUPPORTED_OPTIONS=	gd ghostscript gtk guile lua ocaml pangocairo rsvg tcl x11 perl
@@ -20,7 +20,6 @@ PKG_SUGGESTED_OPTIONS=	gd gtk lua pangocairo perl tcl x11
 PLIST_VARS+=		gd ghostscript gtk guile lua ocaml pangocairo perl rsvg tcl x11
 
 .if !empty(PKG_OPTIONS:Mx11)
-.include "../../x11/libXp/buildlink3.mk"
 .include "../../mk/xaw.buildlink3.mk"
 CONFIGURE_ENV+=		X11PREFIX=${X11PREFIX} X11BASE=${X11BASE}
 PLIST.x11=		yes
@@ -130,10 +129,14 @@ CONFIGURE_ARGS+=	--disable-ocaml
 
 .if !empty(PKG_OPTIONS:Mtcl)
 USING_SWIG=	yes
+.include "../../lang/tcl/Makefile.version"
 .include "../../x11/tk/buildlink3.mk"
 CONFIGURE_ENV+=		TCLCONFIG=${TCLCONFIG_SH:Q}
 CONFIGURE_ENV+=		TKCONFIG=${TKCONFIG_SH:Q}
+CONFIGURE_ARGS+=	--with-wish=${WISH}
+CONFIGURE_ARGS+=	--with-tclsh=${TCLSH}
 PLIST.tcl=		yes
+PLIST_SUBST+=		TCL_BASEVER=${TCL_BASEVER}
 .else
 CONFIGURE_ARGS+=	--disable-tcl
 .endif

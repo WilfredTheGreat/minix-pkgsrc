@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.19 2010/04/13 17:22:09 drochner Exp $
+# $NetBSD: Makefile,v 1.21 2011/11/20 05:40:27 sbd Exp $
 
 DISTNAME=	cln-1.3.2
+PKGREVISION=	1
 CATEGORIES=	math
 MASTER_SITES=	http://www.ginac.de/CLN/ \
 		ftp://ftpthep.physik.uni-mainz.de/pub/gnu/
@@ -19,5 +20,7 @@ USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE=	cln.pc.in
 INFO_FILES=		yes
+TEST_TARGET=		check
 
+.include "../../devel/gmp/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

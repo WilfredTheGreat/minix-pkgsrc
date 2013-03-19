@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.27 2011/10/12 15:48:40 hans Exp $
+# $NetBSD: Makefile,v 1.35 2012/04/13 11:01:32 hans Exp $
 
 DISTNAME=		gcc-${GCC_VERSION}
 PKGNAME=		gcc44-${GCC_VERSION}
-PKGREVISION=		1
+PKGREVISION=		2
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_GNU:=gcc/gcc-${GCC_VERSION}/}
 EXTRACT_SUFX=		.tar.bz2
 
-MAINTAINER=		blair.sadewitz@gmail.com
+MAINTAINER=		sbd@NetBSD.org
 HOMEPAGE=		http://gcc.gnu.org/
 COMMENT=		GNU Compiler Collection 4.4
 LICENSE=		gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
@@ -16,18 +16,16 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 USE_TOOLS+=		awk:run bash:run chmod gmake:run makeinfo sed:run
 
-GCC_VERSION=		4.4.6
+GCC_VERSION=		4.4.7
 
 GCC_SUBPREFIX=		gcc44
 GCC_PREFIX=		${PREFIX}/${GCC_SUBPREFIX}
 FILES_SUBST+=		PKGNAME=${PKGNAME}
-MESSAGE_SUBST+=		GCC_PREFIX=${GCC_PREFIX}
-
 
 # To avoid GNU surprises
 CONFIG_SHELL=		${TOOLS_PATH.bash}
 
-NOT_FOR_PLATFORM=	Interix-*-*
+NOT_FOR_PLATFORM=	Interix-*-* DragonFly-*-*
 UNLIMIT_RESOURCES+=	datasize
 UNLIMIT_RESOURCES+=	stacksize
 
@@ -73,12 +71,9 @@ CONFIGURE_ARGS+=	--enable-long-long
 CONFIGURE_ARGS+=	--with-local-prefix=${GCC_PREFIX:Q}
 CONFIGURE_ARGS+=	--disable-libssp
 CONFIGURE_ARGS+=	--enable-threads=posix
-CONFIGURE_ARGS+=	--with-gmp=${BUILDLINK_PREFIX.gmp}
-CONFIGURE_ARGS+=	--with-mpfr=${BUILDLINK_PREFIX.mpfr}
 
 CONFIGURE_ENV+=		CONFIG_SHELL=${CONFIG_SHELL}
 
-MAKE_ENV+=		ICONVPREFIX=${BUILDLINK_PREFIX.iconv}
 MAKE_ENV+=		SHELL=${CONFIG_SHELL}
 MAKE_ENV+=		ac_cv_path_ac_cv_prog_chmod=${TOOLS_CHMOD}
 
@@ -98,14 +93,6 @@ CFLAGS+=		-I${BUILDLINK_DIR}/include
 #.endif # NetBSD
 
 LIBS.SunOS+=		-lgmp
-
-pre-configure:
-.if ${OPSYS} == "DragonFly"
-	${CP} ${FILESDIR}/dragonfly.h ${WRKSRC}/gcc/config/dragonfly.h
-	${CP} ${FILESDIR}/dragonfly-spec.h ${WRKSRC}/gcc/config/dragonfly-spec.h
-	${CP} ${FILESDIR}/i386-dragonfly.h ${WRKSRC}/gcc/config/i386/dragonfly.h
-	${CP} ${FILESDIR}/i386-dragonfly64.h ${WRKSRC}/gcc/config/i386/dragonfly64.h
-.endif
 
 
 do-configure:
@@ -135,6 +122,4 @@ GENERATE_PLIST+=                                                        \
 	cd ${DESTDIR}${PREFIX} && ${FIND} ${GCC_SUBPREFIX} \( -type f -o -type l \) -print \
 	| ${SORT} ;
 
-.include "../../devel/gmp/buildlink3.mk"
-.include "../../math/mpfr/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

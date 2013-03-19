@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.124 2011/02/19 00:43:10 jmcneill Exp $
+# $NetBSD: Makefile,v 1.126 2012/03/10 10:56:17 obache Exp $
 
 DISTNAME=	gnome-2.26.2
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	meta-pkgs x11 gnome
 MASTER_SITES=	# empty
 
@@ -31,7 +31,7 @@ DEPENDS+=	deskbar-applet>=2.26.2:../../misc/deskbar-applet
 DEPENDS+=	empathy>=2.26.2:../../chat/empathy
 DEPENDS+=	eog>=2.26.2:../../graphics/eog
 DEPENDS+=	epiphany>=2.26.2:../../www/epiphany
-DEPENDS+=	evince>=2.26.2:../../print/evince
+DEPENDS+=	evince>=2.26.2<3:../../print/evince
 DEPENDS+=	evolution>=2.26.2:../../mail/evolution
 DEPENDS+=	evolution-data-server>=2.26.2:../../mail/evolution-data-server
 DEPENDS+=	evolution-exchange>=2.26.2:../../mail/evolution-exchange

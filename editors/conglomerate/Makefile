@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.65 2011/04/22 13:43:24 obache Exp $
+# $NetBSD: Makefile,v 1.72 2012/05/07 19:00:50 dholland Exp $
 #
 
 DISTNAME=	conglomerate-0.9.1
-PKGREVISION=	17
+PKGREVISION=	24
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=conglomerate/}
 
@@ -28,6 +28,7 @@ CONFIGURE_ARGS+=	--with-html-dir=${PREFIX}/share/doc
 GCONF_SCHEMAS=		conglomerate.schemas
 
 .include "../../devel/GConf/schemas.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/libbonobo/buildlink3.mk"
 .include "../../devel/libbonoboui/buildlink3.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.24 2011/01/20 13:06:15 pooka Exp $
+# $NetBSD: Makefile,v 1.28 2012/03/03 00:14:07 wiz Exp $
 #
 
 DISTNAME=       nspluginwrapper-1.2.2
-PKGREVISION=    9
+PKGREVISION=    12
 CATEGORIES=     www
 MASTER_SITES=   http://gwenole.beauchesne.info/projects/nspluginwrapper/files/
 EXTRACT_SUFX=   .tar.bz2
@@ -26,6 +26,8 @@ CONFIGURE_ARGS+=	--with-x11-prefix=${X11BASE}
 PLUGIN_SUBDIR=		lib/nspluginwrapper/i386/linux
 PLUGIN_INSTDIR=		${PREFIX}/${PLUGIN_SUBDIR}
 PLUGIN_SRCDIR=		${WRKDIR}/usr/${PLUGIN_SUBDIR}
+
+LDFLAGS.DragonFly=	-lgmodule-2.0
 
 SUBST_CLASSES+=		npviewer
 SUBST_STAGE.npviewer=	post-build

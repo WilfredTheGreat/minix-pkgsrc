@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.25 2009/05/20 00:58:10 wiz Exp $
+# $NetBSD: Makefile,v 1.30 2012/06/03 22:33:50 dholland Exp $
 #
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 .include "Makefile.common"
 
-PKGREVISION=		2
+PKGREVISION=		6
 
 .include "options.mk"
 
@@ -15,7 +15,7 @@ PKG_SYSCONFSUBDIR=	libgda
 EGDIR=			${PREFIX}/share/examples/libgda-3.0
 CONF_FILES+=		${EGDIR}/config ${PKG_SYSCONFDIR}/config
 
-CONFIGURE_ARGS+=	--with-odbc=no --with-bdb=no
+CONFIGURE_ARGS+=	--with-odbc=no --with-bdb=no --with-oracle=no
 
 TEST_TARGET=		check
 

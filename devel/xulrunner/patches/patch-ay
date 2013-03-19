@@ -1,12 +1,14 @@
-$NetBSD$
+$NetBSD: patch-ay,v 1.3 2012/03/15 08:30:06 ryoon Exp $
 
---- browser/app/nsBrowserApp.cpp.orig	2011-09-22 20:20:17.000000000 +0000
+--- browser/app/nsBrowserApp.cpp.orig	2012-05-23 18:56:32.000000000 +0000
 +++ browser/app/nsBrowserApp.cpp
-@@ -49,6 +49,27 @@
- #include <stdio.h>
- #include <stdarg.h>
- #include <string.h>
+@@ -47,6 +47,31 @@
+ #include <sys/resource.h>
+ #endif
+ 
 +#include <sys/resource.h>
++
++#ifdef __NetBSD__
 +/*
 + * On netbsd-4, ulimit -n is 64 by default; too few for us.
 + */
@@ -27,14 +29,18 @@ $NetBSD$
 +	if (setrlimit(RLIMIT_NOFILE, &rlp) == -1)
 +		fprintf(stderr, "warning: setrlimit failed\n");
 +}
- 
- #include "plstr.h"
- #include "prprf.h"
-@@ -203,6 +224,7 @@ static int do_main(const char *exePath, 
- int main(int argc, char* argv[])
- {
-   char exePath[MAXPATHLEN];
++#endif
++
+ #ifdef XP_MACOSX
+ #include "MacQuirks.h"
+ #endif
+@@ -197,6 +222,9 @@ int main(int argc, char* argv[])
+ #ifdef XP_MACOSX
+   TriggerQuirks();
+ #endif
++#ifdef __NetBSD__
 +  netbsd_fixrlimit();
++#endif
  
    nsresult rv = mozilla::BinaryPath::Get(argv[0], exePath);
    if (NS_FAILED(rv)) {

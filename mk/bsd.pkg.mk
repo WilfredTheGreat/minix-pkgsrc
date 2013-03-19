@@ -1,4 +1,4 @@
-#	$NetBSD: bsd.pkg.mk,v 1.1978 2011/09/08 20:17:15 abs Exp $
+#	$NetBSD: bsd.pkg.mk,v 1.1981 2012/05/24 11:34:15 abs Exp $
 #
 # This file is in the public domain.
 #
@@ -152,7 +152,7 @@ ${_var_}+=	${${_var_}.*}
 CPPFLAGS+=	${CPP_PRECOMP_FLAGS}
 
 # To sanitise environment set PKGSRC_SETENV=${SETENV} -i
-PKGSRC_SETENV=	${SETENV}
+PKGSRC_SETENV?=	${SETENV}
 
 ALL_ENV+=	CC=${CC:Q}
 ALL_ENV+=	CFLAGS=${CFLAGS:M*:Q}
@@ -189,6 +189,7 @@ BSD_MAKE_ENV+=	LIBDIR=${PREFIX}/lib
 BSD_MAKE_ENV+=	MANDIR=${PREFIX}/${PKGMANDIR}
 BSD_MAKE_ENV+=	STRIPFLAG=${_STRIPFLAG_INSTALL:Q}
 BSD_MAKE_ENV+=	MANINSTALL=${MANINSTALL:Q}
+BSD_MAKE_ENV+=	MKCATPAGES=${MKCATPAGES:Q}
 BSD_MAKE_ENV+=	MKHTML=no
 
 _BUILD_DEFS=		${BUILD_DEFS}
@@ -600,11 +601,9 @@ ${.CURDIR}/${WRKDIR_BASENAME}:
 #	The additional flags that are passed to the make process.
 #
 
-# XXX: Shouldn't the $${PATH} be ${PATH} here? This may be related to
-# PR 34470.
 _ROOT_CMD=	cd ${.CURDIR} &&					\
 		${PKGSRC_SETENV} ${PKGSRC_MAKE_ENV}				\
-			PATH="$${PATH}:"${SU_CMD_PATH_APPEND:Q}		\
+			PATH=${_PATH_ORIG:Q}:${SU_CMD_PATH_APPEND:Q}	\
 		${MAKE} ${MAKEFLAGS} _PKGSRC_BARRIER=yes		\
 			PKG_DEBUG_LEVEL=${PKG_DEBUG_LEVEL:Q}		\
 			su-${.TARGET} ${MAKEFLAGS.su-${.TARGET}}

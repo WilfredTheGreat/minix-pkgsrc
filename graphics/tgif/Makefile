@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.61 2011/04/22 13:43:52 obache Exp $
+# $NetBSD: Makefile,v 1.64 2012/06/18 05:44:25 dholland Exp $
 #
 
 DISTNAME=		tgif-4.2.5
+PKGREVISION=		1
 CATEGORIES=		graphics
 MASTER_SITES=		ftp://bourbon.usc.edu/pub/tgif/free-of-charge/
 
@@ -29,11 +30,14 @@ post-patch::
 
 .if ${OPSYS} == "Linux"
 .include "../../devel/libidn/buildlink3.mk"
+.include "../../x11/libXt/buildlink3.mk"
+.include "../../x11/libXmu/buildlink3.mk"
 .endif 
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
 
 # avoid "xmkmf -a" on Solaris which runs makedepend because the

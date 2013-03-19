@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.26 2010/11/04 13:34:46 asau Exp $
+# $NetBSD: Makefile,v 1.29 2012/07/12 00:39:56 gdt Exp $
 #
 
-DISTNAME=	hamlib-1.2.12
-#PKGREVISION=	1
+DISTNAME=	hamlib-1.2.15.2
 CATEGORIES=	ham
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=hamlib/}
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
+MAINTAINER=	gdt@NetBSD.org
 HOMEPAGE=	http://hamlib.sourceforge.net/
 COMMENT=	API for digital communications equipment
 
@@ -27,6 +26,9 @@ CONFIGURE_ARGS+=--without-tcl-binding \
 # when none is needed.
 CONFIGURE_ENV+=	PYTHON=/nonexistent
 
+TEST_TARGET=	check
+
 INSTALLATION_DIRS=	include/hamlib
 
+.include "../../devel/libltdl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,4 +1,4 @@
-# $NetBSD$
+# $NetBSD: Makefile,v 1.2 2012/06/14 07:45:32 sbd Exp $
 
 PKGNAME=	${DISTNAME:C/-/91-monitoring-/}
 COMMENT=	PostgreSQL monitoring tools

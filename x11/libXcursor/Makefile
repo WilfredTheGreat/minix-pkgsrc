@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2008/05/24 21:45:15 tnn Exp $
+# $NetBSD: Makefile,v 1.5 2012/06/03 17:39:56 wiz Exp $
 #
 
-DISTNAME=		libXcursor-1.1.10
+DISTNAME=		libXcursor-1.1.13
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=		.tar.bz2
@@ -19,6 +19,8 @@ GNU_CONFIGURE=		yes
 USE_TOOLS+=		pkg-config
 
 PKGCONFIG_OVERRIDE+=	xcursor.pc.in
+
+.include "../../meta-pkgs/modular-xorg/hacks.mk"
 
 .include "../../x11/fixesproto/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"

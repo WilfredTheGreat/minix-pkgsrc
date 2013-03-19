@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.11 2011/01/13 13:37:20 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2012/03/03 00:12:53 wiz Exp $
 
 DISTNAME=	automoc4-0.9.88
-PKGREVISION=	7
+PKGREVISION=	11
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_KDE:=automoc4/0.9.88/}
 EXTRACT_SUFX=	.tar.bz2
@@ -17,6 +17,7 @@ USE_LANGUAGES=	c c++
 USE_CMAKE=	yes
 CMAKE_ARG_PATH=	..
 CONFIGURE_DIRS=	_build
+LDFLAGS.SunOS+=	-lrt
 
 pre-configure:
 	${LN} -sf ${QTDIR}/bin/qmake ${BUILDLINK_DIR}/bin/

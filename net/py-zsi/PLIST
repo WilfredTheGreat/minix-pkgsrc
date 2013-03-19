@@ -1,6 +1,7 @@
-@comment $NetBSD: PLIST,v 1.2 2008/03/18 23:22:14 drochner Exp $
+@comment $NetBSD: PLIST,v 1.4 2011/11/02 12:51:16 obache Exp $
 bin/wsdl2dispatch${PYVERSSUFFIX}
 bin/wsdl2py${PYVERSSUFFIX}
+${PYSITELIB}/${EGG_FILE}
 ${PYSITELIB}/ZSI/ServiceContainer.py
 ${PYSITELIB}/ZSI/ServiceContainer.pyc
 ${PYSITELIB}/ZSI/ServiceContainer.pyo

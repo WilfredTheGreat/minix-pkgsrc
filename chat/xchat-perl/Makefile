@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2011/04/22 13:45:17 obache Exp $
+# $NetBSD: Makefile,v 1.12 2012/03/03 00:14:24 wiz Exp $
 
 .include "../../chat/xchat/Makefile.common"
 
 PKGNAME=		${DISTNAME:S/-/-perl-/}
-PKGREVISION=		2
+PKGREVISION=		4
 OWNER=			tron@NetBSD.org
 
 COMMENT=		Perl scripting plugin for XChat
@@ -16,6 +16,7 @@ CONFIGURE_ARGS+=	--disable-gtkfe
 CONFIGURE_ARGS+=	--enable-tcl=no
 CONFIGURE_ARGS+=	--enable-perl
 CONFIGURE_ARGS+=	--disable-python
+CONFIGURE_ARGS+=	--disable-xlib
 
 USE_PERL5=	YES
 USE_TOOLS+=	perl

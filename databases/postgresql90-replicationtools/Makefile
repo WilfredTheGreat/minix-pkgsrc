@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1.1.1 2010/12/10 03:51:31 asau Exp $
+# $NetBSD: Makefile,v 1.3 2012/06/14 07:45:35 sbd Exp $
 
 PKGNAME=	${DISTNAME:C/-/90-replicationtools-/}
 COMMENT=	PostgreSQL replication tools

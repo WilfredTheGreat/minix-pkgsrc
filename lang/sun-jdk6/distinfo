@@ -1,8 +1,8 @@
 $NetBSD$
 
-SHA1 (jdk-6u27-linux-i586.bin) = 7a01bf274b265662acafacdd7b5740d1a3ab0539
-RMD160 (jdk-6u27-linux-i586.bin) = 56ba1d22b3daaaae7c64d5eee28b49e4508b97c4
-Size (jdk-6u27-linux-i586.bin) = 85147250 bytes
-SHA1 (jdk-6u27-linux-x64.bin) = 68bf4ece2f64dde2d3f07019df9ae3a3ec205999
-RMD160 (jdk-6u27-linux-x64.bin) = 6bb70446f6c52044606cb88c7b9746915d8f47a9
-Size (jdk-6u27-linux-x64.bin) = 85418489 bytes
+SHA1 (jdk-6u33-linux-i586.bin) = a525dd379f577d34628b89beb3ba7c1c935c9f94
+RMD160 (jdk-6u33-linux-i586.bin) = d52ca094683408acc6f62ee1770ce07ed9cfe7d4
+Size (jdk-6u33-linux-i586.bin) = 71748499 bytes
+SHA1 (jdk-6u33-linux-x64.bin) = eee126305d836533894be41cc5eb1eca7cdf5831
+RMD160 (jdk-6u33-linux-x64.bin) = 58fe852835e11743b1c2389c741deead87401cf8
+Size (jdk-6u33-linux-x64.bin) = 72029591 bytes

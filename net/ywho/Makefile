@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.10 2010/02/11 23:25:51 joerg Exp $
+# $NetBSD: Makefile,v 1.13 2012/06/01 00:14:24 dholland Exp $
 #
 
 DISTNAME=		ywho-1.3
@@ -11,8 +11,11 @@ COMMENT=		Who, users, uptime on clients in a sun-RPC network
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 NO_CONFIGURE=		yes
-MAKE_FLAGS+=		DEST=${DESTDIR}${PREFIX}
+MAKE_FLAGS+=		DEST=${DESTDIR}${PREFIX} PKGMANDIR=${PKGMANDIR}
+MAKE_FLAGS+=		EXTRA_LIBS=${LIBS:Q}
 BUILD_TARGET=		all
+
+LIBS.SunOS+=		-lnsl
 
 INSTALL_TARGET=		install install.man
 INSTALLATION_DIRS+=	bin ${PKGMANDIR}/man1

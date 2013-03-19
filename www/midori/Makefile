@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.31 2011/06/09 11:02:13 drochner Exp $
+# $NetBSD: Makefile,v 1.44 2012/06/14 07:44:19 sbd Exp $
 
-DISTNAME=	midori-0.3.6
+DISTNAME=	midori-0.4.6
 PKGREVISION=	1
 CATEGORIES=	www
-MASTER_SITES=	http://archive.xfce.org/src/apps/midori/0.3/
+MASTER_SITES=	http://archive.xfce.org/src/apps/midori/0.4/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.twotoasts.de/index.php?/pages/midori_summary.html
@@ -16,9 +16,11 @@ USE_TOOLS+=	gmake intltool msgfmt pkg-config
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 CONFIGURE_ARGS+=	--prefix=${PREFIX:Q}
-CONFIGURE_ARGS+=	--disable-vala
 
 CHECK_PORTABILITY_SKIP+= win32/x86-mingw32-opensuse/install.sh
+CHECK_PORTABILITY_SKIP+= win32/makedist/makedist.midori
+
+PYTHON_FOR_BUILD_ONLY=	yes
 
 REPLACE_PYTHON=		waf wscript docs/api/wscript_build
 REPLACE_PYTHON+=	tests/wscript_build extensions/wscript_build
@@ -35,9 +37,11 @@ CONF_FILES=		${EGDIR}/search ${PKG_SYSCONFDIR}/xdg/midori/search
 
 .include "../../mk/bsd.prefs.mk"
 
-OWN_DIRS+=	${PKG_SYSCONFDIR}/xdg/midori/extensions/libadblock.so
-CONF_FILES+=	${EGDIR}/extensions/libadblock.so/config \
-		${PKG_SYSCONFDIR}/xdg/midori/extensions/libadblock.so/config
+OWN_DIRS+=	${PKG_SYSCONFDIR}/xdg/midori/extensions/adblock
+CONF_FILES+=	${EGDIR}/extensions/adblock/config \
+		${PKG_SYSCONFDIR}/xdg/midori/extensions/adblock/config
+
+CONFIGURE_ENV=	VALAC=${VALAC}
 
 # XXX stupid hack. python has a marshal.h that gets included before
 # the local marshal.h
@@ -70,4 +74,6 @@ BUILDLINK_API_DEPENDS.libsoup24+=libsoup24>=2.26.0
 .include "../../x11/libunique/buildlink3.mk"
 .include "../../sysutils/libnotify/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
+BUILDLINK_DEPMETHOD.vala= build
+.include "../../lang/vala016/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

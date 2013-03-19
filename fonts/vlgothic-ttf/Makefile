@@ -1,16 +1,16 @@
-# $NetBSD: Makefile,v 1.12 2011/02/18 08:20:51 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2012/03/03 21:57:41 ryoon Exp $
 #
 
-DISTNAME=	VLGothic-20110414
+DISTNAME=	VLGothic-20120325
 PKGNAME=	${DISTNAME:tl:S/-/-ttf-/}
 CATEGORIES=	fonts japanese
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE_JP:=vlgothic/51670/}
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE_JP:=vlgothic/55372/}
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	yamajun@ofug.net
 HOMEPAGE=	http://dicey.org/vlgothic/
 COMMENT=	Free Japanese TrueType fonts named 'VLGothic'
-#LICENSE=	modified-bsd AND M+ FONTS License
+LICENSE=	modified-bsd AND mplusfont
 
 USE_X11BASE=	YES
 NO_BUILD=	YES

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2011/09/04 06:11:30 obache Exp $
+# $NetBSD: Makefile,v 1.5 2012/04/08 19:08:53 wiz Exp $
 #
 
-DISTNAME=	msgpack-python-0.1.10
+DISTNAME=	msgpack-python-0.1.13
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/-python-/-/}
 CATEGORIES=	devel
 MASTER_SITES=	http://pypi.python.org/packages/source/m/msgpack-python/
@@ -13,9 +13,9 @@ LICENSE=	apache-2.0
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-EGG_NAME=	${DISTNAME:S/-/_/}
+PYTHON_VERSIONS_INCLUDE_3X=	yes
 
-PYTHON_VERSIONS_INCOMPATIBLE=	24
+EGG_NAME=	${DISTNAME:S/-/_/}
 
 .include "../../devel/msgpack/buildlink3.mk"
 .include "../../lang/python/distutils.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.43 2011/03/08 17:13:33 drochner Exp $
+# $NetBSD: Makefile,v 1.48 2012/02/02 09:34:32 hans Exp $
 
 DISTNAME=	t1lib-5.1.2
-PKGREVISION=	3
+PKGREVISION=	6
 CATEGORIES=	fonts devel graphics
 MASTER_SITES=	${MASTER_SITE_SUNSITE:=libs/graphics/}
 
@@ -25,6 +25,8 @@ DATADIR=	${PREFIX}/share/${PKGBASE}
 CONF_FILES=	${EGDIR}/t1lib.config.sample ${DATADIR}/t1lib.config
 CONF_FILES+=	${EGDIR}/FontDataBase ${DATADIR}/FontDataBase
 
+INSTALLATION_DIRS=	${EGDIR} ${DATADIR} share/doc
+
 .include "options.mk"
 
 PLIST_VARS+=	x11
@@ -45,16 +47,14 @@ post-extract:
 	${CP} ${FILESDIR}/t1lib.config.sample ${WRKSRC}
 
 pre-build:
-	${FIND} ${WRKSRC} -name "*.orig" -print | ${XARGS} ${RM}
+	${FIND} ${WRKSRC} -name "*.orig" -print | ${XARGS} ${RM} -f
 
 post-install:
-	${INSTALL_DATA_DIR} ${DESTDIR}${DATADIR}
 	cd ${WRKSRC};							\
-	pax -rw Fonts ${DESTDIR}${DATADIR};					\
-	${CHMOD} go+r ${DESTDIR}${DATADIR}/Fonts/enc/IsoLatin2.enc;		\
+	pax -rw Fonts ${DESTDIR}${DATADIR};				\
+	${CHMOD} go+r ${DESTDIR}${DATADIR}/Fonts/enc/IsoLatin2.enc;	\
 	pax -rw -s "/doc/${PKGBASE}/" doc ${DESTDIR}${PREFIX}/share/doc
 
-	${INSTALL_DATA_DIR} ${DESTDIR}${EGDIR}
 	${INSTALL_DATA} ${WRKSRC}/t1lib.config.sample ${DESTDIR}${EGDIR}
 	cd ${WRKSRC}/examples;						\
 	pax -rw FontDataBase t1example1.c t1lib.config ${DESTDIR}${EGDIR}

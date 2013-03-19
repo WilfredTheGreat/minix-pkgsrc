@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2011/04/22 13:42:57 obache Exp $
+# $NetBSD: Makefile,v 1.19 2012/06/14 07:45:12 sbd Exp $
 #
 
 DISTNAME=	padevchooser-0.9.3
-PKGREVISION=	7
+PKGREVISION=	13
 CATEGORIES=	audio
 MASTER_SITES=	http://0pointer.de/lennart/projects/padevchooser/
 
@@ -19,6 +19,9 @@ USE_LIBTOOL=	yes
 
 CONFIGURE_ARGS+=	--disable-lynx
 
+LIBS.SunOS+=		-lX11
+LDFLAGS.DragonFly=	-lX11
+
 # XXX this test doesnt work properly
 #
 #pkgbase:=	pulseaudio
@@ -30,6 +33,7 @@ CONFIGURE_ARGS+=	--disable-lynx
 .include "../../audio/pulseaudio/buildlink3.mk"
 .include "../../devel/GConf/buildlink3.mk"
 .include "../../devel/libglade/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../sysutils/libnotify/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

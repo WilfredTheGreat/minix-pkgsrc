@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.16 2009/03/20 19:23:55 joerg Exp $
+# $NetBSD: buildlink3.mk,v 1.18 2012/01/13 10:54:46 obache Exp $
 
 BUILDLINK_TREE+=	libmikmod
 
@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	libmikmod
 LIBMIKMOD_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.libmikmod+=	libmikmod>=3.1.9
-BUILDLINK_ABI_DEPENDS.libmikmod+=	libmikmod>=3.1.11.1nb2
+BUILDLINK_ABI_DEPENDS.libmikmod+=	libmikmod>=3.2.0
 BUILDLINK_PKGSRCDIR.libmikmod?=	../../audio/libmikmod
 
 pkgbase := libmikmod

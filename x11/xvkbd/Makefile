@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.1.1.1 2010/09/08 11:57:36 obache Exp $
+# $NetBSD: Makefile,v 1.4 2012/07/30 04:12:46 dholland Exp $
 #
 
-DISTNAME=	xvkbd-3.2
+DISTNAME=	xvkbd-3.3
 CATEGORIES=	x11
 MASTER_SITES=	http://homepage3.nifty.com/tsato/xvkbd/
 
@@ -21,10 +21,10 @@ SUBST_STAGE.xaw=	pre-configure
 SUBST_MESSAGE.xaw=	undefine Xaw3d
 SUBST_FILES.xaw=	Imakefile
 SUBST_SED.xaw=		-e 's,define XAW3D,undef XAW3D,g'
+
 .elif ${XAW_TYPE} == "neXtaw"
 BUILDLINK_TRANSFORM+=	l:Xaw3d:neXtaw
 .endif
 
 .include "../../x11/libXtst/buildlink3.mk"
-.include "../../x11/libXp/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

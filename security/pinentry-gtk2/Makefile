@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.9 2011/01/13 13:39:18 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2012/03/03 00:13:53 wiz Exp $
 #
 
-DISTNAME=		pinentry-0.8.1
-PKGNAME=		pinentry-gtk2-0.8.1
-PKGREVISION=		2
+DISTNAME=		pinentry-0.8.2
+PKGNAME=		pinentry-gtk2-0.8.2
 CATEGORIES=		security
 MASTER_SITES=		ftp://ftp.gnupg.org/gcrypt/pinentry/
+EXTRACT_SUFX=		.tar.bz2
 
 MAINTAINER=		shannonjr@NetBSD.org
 HOMEPAGE=		ftp://ftp.gnupg.org/gcrypt/pinentry/
@@ -32,6 +32,7 @@ INSTALL_DIRS=		gtk+-2
 BUILDLINK_API_DEPENDS.libgpg-error+=	libgpg-error>=1.0.0
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 #.include "../../security/libgpg-error/buildlink3.mk"
 #.include "../../security/libksba/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

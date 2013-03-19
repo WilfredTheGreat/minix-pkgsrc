@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/02/06 05:55:14 schnoebe Exp $
+# $NetBSD: Makefile,v 1.5 2012/03/03 00:12:57 wiz Exp $
 #
 
 PKGNAME=	poco-${POCO_VERSION}
+PKGREVISION=	2
 CATEGORIES=	devel
 
 COMMENT=	POCO C++ Foundation libraries
@@ -17,6 +18,10 @@ CONFIGURE_ARGS+=	--include-path=${BUILDLINK_PREFIX.expat}/include
 CONFIGURE_ARGS+=	--include-path=${BUILDLINK_PREFIX.pcre}/include
 CONFIGURE_ARGS+=	--include-path=${BUILDLINK_PREFIX.zlib}/include
 CONFIGURE_ARGS+=	--include-path=${BUILDLINK_PREFIX.openssl}/include
+
+# remove patch backup files.
+pre-install:
+	${RM} -f ${WRKSRC}/Foundation/include/Poco/Platform.h.orig
 
 .include "../../devel/pcre/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"

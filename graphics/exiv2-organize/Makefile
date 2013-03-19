@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.9 2011/04/22 13:43:43 obache Exp $
+# $NetBSD: Makefile,v 1.16 2012/05/11 13:58:57 drochner Exp $
 
-DISTNAME=	exiv2-0.21.1
-PKGNAME=	exiv2-organize-0.21.1
+DISTNAME=	exiv2-0.23
+PKGNAME=	exiv2-organize-0.23
 PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.exiv2.org/

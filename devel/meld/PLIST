@@ -141,6 +141,9 @@ lib/meld/meld/vc/svk.pyo
 lib/meld/meld/vc/svn.py
 lib/meld/meld/vc/svn.pyc
 lib/meld/meld/vc/svn.pyo
+lib/meld/meld/vc/svn_17.py
+lib/meld/meld/vc/svn_17.pyc
+lib/meld/meld/vc/svn_17.pyo
 lib/meld/meld/vc/tla.py
 lib/meld/meld/vc/tla.pyc
 lib/meld/meld/vc/tla.pyo
@@ -167,6 +170,7 @@ share/locale/dz/LC_MESSAGES/meld.mo
 share/locale/el/LC_MESSAGES/meld.mo
 share/locale/en_CA/LC_MESSAGES/meld.mo
 share/locale/en_GB/LC_MESSAGES/meld.mo
+share/locale/eo/LC_MESSAGES/meld.mo
 share/locale/es/LC_MESSAGES/meld.mo
 share/locale/fi/LC_MESSAGES/meld.mo
 share/locale/fr/LC_MESSAGES/meld.mo
@@ -180,8 +184,10 @@ share/locale/ne/LC_MESSAGES/meld.mo
 share/locale/nl/LC_MESSAGES/meld.mo
 share/locale/oc/LC_MESSAGES/meld.mo
 share/locale/pa/LC_MESSAGES/meld.mo
+share/locale/pl/LC_MESSAGES/meld.mo
 share/locale/pt/LC_MESSAGES/meld.mo
 share/locale/pt_BR/LC_MESSAGES/meld.mo
+share/locale/ro/LC_MESSAGES/meld.mo
 share/locale/ru/LC_MESSAGES/meld.mo
 share/locale/rw/LC_MESSAGES/meld.mo
 share/locale/sl/LC_MESSAGES/meld.mo

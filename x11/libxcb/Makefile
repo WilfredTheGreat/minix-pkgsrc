@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.13 2011/02/25 09:47:30 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2012/04/08 19:09:18 wiz Exp $
 #
 
-DISTNAME=	libxcb-1.7
+DISTNAME=	libxcb-1.8.1
 CATEGORIES=	x11
 MASTER_SITES=	http://xcb.freedesktop.org/dist/
 EXTRACT_SUFX=	.tar.bz2
@@ -12,7 +12,7 @@ COMMENT=	X protocol C-language Binding
 LICENSE=	mit # with no-advertising clause
 
 BUILD_DEPENDS+=		libxslt>=1.1.0:../../textproc/libxslt
-BUILD_DEPENDS+= ${PYPKGPREFIX}-xcbgen>=1.6nb2:../../x11/py-xcbgen
+BUILD_DEPENDS+= ${PYPKGPREFIX}-xcbgen>=1.7:../../x11/py-xcbgen
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
@@ -72,8 +72,6 @@ SUBST_MESSAGE.pc=	Configuring threading in xcb.pc.in.
 SUBST_STAGE.pc=		pre-configure
 SUBST_VARS.pc=		XTHREADLIB XTHREAD_CPPFLAGS
 
-PYTHON_VERSIONS_ACCEPTED= 27 26 25
-
 post-extract:
 	${CHMOD} -R go-w ${WRKSRC}
 
@@ -84,7 +82,7 @@ post-extract:
 #.include "../../devel/gperf/buildlink3.mk"
 PYTHON_FOR_BUILD_ONLY=	yes
 .include "../../lang/python/application.mk"
-BUILDLINK_API_DEPENDS.xcb-proto?=	xcb-proto>=1.6
+BUILDLINK_API_DEPENDS.xcb-proto?=	xcb-proto>=1.7
 .include "../../x11/xcb-proto/buildlink3.mk"
 .include "../../x11/libXdmcp/buildlink3.mk"
 .include "../../x11/libXau/buildlink3.mk"

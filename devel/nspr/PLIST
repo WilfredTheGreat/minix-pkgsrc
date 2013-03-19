@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.10 2009/11/10 16:44:06 tnn Exp $
+@comment $NetBSD: PLIST,v 1.12 2012/01/07 18:47:39 marino Exp $
 bin/compile-et.pl
 bin/nspr-config
 bin/prerr.properties
@@ -8,6 +8,7 @@ include/nspr/md/_beos.cfg
 include/nspr/md/_bsdi.cfg
 include/nspr/md/_darwin.cfg
 include/nspr/md/_dgux.cfg
+include/nspr/md/_dragonfly.cfg
 include/nspr/md/_freebsd.cfg
 include/nspr/md/_hpux32.cfg
 include/nspr/md/_hpux64.cfg
@@ -95,5 +96,6 @@ lib/nspr/libplc4.a
 lib/nspr/libplc4.${SO_SUFFIX}
 lib/nspr/libplds4.a
 lib/nspr/libplds4.${SO_SUFFIX}
+lib/nspr/pkgconfig/nspr.pc
 lib/pkgconfig/nspr.pc
 share/aclocal/nspr.m4

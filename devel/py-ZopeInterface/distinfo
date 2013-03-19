@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.4 2010/02/03 13:03:08 obache Exp $
+$NetBSD: distinfo,v 1.6 2012/01/19 19:10:40 drochner Exp $
 
-SHA1 (zope.interface-3.6.1.tar.gz) = 3bdc444988064d035fb1a3195e336de6b446f0fa
-RMD160 (zope.interface-3.6.1.tar.gz) = 9ede91cb047d6473489b4e345536ed64e55d57be
-Size (zope.interface-3.6.1.tar.gz) = 125264 bytes
+SHA1 (zope.interface-3.8.0.tar.gz) = 21d32065b15803dcff88bec3d61a81ea6d4bcc71
+RMD160 (zope.interface-3.8.0.tar.gz) = 07e4969655667987ec3c80057e1098f05bad3af3
+Size (zope.interface-3.8.0.tar.gz) = 111537 bytes

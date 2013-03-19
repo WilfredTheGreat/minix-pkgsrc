@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2011/06/10 09:39:44 obache Exp $
+# $NetBSD: Makefile,v 1.16 2012/04/27 12:31:37 obache Exp $
 #
 
 DISTNAME=	telepathy-logger-0.2.7
-PKGREVISION=	3
+PKGREVISION=	8
 CATEGORIES=	chat
 MASTER_SITES=	http://telepathy.freedesktop.org/releases/telepathy-logger/
 EXTRACT_SUFX=	.tar.bz2
@@ -10,20 +10,22 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://telepathy.freedesktop.org/wiki/Logger
 COMMENT=	telepathy logger module
-#LICENSE=	# TODO: (see mk/license.mk)
+LICENSE=	gnu-lgpl-v2.1
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_TOOLS+=	pkg-config gmake intltool
+USE_TOOLS+=	pkg-config gmake gsed intltool msgfmt
+
+CFLAGS.SunOS+=	-std=c99 -D_XOPEN_SOURCE=600
 
 PKGCONFIG_OVERRIDE+=	extensions/tpl-extensions.pc.in
 PKGCONFIG_OVERRIDE+=	telepathy-logger/telepathy-logger-0.1.pc.in
 
-BUILD_DEPENDS+=	gsed-[0-9]*:../../textproc/gsed
+BUILD_DEPENDS=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 
-DEPENDS=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
+PYTHON_FOR_BUILD_ONLY=	yes
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/glib2/schemas.mk"

@@ -1,12 +1,13 @@
-# $NetBSD: Makefile,v 1.3 2011/01/29 20:55:17 gdt Exp $
+# $NetBSD: Makefile,v 1.5 2012/05/25 11:22:58 gdt Exp $
 #
 
-DISTNAME=	foolscap-0.6.1
+DISTNAME=	foolscap-0.6.4
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/.tar//}
 CATEGORIES=	net python
 MASTER_SITES=	http://pypi.python.org/packages/source/f/foolscap/
 
 MAINTAINER=	kamel.derouiche@gmail.com
+#MAINTAINER+=	gdt@NetBSD.org
 HOMEPAGE=	http://foolscap.lothar.com/trac
 COMMENT=	Foolscap contains an RPC protocol for Twisted
 LICENSE=	mit

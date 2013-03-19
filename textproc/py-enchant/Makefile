@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.5 2010/09/13 10:36:50 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2011/12/16 17:22:08 marino Exp $
 #
 
 DISTNAME=	pyenchant-1.6.5
@@ -15,9 +15,6 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 .include "../../lang/python/pyversion.mk"
 
-.if ${PYPACKAGE} && ${PYPACKAGE} == "python24"
-DEPENDS+=	${PYPKGPREFIX}-ctypes-[0-9]*:../../devel/py-ctypes
-.endif
 DEPENDS+=	enchant-[0-9]*:../../textproc/enchant
 
 USE_LANGUAGES=	# empty
@@ -36,6 +33,10 @@ SUBST_CLASSES+=		dlpath
 SUBST_STAGE.dlpath=	pre-configure
 SUBST_FILES.dlpath=	enchant/_enchant.py
 SUBST_VARS.dlpath=	PYENCHANT_LIBRARY_PATH
+
+post-extract: 
+	# fix README file permissions
+	${CHMOD} 644 ${WRKSRC}/enchant/share/enchant/ispell/README.txt
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

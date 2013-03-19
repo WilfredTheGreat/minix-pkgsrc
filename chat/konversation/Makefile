@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.30 2011/04/22 13:43:06 obache Exp $
+# $NetBSD: Makefile,v 1.43 2012/07/01 19:05:14 dholland Exp $
 #
 
-DISTNAME=	konversation-1.3.1
-PKGREVISION=	3
+DISTNAME=	konversation-1.4
+PKGREVISION=	4
 CATEGORIES=	chat kde
-MASTER_SITES=	${MASTER_SITE_KDE:=konversation/1.3.1/src/}
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	${MASTER_SITE_KDE:=konversation/1.4/src/}
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://konversation.kde.org/
@@ -16,7 +16,6 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 
 BUILD_DEPENDS+= automoc4>=0.9.87:../../devel/automoc4
 
-USE_CMAKE=	yes
 USE_TOOLS+=	perl msgfmt
 USE_LANGUAGES=	c c++
 
@@ -24,6 +23,7 @@ REPLACE_BASH+=		data/scripts/*
 REPLACE_PERL+=		data/updaters/konversation-*.pl
 REPLACE_PERL+=		data/scripts/*
 REPLACE_PYTHON+=	data/scripts/*
+REPLACE_PYTHON+=	data/scripting_support/python/konversation/dbus.py 
 
 USE_TOOLS+=		bash:run
 
@@ -40,4 +40,5 @@ DEPENDS+=		psmisc>=20.1:../../sysutils/psmisc
 .include "../../security/qca2/buildlink3.mk"
 .include "../../x11/kdelibs4/buildlink3.mk"
 .include "../../x11/libXScrnSaver/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

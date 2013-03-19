@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.77 2011/01/13 13:38:48 wiz Exp $
+# $NetBSD: Makefile,v 1.87 2012/06/14 07:44:10 sbd Exp $
 
 DISTNAME=	kdeutils-${_KDE_VERSION}
-PKGREVISION=	12
+PKGREVISION=	20
 COMMENT=	Utilities for the KDE integrated X11 desktop
 
 PKG_DESTDIR_SUPPORT=	user-destdir
@@ -23,12 +23,16 @@ SUBST_CLASSES+=		tarexe
 SUBST_STAGE.tarexe=	pre-configure
 SUBST_MESSAGE.tarexe=	Use GNU tar in ark
 SUBST_FILES.tarexe=	ark/ark.kcfg
-SUBST_SED.tarexe=	-e 's:<default>tar</default>:<default>${PREFIX.gtar}/bin/${GNU_PROGRAM_PREFIX}tar</default>:'
+SUBST_SED.tarexe=	-e 's:<default>tar</default>:<default>${PREFIX.gtar}/bin/gtar</default>:'
 
 .include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "NetBSD" && exists(/usr/include/machine/apmvar.h)
 CPPFLAGS+=             -D__NetBSD_APM__
+.endif
+
+.if ${OPSYS} == "DragonFly"
+CONFIGURE_ENV+= 	ac_cv_c_long_double=no
 .endif
 
 CONFIGURE_ARGS+=	--with-snmp=no
@@ -43,4 +47,5 @@ CONFIGURE_ENV+=		PYVERSSUFFIX=${PYVERSSUFFIX:Q}
 .include "../../x11/kdelibs3/buildlink3.mk"
 .include "../../x11/libXScrnSaver/buildlink3.mk"
 .include "../../x11/libXtst/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

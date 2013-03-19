@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2011/04/22 13:43:32 obache Exp $
+# $NetBSD: Makefile,v 1.23 2012/06/14 07:43:47 sbd Exp $
 #
 
 DISTNAME=		atomix-2.14.0
-PKGREVISION=		13
+PKGREVISION=		20
 CATEGORIES=		games
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/atomix/2.14/}
 
@@ -16,6 +16,7 @@ USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 USE_TOOLS+=		intltool pkg-config gmake
+LDFLAGS.DragonFly=	-lm
 
 .include "../../devel/libgnome/buildlink3.mk"
 .include "../../devel/libgnomeui/buildlink3.mk"
@@ -23,4 +24,5 @@ USE_TOOLS+=		intltool pkg-config gmake
 .include "../../graphics/libgnomecanvas/buildlink3.mk"
 .include "../../devel/libbonoboui/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

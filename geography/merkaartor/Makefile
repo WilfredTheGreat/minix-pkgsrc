@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2011/04/11 20:15:00 drochner Exp $
+# $NetBSD: Makefile,v 1.30 2012/06/14 07:44:43 sbd Exp $
 #
 
 DISTNAME=	merkaartor-0.17.2
-PKGREVISION=	1
+PKGREVISION=	9
 CATEGORIES=	geography
 MASTER_SITES=	http://merkaartor.be/attachments/download/253/
 EXTRACT_SUFX=	.tar.bz2
@@ -44,4 +44,5 @@ do-configure:
 .include "../../x11/qt4-libs/buildlink3.mk"
 .include "../../x11/qt4-tools/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

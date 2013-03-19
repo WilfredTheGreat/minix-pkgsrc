@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2010/08/21 16:34:59 seb Exp $
+# $NetBSD: Makefile,v 1.9 2012/06/16 02:56:29 taca Exp $
 
 MODNAME=		perl
 PKGMODNAME=		perl
@@ -9,9 +9,9 @@ COMMENT=		PHP extension embedding Perl in PHP
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-CONFIGURE_ARGS+=	--with-perl=${PREFIX}
+PHP_VERSIONS_ACCEPTED=	53
 
-PHP_VERSION_REQD=	5
+CONFIGURE_ARGS+=	--with-perl=${PERLDIR}
 
 .include "../../lang/perl5/buildlink3.mk"
 .include "../../lang/php/ext.mk"

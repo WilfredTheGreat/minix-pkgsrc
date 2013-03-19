@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2011/05/17 06:14:01 adam Exp $
+# $NetBSD: Makefile,v 1.19 2012/04/17 15:44:22 adam Exp $
 
-DISTNAME=	psycopg2-2.4.2
+DISTNAME=	psycopg2-2.4.5
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	databases python
 MASTER_SITES=	http://initd.org/psycopg/tarballs/PSYCOPG-2-4/
 
@@ -12,9 +13,9 @@ LICENSE=	gnu-lgpl-v3
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-PYDISTUTILSPKG=	yes
+PYTHON_VERSIONS_INCLUDE_3X=	yes
 
-.include "../../lang/python/extension.mk"
+.include "../../lang/python/distutils.mk"
 .include "../../mk/pgsql.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

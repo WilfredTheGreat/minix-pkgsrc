@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.24 2011/01/13 13:38:59 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2012/07/01 02:02:52 dholland Exp $
 #
 
 DISTNAME=		xfmedia-0.9.2
-#PKGREVISION=		1
-PKGREVISION=		6
+PKGREVISION=		11
 CATEGORIES=		multimedia
 MASTER_SITES=		http://spuriousinterrupt.org/projects/xfmedia/files/
 EXTRACT_SUFX=		.tar.bz2
@@ -28,7 +27,7 @@ post-install:
 	${INSTALL} ${WRKSRC}/src/keybindings.rc \
 	    ${DESTDIR}${PREFIX}/share/xfmedia/keybindings.rc
 
-BUILDLINK_DEPMETHOD.libXt?=	build
+BUILDLINK_DEPMETHOD.libXt=	build
 
 .include "../../audio/taglib/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
@@ -40,4 +39,5 @@ BUILDLINK_DEPMETHOD.libXt?=	build
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../x11/libxfce4gui/buildlink3.mk"
 .include "../../x11/xfce4-exo/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.10 2011/01/13 13:36:36 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2012/07/01 19:05:26 dholland Exp $
 #
 
 DISTNAME=	libgksu-2.0.7
-PKGREVISION=	8
+PKGREVISION=	15
 CATEGORIES=	sysutils
 MASTER_SITES=	http://people.debian.org/~kov/gksu/
 
@@ -18,7 +18,7 @@ CONFIGURE_ENV+=	GCONF_SCHEMA_FILE_DIR=${PREFIX}/share/gconf/schemas/
 MAKE_ENV+=	GCONF_SCHEMA_FILE_DIR=${PREFIX}/share/gconf/schemas/
 
 USE_LIBTOOL=	yes
-USE_TOOLS+=	gmake intltool pkg-config
+USE_TOOLS+=	gmake intltool pkg-config msgfmt
 
 GCONF_SCHEMAS+=		gksu.schemas
 PKGCONFIG_OVERRIDE+=	libgksu/libgksu2.pc.in
@@ -37,4 +37,5 @@ SUBST_FILES.xauth=	libgksu/gksu-run-helper.c libgksu/libgksu.c
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../x11/libSM/buildlink3.mk"
 .include "../../x11/startup-notification/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

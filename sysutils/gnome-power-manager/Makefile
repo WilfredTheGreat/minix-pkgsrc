@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2011/06/10 09:40:01 obache Exp $
+# $NetBSD: Makefile,v 1.27 2012/07/01 19:05:25 dholland Exp $
 #
 
 DISTNAME=	gnome-power-manager-2.24.4
-PKGREVISION=	9
+PKGREVISION=	19
 CATEGORIES=	sysutils gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gnome-power-manager/2.24/}
 EXTRACT_SUFX=	.tar.bz2
@@ -27,10 +27,18 @@ CONFIGURE_ENV+=		ac_cv_path_DOCBOOK2MAN=no
 GCONF_SCHEMAS+=		gnome-power-manager.schemas
 
 .include "../../mk/bsd.prefs.mk"
+.include "../../mk/compiler.mk"
 
 .if ${OPSYS} == "FreeBSD" || ${OPSYS} == "DragonFly"
 BUILDLINK_TRANSFORM+=   rm:-lresolv
 .endif
+
+.if ${PKGSRC_COMPILER:Mclang}
+CFLAGS+=	-Wno-tautological-compare
+.endif
+
+# using deprecated g_atexit in glib2.
+BUILDLINK_TRANSFORM+=	rm:-Werror
 
 .include "../../devel/GConf/schemas.mk"
 .include "../../devel/libgnomeui/buildlink3.mk"
@@ -39,6 +47,7 @@ BUILDLINK_TRANSFORM+=   rm:-lresolv
 .include "../../security/gnome-keyring/buildlink3.mk"
 .include "../../security/policykit/buildlink3.mk"
 .include "../../security/policykit-gnome/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../sysutils/hal/buildlink3.mk"
 .include "../../sysutils/libnotify/buildlink3.mk"
 .include "../../sysutils/dbus-glib/buildlink3.mk"

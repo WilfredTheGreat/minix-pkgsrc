@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.30 2011/01/13 13:38:05 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2012/06/14 07:44:34 sbd Exp $
 #
 
 DISTNAME=	wideangle
 PKGNAME=	gimp2-wideangle-1.0
-PKGREVISION=	21
+PKGREVISION=	26
 CATEGORIES=	graphics
 MASTER_SITES=	http://members.ozemail.com.au/~hodsond/
 EXTRACT_SUFX=	.c
@@ -20,6 +20,7 @@ DIST_SUBDIR=	${PKGNAME_NOREV}
 WRKSRC=		${WRKDIR}
 
 LINK_PTHREAD=	${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}
+LINK_PTHREAD+=	-lm    # Tack on, explicit for binutils 2.22 linker
 
 do-build:
 	(cd ${WRKSRC} && LIBS=${LINK_PTHREAD:Q} gimptool-2.0 --build wideangle.c)

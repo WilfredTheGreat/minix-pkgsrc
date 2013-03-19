@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.18 2011/01/13 13:38:51 wiz Exp $
+# $NetBSD: Makefile,v 1.25 2012/06/14 07:44:09 sbd Exp $
 #
 
 DISTNAME=	taskjuggler-2.4.3
-PKGREVISION=	6
+PKGREVISION=	12
 CATEGORIES=	misc
 MASTER_SITES=	http://www.taskjuggler.org/download/
 EXTRACT_SUFX=	.tar.bz2
@@ -14,6 +14,7 @@ COMMENT=	Project management tool
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 GNU_CONFIGURE=	yes
+SET_LIBDIR=	yes
 CONFIGURE_ARGS+=--with-docdir=${PREFIX}/share/doc/taskjuggler/
 USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes
@@ -40,4 +41,5 @@ pre-build:
 .include "../../meta-pkgs/kde3/kde3.mk"
 .include "../../misc/kdepim3/buildlink3.mk" # for libkcal
 .include "../../x11/qt3/application.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

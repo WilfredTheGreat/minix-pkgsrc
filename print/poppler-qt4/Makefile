@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.22 2011/07/11 10:05:22 drochner Exp $
+# $NetBSD: Makefile,v 1.27 2012/03/03 00:13:51 wiz Exp $
 #
 
 .include "../../print/poppler/Makefile.common"
@@ -13,6 +13,7 @@ CONFIGURE_ARGS+=	--disable-cairo-output
 CONFIGURE_ARGS+=	--enable-poppler-qt4
 CONFIGURE_ARGS+=	--disable-gtk-test
 CONFIGURE_ARGS+=	--disable-utils
+CONFIGURE_ENV+=		MOCQT4=${QTDIR}/bin/moc
 
 BUILDLINK_API_DEPENDS.poppler+= poppler>=${POPPLER_VERS}
 .include "../../print/poppler/buildlink3.mk"

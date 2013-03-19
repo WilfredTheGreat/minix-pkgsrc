@@ -1,14 +1,16 @@
 $NetBSD$
 
---- sh.char.c.orig	2007-03-07 17:31:37.000000000 +0100
-+++ sh.char.c
-@@ -233,8 +233,8 @@ unsigned short _cmap[256] = {
- 
- /*	252 udiaeresis	253 yacute	254 thorn	255 ydiaeresis	*/
- 	_LET|_DOW,	_LET|_DOW,	_LET|_DOW,	_LET|_DOW,
--};
- #endif /* SHORT_STRINGS */
-+};
- 
- #if defined(KANJI) && defined(SHORT_STRINGS) && defined(DSPMBYTE)
- /* original table */
+Fix problem with Meta-<key> no longer being recognized,
+patch from christos@.
+
+--- ed.inputl.c.orig	2010-12-22 17:26:04.000000000 +0000
++++ ed.inputl.c
+@@ -683,7 +683,7 @@ GetNextCommand(KEYCMD *cmdnum, Char *ch)
+ #ifdef DSPMBYTE
+ 	     _enable_mbdisp &&
+ #else
+-	     MB_CUR_MAX == 1 &&
++	     MB_LEN_MAX == 1 &&
+ #endif
+ 	     !adrof(STRnokanji) && (*ch & META)) {
+ 	    MetaNext = 0;

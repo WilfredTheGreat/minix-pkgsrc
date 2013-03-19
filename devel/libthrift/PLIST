@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.5 2011/08/19 12:37:09 obache Exp $
+@comment $NetBSD: PLIST,v 1.7 2012/03/09 14:31:07 fhajny Exp $
 bin/thrift
 include/thrift/TApplicationException.h
 include/thrift/TLogging.h

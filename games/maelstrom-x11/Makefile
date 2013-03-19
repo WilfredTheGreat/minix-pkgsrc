@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.21 2008/05/26 02:13:19 joerg Exp $
+# $NetBSD: Makefile,v 1.23 2012/04/13 04:43:23 dholland Exp $
 
 DISTNAME=		Maelstrom-1.4.3-L2.0.6-src.tar.gz
 PKGNAME=		maelstrom-x11-2.0.6
-PKGREVISION=		3
+PKGREVISION=		4
 CATEGORIES=		games x11
 MASTER_SITES+=		ftp://ftp.devolution.com/pub/maelstrom/
 MASTER_SITES+=		ftp://ftp.devolution.com/pub/maelstrom/Maelstrom-binaries/
@@ -27,6 +27,8 @@ WRKSRC=			${WRKDIR}/Maelstrom
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		pax
 USE_X11BASE=		YES
+LIBS.SunOS+=		-lsocket
+MAKE_FLAGS+=		EXTRALIBS=${LIBS:Q}
 MAKE_ENV+=		BINOWN=${BINOWN:Q} BINGRP=${BINGRP:Q} XPMDIR=${BUILDLINK_PREFIX.libXpm}
 MAKE_ENV+=		GAMEOWN=${GAMEOWN} GAMEGRP=${GAMEGRP}
 MAKE_ENV+=		GAMEMODE=${GAMEMODE} GAMEDATAMODE=${GAMEDATAMODE}

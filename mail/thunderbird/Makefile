@@ -1,22 +1,27 @@
-# $NetBSD: Makefile,v 1.73 2011/09/04 21:28:35 tnn Exp $
+# $NetBSD: Makefile,v 1.94 2012/06/14 07:43:59 sbd Exp $
 #
 
-DISTNAME=	thunderbird-${TB_VER}.source
+DISTNAME=	# empty
 PKGNAME=	thunderbird-${TB_VER}
-PKGREVISION=	1
-TB_VER=		6.0.1
+TB_VER=		14.0
 CATEGORIES=	mail
-MASTER_SITES=	${MASTER_SITE_MOZILLA:=thunderbird/releases/${TB_VER}/source/}
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	${MASTER_SITE_MOZILLA:=thunderbird/releases/${TB_VER}/source/} \
+		${MASTER_SITE_MOZILLA_ALL:=thunderbird/releases/${TB_VER}/source/}
+DISTFILES=	thunderbird-${TB_VER}.source.tar.bz2 \
+		lightning-1.6.source.tar.bz2
+SITES.lightning-1.6.source.tar.bz2=	${MASTER_SITE_MOZILLA:=calendar/lightning/releases/1.6/source/}
+EXTRACT_DIR.lightning-1.6.source.tar.bz2=	${WRKSRC}/lightning
 
 MAINTAINER=	tnn@NetBSD.org
 HOMEPAGE=	http://www.mozillamessaging.com/en-US/thunderbird/
 COMMENT=	Organize, secure and customize your mail
 
+PKG_DESTDIR_SUPPORT=	user-destdir
+
 USE_TOOLS+=	unzip pax
 WRKSRC=		${WRKDIR}/comm-release
 MOZILLA_DIR=	mozilla/
-PLIST_SRC+=	PLIST
+PLIST_SRC+=	${PLIST_SRC_DFLT}
 
 CONFIG_GUESS_OVERRIDE+=	ldap/sdks/c-sdk/config/autoconf/config.guess
 CONFIG_SUB_OVERRIDE+=	ldap/sdks/c-sdk/config/autoconf/config.sub
@@ -25,14 +30,20 @@ CONFIGURE_ARGS+=	--enable-application=mail
 
 ALL_ENV+=		MOZILLA_PKG_NAME=thunderbird
 
-# Looks like mozilla forgot to bump allowed versions to 6.0
-SUBST_CLASSES+=			ext-compat
-SUBST_STAGE.ext-compat=		pre-configure
-SUBST_MESSAGE.ext-compat=	Fixing extension compatibility
-SUBST_FILES.ext-compat=		mailnews/extensions/enigmail/package/install.rdf
-SUBST_FILES.ext-compat+=	calendar/*/install.rdf
-SUBST_FILES.ext-compat+=	calendar/*/*/install.rdf
-SUBST_SED.ext-compat=		-e 's,\(<em:maxVersion>\)5.*<,\19.0<,g'
+.include "../../mk/bsd.prefs.mk"
+
+#SUBST_CLASSES+=			ext-compat
+#SUBST_STAGE.ext-compat=		pre-configure
+#SUBST_MESSAGE.ext-compat=	Fixing extension compatibility
+#SUBST_FILES.ext-compat=		mailnews/extensions/enigmail/package/install.rdf
+#SUBST_FILES.ext-compat+=	calendar/*/install.rdf
+#SUBST_FILES.ext-compat+=	calendar/*/*/install.rdf
+#SUBST_SED.ext-compat=		-e 's,\(<em:maxVersion>\).*<,\19.0<,g'
+
+post-extract:
+	cd ${WRKSRC} && ${RM} -r calendar
+	${CP} -r ${EXTRACT_DIR.lightning-1.6.source.tar.bz2}/comm-beta/calendar ${WRKSRC}
+	${RM} -r ${EXTRACT_DIR.lightning-1.6.source.tar.bz2}
 
 pre-configure:
 	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} autoconf

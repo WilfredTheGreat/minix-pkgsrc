@@ -1,4 +1,4 @@
-# $NetBSD: fetch.mk,v 1.51 2011/05/17 16:38:18 mspo Exp $
+# $NetBSD: fetch.mk,v 1.55 2012/02/06 12:49:38 fhajny Exp $
 
 _MASTER_SITE_BACKUP=	${MASTER_SITE_BACKUP:=${DIST_SUBDIR}${DIST_SUBDIR:D/}}
 _MASTER_SITE_OVERRIDE=	${MASTER_SITE_OVERRIDE:=${DIST_SUBDIR}${DIST_SUBDIR:D/}}
@@ -213,6 +213,7 @@ _FETCH_OUTPUT_ARGS.fetch=	-o
 _FETCH_CMD.fetch=		${TOOLS_PATH.fetch}
 
 _FETCH_BEFORE_ARGS.wget=	${PASSIVE_FETCH:D--passive-ftp} \
+				--no-check-certificate \
 				${FETCH_TIMEOUT:D--timeout=${FETCH_TIMEOUT}} \
 				${FETCH_USE_IPV4_ONLY:D--inet4-only}
 _FETCH_AFTER_ARGS.wget=		# empty
@@ -228,7 +229,7 @@ _FETCH_BEFORE_ARGS.curl=	${PASSIVE_FETCH:D--ftp-pasv} \
 _FETCH_AFTER_ARGS.curl=		-O # must be here to honor -o option
 _FETCH_RESUME_ARGS.curl=	-C -
 _FETCH_OUTPUT_ARGS.curl=	-o
-_FETCH_CMD.curl=		${PREFIX}/bin/curl
+_FETCH_CMD.curl=		${TOOLS_PATH.curl}
 
 _FETCH_CMD.manual=		${TOOLS_PATH.false}
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2011/07/12 14:11:58 obache Exp $
+# $NetBSD: Makefile,v 1.13 2012/04/13 13:09:05 obache Exp $
 #
 
-DISTNAME=	gecko-mediaplayer-1.0.4
+DISTNAME=	gecko-mediaplayer-1.0.6
 PKGREVISION=	1
 CATEGORIES=	multimedia www
 MASTER_SITES=	http://gecko-mediaplayer.googlecode.com/files/
@@ -11,7 +11,7 @@ HOMEPAGE=	http://code.google.com/p/gecko-mediaplayer/
 COMMENT=	Multimedia browser plugin for Gecko based browsers
 LICENSE=	gnu-gpl-v2
 
-DEPENDS+=	gnome-mplayer-[0-9]*:../../multimedia/gnome-mplayer
+DEPENDS+=	gnome-mplayer>=${PKGVERSION_NOREV}:../../multimedia/gnome-mplayer
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
@@ -23,18 +23,17 @@ USE_TOOLS+=		pkg-config msgfmt
 
 GCONF_SCHEMAS+=		gecko-mediaplayer.schemas
 
-CONFIGURE_ARGS+=	--with-gconf
-CONFIGURE_ARGS+=	--enable-new-libxul
 CONFIGURE_ARGS+=	--with-plugin-dir=${PREFIX}/lib/netscape/plugins
 CONFIGURE_ARGS+=	--with-libcurl
 
 .include "../../devel/glib2/buildlink3.mk"
+.include "../../devel/gmtk/buildlink3.mk"
+.include "../../devel/npapi-sdk/buildlink3.mk"
 .include "../../devel/nspr/buildlink3.mk"
-BUILDLINK_DEPMETHOD.xulrunner=	build
-.include "../../devel/xulrunner/buildlink3.mk"
+BUILDLINK_API_DEPENDS.dbus+=	dbus>=0.95
 .include "../../sysutils/dbus/buildlink3.mk"
+BUILDLINK_API_DEPENDS.dbus-glib+=	dbus-glib>=0.70
 .include "../../sysutils/dbus-glib/buildlink3.mk"
-.include "../../x11/libX11/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../devel/GConf/schemas.mk"
 .include "../../mk/dlopen.buildlink3.mk"

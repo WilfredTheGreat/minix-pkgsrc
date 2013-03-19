@@ -1,14 +1,15 @@
-# $NetBSD: Makefile,v 1.53 2011/07/09 13:37:51 drochner Exp $
+# $NetBSD: Makefile,v 1.59 2012/06/12 15:45:55 wiz Exp $
 #
 
 DISTNAME=		bitlbee-3.0.3
-PKGREVISION=		1
+PKGREVISION=		5
 CATEGORIES=		chat
 MASTER_SITES=		http://get.bitlbee.org/src/
 
 MAINTAINER=		tonio@NetBSD.org
 HOMEPAGE=		http://www.bitlbee.org/
 COMMENT=		IRC to other chat networks gateway
+LICENSE=		gnu-gpl-v2
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
@@ -39,6 +40,7 @@ STATEDIR=		${VARBASE}/db/bitlbee
 
 OWN_DIRS_PERMS=		${STATEDIR} bitlbee nobody 700
 
+PKG_GROUPS=		nobody
 PKG_USERS=		bitlbee:nobody
 PKG_HOME.bitlbee=	${VARBASE}/db/bitlbee
 
@@ -62,6 +64,8 @@ do-install:
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.bitlbee
 PKG_SUPPORTED_OPTIONS=	inet6
+PKG_SUGGESTED_OPTIONS=	inet6
+
 .include "../../mk/bsd.options.mk"
 
 .if !empty(PKG_OPTIONS:Minet6)

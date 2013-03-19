@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.72 2011/09/12 17:18:52 drochner Exp $
+# $NetBSD: Makefile,v 1.86 2012/04/14 13:20:58 drochner Exp $
 
-# XXX This is release 0.7.6 but we had date-based pkgnames before.
-PKGNAME=	ffmpeg-20111002.${DISTVERSION}
+# XXX This is release 0.7.13 but we had date-based pkgnames before.
+PKGNAME=	ffmpeg-20120609.${DISTVERSION}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ffmpeg.mplayerhq.hu/
@@ -12,9 +12,6 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 CONFIGURE_ARGS+=	--enable-avfilter
 #CONFIGURE_ARGS+=	--enable-avfilter-lavf
 CONFIGURE_ARGS+=	--enable-postproc
-CONFIGURE_ARGS+=	--enable-libvorbis
-CONFIGURE_ARGS+=	--enable-libmp3lame
-CONFIGURE_ARGS+=	--enable-libx264
 
 INSTALLATION_DIRS=	lib share/examples/ffmpeg share/doc/ffmpeg
 
@@ -39,15 +36,10 @@ post-install:
 
 .include "options.mk"
 
-# "lame-3.98" isn't compatible with "ffmpeg" which breaks audio encoding.
-BUILDLINK_ABI_DEPENDS.lame+=	lame>=3.98.2nb1
-
 .include "../../mk/compiler.mk"
 
 .if !empty(PKGSRC_COMPILER:Mclang)
 CFLAGS+=	-no-integrated-as
 .endif
 
-.include "../../audio/lame/buildlink3.mk"
-.include "../../audio/libvorbis/buildlink3.mk"
 .include "../../multimedia/ffmpeg/Makefile.common"

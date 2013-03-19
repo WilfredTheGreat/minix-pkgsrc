@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2011/04/22 13:43:35 obache Exp $
+# $NetBSD: Makefile,v 1.22 2012/06/14 07:43:55 sbd Exp $
 #
 
 DISTNAME=	gamazons-0.83
-PKGREVISION=	13
+PKGREVISION=	20
 CATEGORIES=	games
 MASTER_SITES=	http://www.yorgalily.org/gamazons/src/
 
@@ -16,4 +16,5 @@ GNU_CONFIGURE=	yes
 USE_TOOLS+=	pkg-config gmake
 
 .include "../../devel/libgnomeui/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

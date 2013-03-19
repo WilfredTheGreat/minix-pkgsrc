@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.56 2011/01/13 13:38:56 wiz Exp $
+# $NetBSD: Makefile,v 1.64 2012/06/14 07:44:51 sbd Exp $
 #
 
-DISTNAME=	kmplayer-0.11.2c
-PKGREVISION=	3
+DISTNAME=	kmplayer-0.11.3b
+PKGREVISION=	2
 CATEGORIES=	multimedia kde
 MASTER_SITES=	http://kmplayer.kde.org/pkgs/
 EXTRACT_SUFX=	.tar.bz2
@@ -17,9 +17,10 @@ DEPENDS+=		mencoder>=1.0rc3:../../multimedia/mencoder
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-USE_CMAKE=		yes
 USE_TOOLS+=		msgfmt perl pkg-config
 USE_LANGUAGES=		c c++
+
+LDFLAGS.DragonFly+=	-lgmodule-2.0
 
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
@@ -27,4 +28,5 @@ USE_LANGUAGES=		c c++
 .include "../../meta-pkgs/kde4/kde4.mk"
 .include "../../multimedia/xine-lib/buildlink3.mk"
 .include "../../x11/kdelibs4/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,16 +1,13 @@
-# $NetBSD: Makefile,v 1.30 2011/01/13 13:37:09 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2012/06/14 07:44:15 sbd Exp $
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
 DISTNAME=	xfce4-mixer-${XFCE4_VERSION}
-PKGREVISION=	5
+PKGREVISION=	10
 CATEGORIES=	audio
 COMMENT=	Xfce mixer plugin
-
-MAKE_DIRS+=	${PREFIX}/libexec/xfce4 ${PREFIX}/libexec/xfce4/panel-plugins
-MAKE_DIRS+=	${PREFIX}/share/xfce4 ${PREFIX}/share/xfce4/panel-plugins
 
 BUILDLINK_API_DEPENDS.gst-plugins0.10-base+=	gst-plugins0.10-base>=0.10.14
 

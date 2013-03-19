@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.13 2011/02/13 03:56:10 obache Exp $
+# $NetBSD: Makefile,v 1.18 2012/03/14 23:17:24 joerg Exp $
 #
 
 DISTNAME=	clutter-gst-1.2.0
-PKGREVISION=	3
+PKGREVISION=	7
 CATEGORIES=	multimedia
 MASTER_SITES=	http://source.clutter-project.org/sources/clutter-gst/1.2/
 
@@ -18,6 +18,8 @@ USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config
 
 PKGCONFIG_OVERRIDE+=	clutter-gst.pc.in
+
+BUILDLINK_TRANSFORM+=	rm:-DG_DISABLE_DEPRECATED
 
 .include "../../graphics/clutter/buildlink3.mk"
 .include "../../multimedia/gstreamer0.10/buildlink3.mk"

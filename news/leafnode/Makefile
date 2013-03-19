@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.42 2010/01/21 23:32:10 heinz Exp $
+# $NetBSD: Makefile,v 1.44 2012/03/03 00:13:48 wiz Exp $
 
 DISTNAME=		leafnode-1.11.7
+PKGREVISION=		1
 CATEGORIES=		news
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=leafnode/}
 EXTRACT_SUFX=		.tar.bz2
@@ -52,6 +53,7 @@ USE_TOOLS+=		gmake
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.leafnode
 PKG_SUPPORTED_OPTIONS=	inet6
+PKG_SUGGESTED_OPTIONS=	inet6
 
 .include "../../mk/bsd.options.mk"
 

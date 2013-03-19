@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/05/01 09:20:46 obache Exp $
+# $NetBSD: Makefile,v 1.5 2012/05/05 15:20:07 gls Exp $
 #
 
-DISTNAME=	cssutils-0.9.7
+DISTNAME=	cssutils-0.9.9
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	textproc python
 MASTER_SITES=	http://cssutils.googlecode.com/files/ \
@@ -15,7 +15,15 @@ LICENSE=	gnu-lgpl-v3
 
 PKG_DESTDIR_SUPPORT=	user-destdir
 
-PYTHON_VERSIONS_INCOMPATIBLE=	24
+USE_LANGUAGES=	#none
+
+PYTHON_VERSIONS_INCOMPATIBLE=	25
+
+REPLACE_INTERPRETER+=	python
+REPLACE.python.old=	/usr/bin/env python
+REPLACE.python.new=	${PYTHONBIN}
+REPLACE_FILES.python=	src/cssutils/*.py
+REPLACE_FILES.python+=	src/cssutils/scripts/*.py
 
 # all files are group/others writable.
 post-extract:

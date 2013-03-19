@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.59 2011/04/14 16:22:54 drochner Exp $
+# $NetBSD: Makefile,v 1.69 2012/06/14 07:43:47 sbd Exp $
 
-DISTNAME=	gthumb-2.12.3
-PKGREVISION=	1
+DISTNAME=	gthumb-2.14.4
 CATEGORIES=	graphics
-MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gthumb/2.12/}
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gthumb/2.14/}
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	minskim@NetBSD.org
 HOMEPAGE=	http://gthumb.sourceforge.net/
@@ -16,7 +15,7 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
-USE_TOOLS+=		intltool msgfmt pkg-config gmake
+USE_TOOLS+=		intltool msgfmt pkg-config gmake bison
 GNU_CONFIGURE=		yes
 
 GCONF_SCHEMAS+=	gthumb.schemas
@@ -37,6 +36,7 @@ GCONF_SCHEMAS+=	gthumb_webalbums.schemas
 .include "../../graphics/libgnomecanvas/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 #.include "../../net/ORBit2/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
